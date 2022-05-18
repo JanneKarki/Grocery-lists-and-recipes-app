@@ -9,3 +9,7 @@ db = SQLAlchemy(app)
 @app.route("/")
 def index():
     return render_template("index.html") 
+
+@app.route("/recipes")
+def form():
+    return render_template("recipes.html")
