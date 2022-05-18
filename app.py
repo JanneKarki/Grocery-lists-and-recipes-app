@@ -44,6 +44,18 @@ def register():
         return render_template("register.html")
 
     if request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
+        hash_value = generate_password_hash(password)
+
+
+        sql = """INSERT INTO users (username, password)
+                    VALUES (:username, :password)"""
+        db.session.execute(sql, {"username":username, "password":hash_value})
+        db.session.commit()
+        
+
+
         return redirect("/login")
 
 @app.route("/logout")
