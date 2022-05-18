@@ -1,5 +1,7 @@
 {% if session.username %}
-<b>{{ session.username }}</b> on kirjautunut sisään. <a href="/logout">Kirjaudu ulos</a>
+<b>{{ session.username }}</b> is logged in. <a href="/logout">Logout</a>
 {% else %}
-Et ole kirjautuneena sisään. <a href="/login">Kirjaudu sisään</a>
+You are not logged in. <a href="/login">Login</a>
 {% endif %}
+<br>
+Create new user <a href="/register">here</a>
