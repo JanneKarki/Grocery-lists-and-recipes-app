@@ -38,9 +38,13 @@ def login():
                 return redirect("/login")
 
        
-@app.route("/register", methods=["GET"])
+@app.route("/register", methods=["GET", "POST"])
 def register():
-    return render_template("register.html")
+    if request.method == "GET":
+        return render_template("register.html")
+
+    if request.method == "POST":
+        return redirect("/login")
 
 @app.route("/logout")
 def logout():
