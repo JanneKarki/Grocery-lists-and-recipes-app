@@ -38,7 +38,9 @@ def login():
                 return redirect("/login")
 
        
-
+@app.route("/register", methods=["GET"])
+def register():
+    return render_template("register.html")
 
 @app.route("/logout")
 def logout():
