@@ -20,10 +20,10 @@ def login():
         return render_template("login.html")
     
     if request.method == "POST":
-    #username = request.form["username"]
-    #password = request.form["password"]
-    # TODO: check username and password
-    #session["username"] = username
+        username = request.form["username"]
+        password = request.form["password"]
+        # TODO: check username and password
+        session["username"] = username
         return redirect("/")
 
 
