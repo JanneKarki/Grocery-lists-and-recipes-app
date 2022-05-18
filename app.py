@@ -11,5 +11,10 @@ def index():
     return render_template("index.html") 
 
 @app.route("/recipes")
-def form():
+def show_recipes():
     return render_template("recipes.html")
+
+
+@app.route("/grocery",  methods=["POST"])
+def show_grocery_lists():
+    return render_template("grocery.html")
