@@ -72,3 +72,7 @@ def show_recipes():
 @app.route("/grocery",  methods=["POST"])
 def show_grocery_lists():
     return render_template("grocery.html")
+
+@app.route("/products",  methods=["POST"])
+def show_products():
+    return render_template("products.html")
