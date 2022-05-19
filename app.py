@@ -64,7 +64,7 @@ def logout():
     return redirect("/")
 
 
-@app.route("/recipes")
+@app.route("/recipes", methods=["POST"])
 def show_recipes():
     return render_template("recipes.html")
 
