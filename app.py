@@ -73,6 +73,19 @@ def show_recipes():
 def show_grocery_lists():
     return render_template("grocery.html")
 
-@app.route("/products",  methods=["POST"])
+@app.route("/products",  methods=["GET", "POST"])
 def show_products():
-    return render_template("products.html")
+    if request.method == "GET":
+        return render_template("products.html")
+    
+    if request.method == "POST":
+        name = request.form["name"]
+        size = request.form["quantity"]
+        unit = request.form["unit"]
+        gategory = request.form["gategory"]
+
+        sql = """INSERT INTO products (name, size, unit, gategory)
+                    VALUES (:name, :size, :unit, :gategory)"""
+        db.session.execute(sql, {"name":name, "size":size, "unit":unit, "gategory":gategory})
+        db.session.commit()
+        return redirect("/products")
