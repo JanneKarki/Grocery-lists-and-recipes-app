@@ -1,4 +1,10 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+
 <h1>Products</h1> 
+
 <img src="static\products.jpg" alt="products">
 
 <form action="/products" method="POST">
@@ -20,3 +26,5 @@
 <li> {{ entry[1] }} {{ entry[2] }} {{ entry[3] }} {{ entry[4] }}
 {% endfor %}
 </ul>
+
+{% endblock %}
