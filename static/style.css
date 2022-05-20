@@ -1,0 +1,19 @@
+body {
+    margin: auto;
+    max-width: 45em;
+    
+   
+}
+table {
+    width: 80%;
+}
+
+form {
+    display: inline-block;
+}
+
+
+.header {
+    display: flex;
+    justify-content: space-between;
+}

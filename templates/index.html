@@ -1,20 +1,16 @@
-{% if session.username %}
-<b>{{ session.username }}</b> is logged in. <a href="/logout">Logout</a>
-{% else %}
-You are not logged in. <a href="/login">Login</a>
-{% endif %}
-<br>
-Register new user <a href="/register">here</a>
+{% extends "layout.html" %}
 
-<br>
-<br>
+{% block content %}
 
 <form action="/products" method="GET">
     <input type="submit" value="Products">
     </form>
-<form action="/recipes" method="POST">
+<form action="/recipes" method="POST">  
     <input type="submit" value="Recipes">
     </form>
 <form action="/grocery" method="POST">
     <input type="submit" value="Grocery lists">
     </form>
+
+{% endblock %}
+{% block title %}Etusivu{% endblock %}
