@@ -9,7 +9,7 @@
 
 <div class="body">
     <table><tr>{% for entry in products %}
-        <li> {{ entry[1] }} {{ entry[2] }} {{ entry[3] }}
+        <li> {{ entry[1] }}
         {% endfor %}</tr></table>
       </div>
       
@@ -18,12 +18,7 @@
 <form action="/products" method="POST">
     Name: <br><input type="text" name="name" minlength="1" maxlength="20">
     <p>
-    Quantity: <br><input type="quantity" name="quantity">
-    <p>
-    Unit: <br><input type="unit" name="unit">
-    <p>
-    Gategory: <br><input type="gategory" name="gategory">
-    <p>
+    
     <input type="submit" value="Add product">
     
     </form>

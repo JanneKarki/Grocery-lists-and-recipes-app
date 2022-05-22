@@ -73,10 +73,12 @@ def show_recipes():
 def show_grocery_lists():
     return render_template("grocery.html")
 
+
 @app.route("/products",  methods=["GET", "POST"])
 def show_products():
 
     sql = "SELECT * FROM products "
+
     products_list = db.session.execute(sql).fetchall()
 
     if request.method == "GET":
@@ -84,12 +86,11 @@ def show_products():
     
     if request.method == "POST":
         name = request.form["name"]
-        size = request.form["quantity"]
-        unit = request.form["unit"]
-        gategory = request.form["gategory"]
+        
 
-        sql = """INSERT INTO products (name, size, unit, gategory)
-                    VALUES (:name, :size, :unit, :gategory)"""
-        db.session.execute(sql, {"name":name, "size":size, "unit":unit, "gategory":gategory})
+        sql = """INSERT INTO products (name)
+                    VALUES (:name)"""
+        db.session.execute(sql, {"name":name})
         db.session.commit()
+
         return redirect("/products")

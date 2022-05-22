@@ -7,8 +7,5 @@ CREATE TABLE users (
 
 CREATE TABLE products (
     id SERIAL PRIMARY KEY,
-    name TEXT,
-    quantity INTEGER,
-    unit TEXT,
-    gategory TEXT
+    name TEXT
 );
