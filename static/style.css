@@ -17,3 +17,13 @@ form {
     display: flex;
     justify-content: space-between;
 }
+
+.body {
+    height: 100px;
+    width: 200px;
+    overflow: auto;
+    border-color: grey;
+    background-color: whitesmoke;
+    border-width: thin;
+    border-style: solid;
+  }

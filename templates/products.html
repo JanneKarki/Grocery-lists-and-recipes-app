@@ -5,7 +5,15 @@
 
 <h1>Products</h1> 
 
-<img src="static\products.jpg" alt="products">
+
+
+<div class="body">
+    <table><tr>{% for entry in products %}
+        <li> {{ entry[1] }} {{ entry[2] }} {{ entry[3] }}
+        {% endfor %}</tr></table>
+      </div>
+      
+<br>
 
 <form action="/products" method="POST">
     Name: <br><input type="text" name="name" minlength="1" maxlength="20">
@@ -19,12 +27,9 @@
     <input type="submit" value="Add product">
     
     </form>
+
+    
 <a href="/">Return</a>
 
-<ul>
-{% for entry in products %}
-<li> {{ entry[1] }} {{ entry[2] }} {{ entry[3] }} {{ entry[4] }}
-{% endfor %}
-</ul>
 
 {% endblock %}
