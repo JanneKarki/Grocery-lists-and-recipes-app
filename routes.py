@@ -2,7 +2,7 @@ from db import db
 from app import app
 from flask import  render_template, session, request, redirect
 from werkzeug.security import check_password_hash, generate_password_hash
-
+import products
 
 @app.route("/")
 def index():
@@ -82,9 +82,7 @@ def show_grocery_lists():
 @app.route("/products",  methods=["GET", "POST"])
 def show_products():
 
-    sql = "SELECT * FROM products "
-
-    products_list = db.session.execute(sql).fetchall()
+    products_list = products.get_products()
 
     if request.method == "GET":
         return render_template("products.html",products=products_list)
@@ -92,11 +90,7 @@ def show_products():
     if request.method == "POST":
         name = request.form["name"]
         
-
-        sql = """INSERT INTO products (name)
-                    VALUES (:name)"""
-        db.session.execute(sql, {"name":name})
-        db.session.commit()
+        products.add_product(name)
 
         return redirect("/products")
 
