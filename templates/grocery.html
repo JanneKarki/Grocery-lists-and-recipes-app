@@ -7,6 +7,20 @@
 <form action="/">
     <input type="submit" value="Back">
     </form>
+
+
+<div class="body">
+    <table><tr>{% for entry in products %}
+
+        <input type="checkbox" id="product" name="product" value={{ entry[1] }}>
+        <label for="product"> select</label><br>
+
+
+        <li> {{ entry[1] }}
+        {% endfor %}</tr></table>
+      </div>
+
+<br>
 <img src="static\grocery.jpg" alt="grocery">
 
 {% endblock %}

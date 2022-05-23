@@ -64,14 +64,24 @@ def logout():
     return redirect("/")
 
 
-@app.route("/recipes", methods=["POST"])
+@app.route("/recipes", methods=["GET", "POST"])
 def show_recipes():
     return render_template("recipes.html")
 
 
-@app.route("/grocery",  methods=["POST"])
+@app.route("/grocery",  methods=["GET","POST"])
 def show_grocery_lists():
-    return render_template("grocery.html")
+    sql = "SELECT * FROM products "
+
+    products_list = db.session.execute(sql).fetchall()
+
+    if request.method == "GET":
+        return render_template("grocery.html",products=products_list)
+    
+    if request.method == "POST":
+
+
+        return redirect("/grocery")
 
 
 @app.route("/products",  methods=["GET", "POST"])
