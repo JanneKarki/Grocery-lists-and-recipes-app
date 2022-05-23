@@ -111,4 +111,22 @@ def add_recipe():
     if request.method == "GET":
         return render_template("create_recipe.html")
 
+    if request.method == "POST":
+        name = request.form["name"]
+        instructions = request.form["instructions"]
+
+        incredients = request.form["incredients"]
+
+        sql = """INSERT INTO recipes (name, instructions)
+                        VALUES (:name, :instructions) RETURNING id"""
+
+        id = db.session.execute(sql, {"name":name, "instructions":instructions}).fetchone()[0]
+        print(id)
+        db.session.commit()
+
+        sql = """INSERT INTO incredients (name, instructions)
+                        VALUES (:name, :instructions) RETURNING id"""
+
+        return redirect("/recipes/create_recipe")
+
 

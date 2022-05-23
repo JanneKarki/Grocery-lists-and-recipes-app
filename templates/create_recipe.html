@@ -2,12 +2,23 @@
 
 {% block content %}
 
+<h1>Write new recipe</h1>
+
 <form action="/recipes">
     <input type="submit" value="Back">
     </form>
 
 
-<form action="/create_recipe">
+<form action="/recipes/create_recipe" method="POST">
+    Name: <br><input type="text" name="name" minlength="1" maxlength="30">
+    <br>
+    Incredients: <br><textarea name="incredients" rows="10", cols="20"></textarea>
+    <br>
+    Instructions:<br><textarea name="instructions" rows="10", cols="20"></textarea>
+    <br>
+    <input type="submit" value="Create recipe">
+</form>
+
 
 
 {% endblock %}
