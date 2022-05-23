@@ -94,3 +94,11 @@ def show_products():
         db.session.commit()
 
         return redirect("/products")
+
+
+@app.route("/recipes/create_recipe", methods=["GET", "POST"])
+def add_recipe():
+    if request.method == "GET":
+        return render_template("create_recipe.html")
+
+

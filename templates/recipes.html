@@ -4,7 +4,11 @@
 {% block content %}
 
 <h1>Recipes</h1> 
-
+{% if session.username %}
+    <form action="/recipes/create_recipe">
+        <input type="submit" value="New Recipe">
+        </form>
+        {% endif %}
 <form action="/">
     <input type="submit" value="Back">
     </form>
