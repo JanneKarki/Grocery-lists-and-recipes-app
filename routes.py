@@ -57,10 +57,9 @@ def show_recipes():
 
 @app.route("/grocery",  methods=["GET","POST"])
 def show_grocery_lists():
-    sql = "SELECT * FROM products "
 
-    products_list = db.session.execute(sql).fetchall()
-
+    products_list = products.get_products()
+   
     if request.method == "GET":
         return render_template("grocery.html",products=products_list)
     
