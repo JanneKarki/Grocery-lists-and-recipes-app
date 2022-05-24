@@ -3,6 +3,7 @@ from app import app
 from flask import  render_template, session, request, redirect
 from werkzeug.security import check_password_hash, generate_password_hash
 import products
+import users
 
 @app.route("/")
 def index():
@@ -17,20 +18,14 @@ def login():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
-        # TODO: check username and password
+        
 
-        sql = "SELECT id, password FROM users WHERE username=:username"
-        result = db.session.execute(sql, {"username":username})
-        user = result.fetchone()
-        if not user:
+        if not users.login(username, password):
             return redirect("/login")
-        else:
-            hash_value = user.password
-            if check_password_hash(hash_value, password):
-                session["username"] = username
-                return redirect("/")
-            else:
-                return redirect("/login")
+        
+            
+        return redirect("/")
+            
 
        
 @app.route("/register", methods=["GET", "POST"])
@@ -41,13 +36,9 @@ def register():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
-        hash_value = generate_password_hash(password)
+        password_hash_value = generate_password_hash(password)
 
-
-        sql = """INSERT INTO users (username, password)
-                    VALUES (:username, :password)"""
-        db.session.execute(sql, {"username":username, "password":hash_value})
-        db.session.commit()
+        users.register_user(username, password_hash_value)
         
 
 
