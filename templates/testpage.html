@@ -1,0 +1,22 @@
+//html
+<div id="container">
+<input id="test" type="text"  >
+<input id="amount" type="text">
+<input value="add" type="button"  onClick="add()">
+</div>
+
+
+<script>
+var i=0;
+function add(){    
+    if (document.getElementById('test').value!='') 
+    {   
+        i++;  
+        var title   =document.getElementById('test').value;
+        var amount =document.getElementById('amount').value
+        var node = document.createElement('div');        
+        node.innerHTML = '<input type="checkbox" id="check' + i + '" name="check' + i + '"><label for="check' + i + '">'+ title + amount+'</label>';       
+        document.getElementById('container').appendChild(node);    
+    }
+}
+</script>
