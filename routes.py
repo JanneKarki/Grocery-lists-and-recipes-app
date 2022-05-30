@@ -110,3 +110,7 @@ def add_recipe():
        #                 VALUES (:name, :instructions) RETURNING id"""
 
         return redirect("/recipes/create_recipe")
+
+@app.route("/testpage")
+def test():
+    return render_template("testpage.html")
