@@ -4,7 +4,6 @@ CREATE TABLE users (
     password TEXT
 );
 
-
 CREATE TABLE products (
     id SERIAL PRIMARY KEY,
     name TEXT
@@ -17,6 +16,6 @@ CREATE TABLE recipes (
 );
 
 CREATE TABLE incredients (
-    recipes_id INTEGER REFERENCES recipes,
-    incredients_id INTEGER REFERENCES products
+    recipe_id INTEGER REFERENCES recipes,
+    product_id INTEGER REFERENCES products
 );

@@ -4,6 +4,7 @@ from flask import  render_template, session, request, redirect
 from werkzeug.security import check_password_hash, generate_password_hash
 import products
 import users
+import recipes
 
 @app.route("/")
 def index():
@@ -96,14 +97,16 @@ def add_recipe():
 
         incredients = request.form["incredients"]
 
-        sql = """INSERT INTO recipes (name, instructions)
-                        VALUES (:name, :instructions) RETURNING id"""
+        recipes.add_recipe(name, instructions, incredients)
+        
+      #  sql = """INSERT INTO recipes (name, instructions)
+       #                 VALUES (:name, :instructions) RETURNING id"""
 
-        id = db.session.execute(sql, {"name":name, "instructions":instructions}).fetchone()[0]
-        print(id)
-        db.session.commit()
+      #  id = db.session.execute(sql, {"name":name, "instructions":instructions}).fetchone()[0]
+      #  print(id)
+      #  db.session.commit()
 
-        sql = """INSERT INTO incredients (name, instructions)
-                        VALUES (:name, :instructions) RETURNING id"""
+      #  sql = """INSERT INTO incredients (name, instructions)
+       #                 VALUES (:name, :instructions) RETURNING id"""
 
         return redirect("/recipes/create_recipe")

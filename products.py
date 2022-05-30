@@ -8,6 +8,8 @@ def get_products():
 
 def add_product(name):
     sql = """INSERT INTO products (name)
-                    VALUES (:name)"""
-    db.session.execute(sql, {"name":name})
-    db.session.commit() 
+                    VALUES (:name) RETURNING id"""
+    product_id = db.session.execute(sql, {"name":name})
+    db.session.commit()
+
+    return product_id
