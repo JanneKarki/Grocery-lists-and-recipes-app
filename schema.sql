@@ -12,7 +12,8 @@ CREATE TABLE products (
 CREATE TABLE recipes (
     id SERIAL PRIMARY KEY,
     name TEXT,
-    instructions TEXT
+    instructions TEXT,
+    user_id INTEGER REFERENCES users
 );
 
 CREATE TABLE incredients (

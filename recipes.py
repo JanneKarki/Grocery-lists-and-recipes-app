@@ -1,13 +1,13 @@
 from db import db
 from products import add_product
 
-def add_recipe(name, instructions, incredients):
+def add_recipe(name, instructions, incredients, user_id):
 
-    sql = """INSERT INTO recipes (name, instructions)
-                            VALUES (:name, :instructions) RETURNING id"""
+    sql = """INSERT INTO recipes (name, instructions, user_id)
+                            VALUES (:name, :instructions, :user_id) RETURNING id"""
 
-    recipe_id = db.session.execute(sql, {"name":name, "instructions":instructions}).fetchone()[0]
-    print(id)
+    recipe_id = db.session.execute(sql, {"name":name, "instructions":instructions, "user_id":user_id}).fetchone()[0]
+    print(recipe_id)
     db.session.commit()
     print(incredients)
 

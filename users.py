@@ -22,9 +22,12 @@ def login(username, password):
     else:
         hash_value = user.password
         if check_password_hash(hash_value, password):
+            session["user_id"] = user.id
             session["username"] = username
             return True
             
         else:
             return False
     
+def get_user_id():
+    return session.get("user_id", 0)

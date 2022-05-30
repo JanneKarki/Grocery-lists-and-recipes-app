@@ -72,7 +72,7 @@ def show_grocery_lists():
 
 @app.route("/products",  methods=["GET", "POST"])
 def show_products():
-
+    print(users.get_user_id())
     products_list = products.get_products()
 
     if request.method == "GET":
@@ -94,10 +94,10 @@ def add_recipe():
     if request.method == "POST":
         name = request.form["name"]
         instructions = request.form["instructions"]
-
         incredients = request.form["incredients"]
+        user_id = users.get_user_id()
 
-        recipes.add_recipe(name, instructions, incredients)
+        recipes.add_recipe(name, instructions, incredients, user_id)
         
       #  sql = """INSERT INTO recipes (name, instructions)
        #                 VALUES (:name, :instructions) RETURNING id"""
