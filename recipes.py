@@ -10,7 +10,8 @@ def add_recipe(name, instructions, incredients, user_id):
     print(recipe_id)
     db.session.commit()
     print(incredients)
-
+    print(incredients)
+    print(type(incredients))
     incredients_list = incredients.splitlines()
 
     print(incredients_list)

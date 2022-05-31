@@ -92,11 +92,12 @@ def add_recipe():
         return render_template("create_recipe.html")
 
     if request.method == "POST":
+       
         name = request.form["name"]
         instructions = request.form["instructions"]
         incredients = request.form["incredients"]
         user_id = users.get_user_id()
-
+    
         recipes.add_recipe(name, instructions, incredients, user_id)
         
       #  sql = """INSERT INTO recipes (name, instructions)
@@ -111,6 +112,11 @@ def add_recipe():
 
         return redirect("/recipes/create_recipe")
 
-@app.route("/testpage")
+@app.route("/testpage", methods=["GET", "POST"])
 def test():
-    return render_template("testpage.html")
+    if request.method == "GET":
+
+        return render_template("testpage.html")
+
+    if request.method == "POST":
+        name = request.form["name"]

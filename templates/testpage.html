@@ -1,22 +1,68 @@
-//html
+Incredients
 <div id="container">
-<input id="test" type="text"  >
-<input id="amount" type="text">
-<input value="add" type="button"  onClick="add()">
+    <input id="incredient" type="text"  >
+    <input id="amount" type="text">
+
+    <select name="unit" id="unit">
+        <option val="">Please choose</option>
+        <option val="1">kg</option>
+        <option val="2">g</option>
+        <option val="3">dl</option>
+        <option val="4">l</option>
+        <option val="5">tl</option>
+        <option val="6">rkl</option>
+        <option val="7">kpl</option>
+
+    </select>   
+
+    <input value="add" type="button"  onClick="add()">
+
 </div>
 
 
-<script>
+<input type="button" value="Remove selected" onclick = "del_inputs();" />
+<input type="button" value="Create Recipe" onclick = "get_inputs();" />
+
+<script type="text/javascript">
 var i=0;
-function add(){    
-    if (document.getElementById('test').value!='') 
-    {   
-        i++;  
-        var title   =document.getElementById('test').value;
-        var amount =document.getElementById('amount').value
-        var node = document.createElement('div');        
-        node.innerHTML = '<input type="checkbox" id="check' + i + '" name="check' + i + '"><label for="check' + i + '">'+ title + amount+'</label>';       
-        document.getElementById('container').appendChild(node);    
-    }
+    function add(){    
+        if (document.getElementById('incredient').value!='') 
+    
+            var incredient   =document.getElementById('incredient').value;
+            var amount =document.getElementById('amount').value
+            var unit =document.getElementById('unit').value
+
+            var node = document.createElement('div');        
+            node.innerHTML = '<input type="checkbox" class="checkboxes" id="check' + '" name="check' +  '">    <label for="check' +  '">'+ " " + incredient + " " + amount + " " + unit + '</label>';       
+            document.getElementById('container').appendChild(node);    
+    
 }
+               
+    function del_inputs(){
+        var boxes = document.getElementsByClassName('checkboxes');
+        var labels = document.getElementsByTagName('label');
+   
+        for(var i = 0; i<boxes.length; i++){
+            box = boxes[i];
+            label = labels[i];
+            
+            if(box.checked){
+                box.parentNode.removeChild(box);
+                label.parentNode.removeChild(label);
+              
+            }
+        }
+
+    }   
+    function get_inputs(){
+        var incredients_array = new Array();
+        var labels = document.getElementsByTagName('label');
+        for(var i = 0; i<labels.length; i++){
+            label = labels[i];
+            incredients_array.push(label.textContent)
+            alert("Added incredient " + label.textContent);
+        }
+        return incredients_array;
+    } 
 </script>
+
