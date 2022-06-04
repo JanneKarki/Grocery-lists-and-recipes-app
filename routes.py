@@ -19,10 +19,19 @@ def login():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
+        user_role = None
+        try:
+            user_role = request.form["administrator"]
+            if not users.login(username, password, user_role):
+                return redirect("/login")
+            print(user_role)
+        except:
+            if not users.login(username, password, user_role):
+                return redirect("/login")
         
 
-        if not users.login(username, password):
-            return redirect("/login")
+       
+            
         
             
         return redirect("/")

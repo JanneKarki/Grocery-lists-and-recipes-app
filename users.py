@@ -10,7 +10,7 @@ def register_user(username, password_hash_value):
     db.session.execute(sql, {"username":username, "password":password_hash_value})
     db.session.commit()
 
-def login(username, password):
+def login(username, password, user_role):
 
     sql = "SELECT id, password FROM users WHERE username=:username"
     result = db.session.execute(sql, {"username":username})
@@ -24,6 +24,7 @@ def login(username, password):
         if check_password_hash(hash_value, password):
             session["user_id"] = user.id
             session["username"] = username
+            session["user_role"] = user_role
             return True
             
         else:
