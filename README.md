@@ -1,9 +1,9 @@
 # Grocery-lists-and-recipes-app
 
-Sovelluksella voi tehdä ostoslistoja ja reseptejä. Tuotteita voi tallentaa tietokantaan, josta niitä voi poimia ostoslistalle. 
-Myös reseptejä tehdessä voi poimia tuotteita tietokannasta. Reseptin tuotteet voi lisätä ostoslistalle. Reseptejä ja ostoslistoja voi myös muokata jälkikäteen.
+Sovellus on testattavissa [Herokussa](https://tsoha-shop-lists-and-recipes.herokuapp.com/).
 
-Käyttäjä voi luoda tunnuksen ja kirjautua sovellukseen. Kirjautunut käyttäjä voi lisätä reseptejä ja tehdä ostoslistoja. Kirjautumaton käyttäjä voi
-katsella reseptejä.
+Sovelluksella on alustava runko ja sovellukseen voi luoda uuden käyttäjän ja kirjautua sisään. Tuotteita voi tallentaa tietokantaan, mutta niitä ei voi poimia vielä ostoslistalle. Kirjautunut käyttäjä voi tallentaa reseptejä tietokantaan, mutta ilman ainesosia. Sovellus ei vielä hae reseptejä tietokannasta. Ostoslistoja ei voi vielä tehdä. Sovelluksesta voi kirjautua ulos. Sovellukseen voi kirjautua myös ylläpitäjänä mutta se ei tee vielä mitään
 
-Käyttäjärooleja on tavallisen käyttäjän lisäksi ylläpito. Ylläpidossa voi poistaa reseptejä, ostoslistoja tai tuotteita tietokannasta.
+
+
+
