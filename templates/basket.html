@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+
+<h1>Basket</h1>
+
+<div class="body">
+    <table><tr>{% for entry in basket %}
+        <li> {{ entry[1] }}
+        {% endfor %}</tr></table>
+      </div>
+      
+{% endblock %}

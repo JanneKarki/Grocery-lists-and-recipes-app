@@ -20,3 +20,10 @@ CREATE TABLE incredients (
     recipe_id INTEGER REFERENCES recipes,
     product_id INTEGER REFERENCES products
 );
+
+CREATE TABLE basket (
+    
+    user_id INTEGER REFERENCES users
+    product_id INTEGER REFERENCES products
+
+);

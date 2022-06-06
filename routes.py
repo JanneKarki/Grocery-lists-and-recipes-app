@@ -28,11 +28,7 @@ def login():
         except:
             if not users.login(username, password, user_role):
                 return redirect("/login")
-        
-
-       
-            
-        
+               
             
         return redirect("/")
             
@@ -129,3 +125,10 @@ def test():
 
     if request.method == "POST":
         name = request.form["name"]
+
+
+
+@app.route("/basket")
+def show_basket():
+    
+    return render_template("basket.html")
