@@ -5,6 +5,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 import products
 import users
 import recipes
+import basket
 
 @app.route("/")
 def index():
@@ -133,5 +134,5 @@ def test():
 @app.route("/basket")
 def show_basket():
     user_id = users.get_user_id()
-    basket = basket.get_basket(user_id)
-    return render_template("basket.html", basket=basket)
+    user_basket = basket.get_basket(user_id)
+    return render_template("basket.html", basket=user_basket)
