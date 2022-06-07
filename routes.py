@@ -89,7 +89,8 @@ def show_products():
 
         checked_products = request.form["checked_products"]
         if checked_products != "":
-            print("checked none")
+            products.send_to_basket(checked_products)
+
             print(checked_products)
 
         

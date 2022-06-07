@@ -26,6 +26,9 @@ def find_product(name):
     sql = """SELECT * FROM products WHERE name=:name"""
 
     product = db.session.execute(sql, {"name":name}).fetchone()
-    print(product)
     return product
 
+def send_to_basket(products):
+    print(products)
+    list = products.split()
+    print(list)
