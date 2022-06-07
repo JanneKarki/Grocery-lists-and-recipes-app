@@ -1,30 +1,57 @@
 {% extends "layout.html" %}
 
+
+
 {% block content %}
 
 
 <h1>Products</h1>
 
 <div class="body">
-{% for entry in products %} 
-<table>
-<input type="checkbox" class="checkboxes" id="check' + '" name="check' +  '">    <label for="check' +  '">{{ entry[1] }}</label>
-{% endfor %}
-</table>
+    {% for entry in products %} 
+    <table>
+        <input type="checkbox" class="checkboxes" id="check' + '" name="check' +  '">    <label for="check' +  '">{{ entry[1] }}</label>
+        {% endfor %}
+    </table>
 </div>
       
 <br>
 
-<form action="/products" method="POST">
-    Name: <br><input type="text" name="name" minlength="1" maxlength="20">
-    <p>
-    
-    <input type="submit" value="Add product">
-    
-    </form>
 
-    
+<form action="/products" onsubmit="get_checked_products()" method="POST">
+    Name:<br>
+    <input type="text" name="name" minlength="1" maxlength="20"><p>
+    <input type="hidden" name="checked_products" id="checked_products" value="" />  
+    <input type="submit" value="Add product">
+    <input type="submit" value="Checked Boxes">
+   
+</form>
+
+
+
 <a href="/">Return</a>
+
+
+<script type="text/javascript">
+
+    function get_checked_products(){
+        
+        var check_boxes = document.getElementsByClassName('checkboxes');
+        var labels = document.getElementsByTagName("label");
+        var checked_products = ""
+        for(var i = 0; i<check_boxes.length; i++){
+                box = check_boxes[i];
+                product = labels[i].textContent
+
+                if(box.checked){
+                    checked_products += product + " "
+                }
+        }
+        document.getElementById('checked_products').value = checked_products
+        alert(document.getElementById("checked_products").value)
+    }
+
+</script>
 
 
 {% endblock %}

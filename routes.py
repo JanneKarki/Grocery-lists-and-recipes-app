@@ -86,6 +86,12 @@ def show_products():
     
     if request.method == "POST":
         name = request.form["name"]
+
+        checked_products = request.form["checked_products"]
+        if checked_products != "":
+            print("checked none")
+            print(checked_products)
+
         
         products.add_product(name)
 
