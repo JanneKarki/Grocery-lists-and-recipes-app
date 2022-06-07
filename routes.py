@@ -124,11 +124,14 @@ def test():
         return render_template("testpage.html")
 
     if request.method == "POST":
-        name = request.form["name"]
-
+       
+        hidden = request.form["myField"]
+        print(hidden)
+        return redirect("/testpage")
 
 
 @app.route("/basket")
 def show_basket():
-    
-    return render_template("basket.html")
+    user_id = users.get_user_id()
+    basket = basket.get_basket(user_id)
+    return render_template("basket.html", basket=basket)
