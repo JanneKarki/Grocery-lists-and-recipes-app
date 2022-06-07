@@ -3,15 +3,15 @@
 {% block content %}
 
 
-<h1>Products</h1> 
-
-
+<h1>Products</h1>
 
 <div class="body">
-    <table><tr>{% for entry in products %}
-        <li> {{ entry[1] }}
-        {% endfor %}</tr></table>
-      </div>
+{% for entry in products %} 
+<table>
+<input type="checkbox" class="checkboxes" id="check' + '" name="check' +  '">    <label for="check' +  '">{{ entry[1] }}</label>
+{% endfor %}
+</table>
+</div>
       
 <br>
 
