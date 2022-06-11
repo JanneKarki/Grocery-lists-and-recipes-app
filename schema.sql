@@ -22,8 +22,14 @@ CREATE TABLE incredients (
 );
 
 CREATE TABLE basket (
-    
-    user_id INTEGER REFERENCES users
+    user_id INTEGER REFERENCES users,
     product_id INTEGER REFERENCES products
 
+);
+
+CREATE TABLE shopping_list (
+    user_id INTEGER REFERENCES users,
+    product_id INTEGER REFERENCES products,
+    amount FLOAT,
+    unit TEXT
 );
