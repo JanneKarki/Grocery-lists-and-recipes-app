@@ -26,13 +26,13 @@
       
         <td><select name="unit" id="unit">
         <option val="">Unit</option>
-        <option val="1">kg</option>
-        <option val="2">g</option>
-        <option val="3">dl</option>
-        <option val="4">l</option>
-        <option val="5">tl</option>
-        <option val="6">rkl</option>
-        <option val="7">kpl</option>
+        <option val="kg">kg</option>
+        <option val="g">g</option>
+        <option val="dl">dl</option>
+        <option val="l">l</option>
+        <option val="tl">tl</option>
+        <option val="rkl">rkl</option>
+        <option val="kpl">kpl</option>
         </select></td>
     </tr>
         {% endfor %}  
@@ -41,17 +41,18 @@
 
 </table> 
 
+<br>
+<br>
+<br>
 <form action="/basket" method="POST" onsubmit="get_inputs()">
+Name: <input type="text" name="name" minlength="1" maxlength="30">
 <input type="submit" value="Save list">
 <input type="hidden" name="lines" id="lines" value="tre">
 
-<br>
-<br>
-<br>
 
-Name: <input type="text" name="name" minlength="1" maxlength="30">
 
-<input type="button" value="Save list" onclick="get_inputs()">
+
+
 
 </form>
       

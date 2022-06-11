@@ -6,6 +6,7 @@ import products
 import users
 import recipes
 import basket
+import lists
 
 @app.route("/")
 def index():
@@ -149,7 +150,10 @@ def show_basket():
         return render_template("basket.html", basket=user_basket)
 
     if request.method == "POST":
-        print("asdf")
+
         hidden = request.form["lines"]
+        name = request.form["name"]
         print(hidden)
+        lists.create_grocery_list(name, user_id)
+
         return redirect("/basket")
