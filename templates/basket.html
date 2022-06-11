@@ -19,9 +19,9 @@
     {% for entry in basket %}
     
     <tr>
-      <td><input id="incredient" type="text" value = {{ entry[0] }} ></td>
+      <td><input id="ingredient" name="ingredient" type="text" value = {{ entry[0] }} ></td>
 
-      <td><input id="amount" type="text" ></td>
+      <td><input id="amount" name="amount" type="text" ></td>
 
       
         <td><select name="unit" id="unit">
@@ -40,8 +40,47 @@
 
 
 </table> 
+
+<form action="/basket" method="POST" onsubmit="get_inputs()">
+<input type="submit" value="Save list">
+<input type="hidden" name="lines" id="lines" value="tre">
+
+<br>
+<br>
+<br>
+
+Name: <input type="text" name="name" minlength="1" maxlength="30">
+
+<input type="button" value="Save list" onclick="get_inputs()">
+
+</form>
+      
+
+  <script type="text/javascript">
+    var i=0;
     
 
+    function get_inputs(){
+      var ingredients = document.querySelectorAll("#ingredient");
+      var amounts = document.querySelectorAll("#amount");
+      var units = document.querySelectorAll("#unit");
+      
+      var string = ""
+      for(var i = 0; i<ingredients.length; i++){
+           
+           ingredient = ingredients[i].value;
+           amount = amounts[i].value;
+           unit = units[i].value;
+           string += ingredient + " " + amount + " " + unit + " "
+           
+           
+       }
 
       
+      document.getElementById('lines').value = string
+       
+      return string;
+
+    }
+  </script>
 {% endblock %}

@@ -140,8 +140,16 @@ def test():
         return redirect("/testpage")
 
 
-@app.route("/basket")
+@app.route("/basket", methods=["GET", "POST"])
 def show_basket():
     user_id = users.get_user_id()
     user_basket = basket.get_basket(user_id)
-    return render_template("basket.html", basket=user_basket)
+
+    if request.method == "GET":    
+        return render_template("basket.html", basket=user_basket)
+
+    if request.method == "POST":
+        print("asdf")
+        hidden = request.form["lines"]
+        print(hidden)
+        return redirect("/basket")
