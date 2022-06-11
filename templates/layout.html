@@ -8,7 +8,7 @@
       <div class="nav"></div>
           {% if session.username %}
           <p align="right"><b>{{ session.username }} <a href="/logout" name="user">Logout</a></b></p>
-          <a href="/basket">Basket</a>
+          <a href="/basket">Shopping list</a>
           {% if session.user_role != None %}       
           <label for="user" > Administrator</label>      
           {% endif %}
