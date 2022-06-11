@@ -53,7 +53,9 @@ def register():
 
 @app.route("/logout")
 def logout():
+    user_id = users.get_user_id()
     del session["username"]
+    basket.empty_basket(user_id)
     return redirect("/")
 
 
