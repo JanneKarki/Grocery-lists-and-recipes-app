@@ -3,12 +3,45 @@
 {% block content %}
 
 
-<h1>Basket</h1>
+<h1>Shopping list</h1>
+<table>
+<tr>
+<th>Product</th>
 
-<div class="body">
-    <table><tr>{% for entry in basket %}
-        <li> {{ entry[1] }}
-        {% endfor %}</tr></table>
-      </div>
+<th >Amount</th>
+
+<th >Unit</th>
+</tr>
+</table>
+
+<table>
+  
+    {% for entry in basket %}
+    
+    <tr>
+      <td><input id="incredient" type="text" value = {{ entry[0] }} ></td>
+
+      <td><input id="amount" type="text" ></td>
+
+      
+        <td><select name="unit" id="unit">
+        <option val="">Unit</option>
+        <option val="1">kg</option>
+        <option val="2">g</option>
+        <option val="3">dl</option>
+        <option val="4">l</option>
+        <option val="5">tl</option>
+        <option val="6">rkl</option>
+        <option val="7">kpl</option>
+        </select></td>
+    </tr>
+        {% endfor %}  
+    <br>
+
+
+</table> 
+    
+
+
       
 {% endblock %}

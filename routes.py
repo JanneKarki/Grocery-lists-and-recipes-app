@@ -78,7 +78,7 @@ def show_grocery_lists():
 
 @app.route("/products",  methods=["GET", "POST"])
 def show_products():
-    print(users.get_user_id())
+    user_id = users.get_user_id()
     products_list = products.get_products()
 
     if request.method == "GET":
@@ -89,9 +89,9 @@ def show_products():
 
         checked_products = request.form["checked_products"]
         if checked_products != "":
-            products.send_to_basket(checked_products)
+            products.send_to_basket(user_id, checked_products)
 
-            print(checked_products)
+            print(checked_products, "checekd products")
 
         
         products.add_product(name)
