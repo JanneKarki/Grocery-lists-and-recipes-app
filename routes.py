@@ -34,7 +34,6 @@ def login():
             
         return redirect("/")
             
-
        
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -62,8 +61,11 @@ def logout():
 
 @app.route("/recipes", methods=["GET", "POST"])
 def show_recipes():
-    return render_template("recipes.html")
 
+    recipes_list = recipes.get_recipes()
+
+    return render_template("recipes.html", recipes=recipes_list)
+        
 
 @app.route("/grocery",  methods=["GET","POST"])
 def show_grocery_lists():

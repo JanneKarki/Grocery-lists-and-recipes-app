@@ -39,3 +39,10 @@ def add_incredients_to_products_db(incredients):
 
         product_id = db.session.excecute(sql, {"name":item})
         db.session.commit()
+
+
+def get_recipes():
+
+    sql = "SELECT * FROM recipes"
+    recipes_list = db.session.execute(sql).fetchall()
+    return recipes_list
