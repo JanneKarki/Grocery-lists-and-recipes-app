@@ -1,9 +1,19 @@
-
 {% extends "layout.html" %}
 
 {% block content %}
 
 <h1>Recipes</h1> 
+
+<div class="body">
+    {% for entry in recipes %} 
+    <table>
+           <a href = "/recipes/{{ entry[1] }}"> {{ entry[1] }}</a>
+        {% endfor %}
+    </table>
+</div>
+
+<br>
+
 {% if session.username %}
     <form action="/recipes/create_recipe">
         <input type="submit" value="New Recipe">
