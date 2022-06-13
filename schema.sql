@@ -28,8 +28,14 @@ CREATE TABLE basket (
 );
 
 CREATE TABLE shopping_list (
-    user_id INTEGER REFERENCES users,
+    lists_id INTEGER REFERENCES lists,
     product_id INTEGER REFERENCES products,
     amount FLOAT,
     unit TEXT
+);
+
+CREATE TABLE lists (
+    id SERIAL PRIMARY KEY,
+    name TEXT,
+    user_id INTEGER REFERENCES users
 );

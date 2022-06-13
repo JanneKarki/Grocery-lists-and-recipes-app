@@ -151,9 +151,11 @@ def show_basket():
 
     if request.method == "POST":
 
-        hidden = request.form["lines"]
+        shop_list = request.form["lines"]
         name = request.form["name"]
-        print(hidden)
-        lists.create_grocery_list(name, user_id)
+        print(shop_list)
+
+        list_id = lists.create_grocery_list(name, user_id)
+        lists.add_to_grocery_list(list_id, shop_list)
 
         return redirect("/basket")
