@@ -30,17 +30,24 @@ def add_recipe(name, instructions, ingredients, user_id):
 '''
 
 
-def add_incredients_to_products_db(incredients):
+def add_ingredients_to_products_db(ingredients_list, recipes_id):
 
-    incredients_list = incredients.split('/n')
+    for i in range(0, len(ingredients_list), 3):
+        print(ingredients_list[i])
+        product_id = add_product(ingredients_list[i])
+        amount = ingredients_list[i+1]
+        unit = ingredients_list[i+2]
+        add_to_ingredients(recipes_id, product_id, amount, unit )
 
-    for item in incredients_list():
 
-        sql = """INSERT INTO products (name)
-                VALUES (:name) RETURNING id"""
+def add_to_ingredients(recipes_id, product_id, amount, unit):
+   
+        sql = """INSERT INTO ingredients (recipes_id, product_id, amount, unit)
+                VALUES (:recipes_id, :product_id, :amount, :unit)"""
 
-        product_id = db.session.excecute(sql, {"name":item})
+        db.session.execute(sql, {"recipes_id":recipes_id, "product_id":product_id, "amount":amount, "unit":unit })
         db.session.commit()
+    
 
 
 def get_recipes():
@@ -48,3 +55,19 @@ def get_recipes():
     sql = "SELECT * FROM recipes"
     recipes_list = db.session.execute(sql).fetchall()
     return recipes_list
+
+def get_recipe_instructions(id):
+    sql = "SELECT instructions FROM recipes WHERE id=:id"
+    result = db.session.execute(sql, {"id":id}).fetchall()
+    return result[0] 
+
+def get_recipe_ingredients(id):
+    print(id)
+    sql = "SELECT product_id, amount, unit FROM ingredients WHERE recipes_id=:id"
+    result = db.session.execute(sql, {"id":id}).fetchall()
+    return result
+
+def get_recipe_id(name):
+    sql = "SELECT id FROM recipes WHERE name=:name"
+    result = db.session.execute(sql, {"name":name}).fetchone()
+    return result[0]

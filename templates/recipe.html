@@ -4,4 +4,27 @@
 
 <h1>Recipe</h1>
 
+<h2>{{ recipe_name }}</h2>
+
+
+<div class="body">
+    {% for entry in ingredients %} 
+    <table>
+          <label for="check' +  '">{{ entry[0]}} {{entry[1]}} {{entry[2]}}</label>
+        {% endfor %}
+    </table>
+</div>
+
+<br>
+<div class="body">
+    {{instructions[0]}}
+
+</div>
+
+<br>
+<input type="button" value="Edit" />
+<input type="button" value="Shop" />
+<button onclick="history.back()">Back</button>
+
+
 {% endblock %}

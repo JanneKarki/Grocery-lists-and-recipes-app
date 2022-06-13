@@ -165,3 +165,15 @@ def show_basket():
         lists.add_to_grocery_list(list_id, shop_list)
 
         return redirect("/basket")
+
+@app.route("/recipes/<string:name>", methods=["GET", "POST"])
+def recipe(name):
+
+    id = recipes.get_recipe_id(name)
+    print(id)
+
+    ingredients_data = recipes.get_recipe_ingredients(id)
+    
+    instructions_data = recipes.get_recipe_instructions(id)
+
+    return render_template("recipe.html", recipe_name=name, ingredients=ingredients_data, instructions=instructions_data)
