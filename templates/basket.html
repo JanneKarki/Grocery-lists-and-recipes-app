@@ -25,7 +25,7 @@
 
       
         <td><select name="unit" id="unit">
-        <option val="">Unit</option>
+        <option val=""></option>
         <option val="kg">kg</option>
         <option val="g">g</option>
         <option val="dl">dl</option>
@@ -50,10 +50,6 @@ Name: <input type="text" name="name" minlength="1" maxlength="30">
 <input type="hidden" name="lines" id="lines" value="tre">
 
 
-
-
-
-
 </form>
       
 
@@ -65,13 +61,22 @@ Name: <input type="text" name="name" minlength="1" maxlength="30">
       var ingredients = document.querySelectorAll("#ingredient");
       var amounts = document.querySelectorAll("#amount");
       var units = document.querySelectorAll("#unit");
+
+      
       
       var string = ""
       for(var i = 0; i<ingredients.length; i++){
            
-           ingredient = ingredients[i].value;
+           var ingredient = ingredients[i].value;
            amount = amounts[i].value;
            unit = units[i].value;
+
+          if (ingredient.length === 0 || amount.length === 0 || unit.length === 0){
+            alert("Empty input" + i)
+            break
+          }
+
+
            string += ingredient + " " + amount + " " + unit + " "
            
            
