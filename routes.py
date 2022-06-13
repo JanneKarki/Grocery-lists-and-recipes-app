@@ -113,10 +113,14 @@ def add_recipe():
        
         name = request.form["name"]
         instructions = request.form["instructions"]
-        incredients = request.form["incredients"]
+        ingredients = request.form["ingredients"]
+
+       
         user_id = users.get_user_id()
-    
-        recipes.add_recipe(name, instructions, incredients, user_id)
+   
+        recipes.add_recipe(name, instructions, ingredients, user_id)
+
+
         
       #  sql = """INSERT INTO recipes (name, instructions)
        #                 VALUES (:name, :instructions) RETURNING id"""
