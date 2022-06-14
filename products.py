@@ -30,6 +30,7 @@ def find_product(name):
 
 def send_to_basket(user_id, products):
     list = products.split()
+    print(list, "lista")
     basket.add_to_basket(user_id, list)
 
 

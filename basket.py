@@ -10,9 +10,9 @@ def add_to_basket(user_id, product):
     
     for i in range(0, len(product)):
         
-        product_id = products.find_product(product[i])
-        print(product_id[0])
-        db.session.execute(sql, {"user_id": user_id, "product_id":product_id[0]})
+        product_id = products.add_product(product[i])
+        print(product_id)
+        db.session.execute(sql, {"user_id": user_id, "product_id":product_id})
 
     db.session.commit()
 

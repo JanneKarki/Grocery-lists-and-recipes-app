@@ -93,6 +93,9 @@ def show_products():
         name = request.form["name"]
 
         checked_products = request.form["checked_products"]
+
+        print(checked_products, "asödlfkaskdf")
+
         if checked_products != "":
             products.send_to_basket(user_id, checked_products)
 

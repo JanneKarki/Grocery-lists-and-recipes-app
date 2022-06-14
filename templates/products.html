@@ -14,25 +14,48 @@
         {% endfor %}
     </table>
 </div>
-      
+
+<form action="/products" onsubmit="get_checked_products()" method="POST">
+   <br>
+   <input type="hidden" name="name" />  
+   <input type="hidden" name="checked_products" id="checked_products" value="" />  
+    <input type="submit" value="Shop selected">
+   
+</form>
+<br>
 <br>
 
 
-<form action="/products" onsubmit="get_checked_products()" method="POST">
+<form action="/products" onsubmit="check_add_to_shopping_list()" method="POST">
     Name:<br>
-    <input type="text" name="name" minlength="1" maxlength="20"><p>
-    <input type="hidden" name="checked_products" id="checked_products" value="" />  
-    <input type="submit" value="Add product">
-    <input type="submit" value="Add to shopping list">
+    <input type="text" name="name" id="product_name" minlength="1" maxlength="20"> <input type="submit" value="Add to products"><p>
+    <input type="hidden" name="checked_products" id="checked_products1" value="" /> 
+
+    <input type="hidden" name="add_to_shopping_list" id="add" value="0" /> 
+    <input type="checkbox" class="shop" id="check' + '" name="check' +  '"> 
+    <label for="add"> Add also to shopping list</label>
+
+    <br>
+    
    
 </form>
 
 
 
-<a href="/">Return</a>
-
-
 <script type="text/javascript">
+
+    function check_add_to_shopping_list(){
+        var check_box = document.getElementsByClassName("shop");
+          if(check_box[0].checked){
+            var product = document.getElementById("product_name").value           
+         
+            document.getElementById('checked_products1').value = product
+            
+      
+        }
+        alert(document.getElementById("checked_products1").value)
+
+    }
 
     function get_checked_products(){
         
@@ -41,6 +64,7 @@
         var checked_products = ""
         for(var i = 0; i<check_boxes.length; i++){
                 box = check_boxes[i];
+                
                 product = labels[i].textContent
 
                 if(box.checked){
