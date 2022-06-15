@@ -20,15 +20,6 @@ def add_recipe(name, instructions, ingredients, user_id):
 
     return recipes_id
 
-        
-'''
-        sql = """INSERT INTO incredients (recipe_id, product_id)
-                VALUES (:name, :instructions)"""
-
-        db.session.execute(sql, {"recipe_id":recipe_id, "product_id":product_id})
-        db.session.commit()
-'''
-
 
 def add_ingredients_to_products_db(ingredients_list, recipes_id):
 
