@@ -29,5 +29,27 @@ def create_grocery_list(name, user_id):
 
     return list_id[0]
 
+def get_all_grocery_lists():
 
+    sql = "SELECT * FROM lists"
+
+    result = db.session.execute(sql).fetchall()
+
+    db.session.commit()
+
+    return result
+
+def get_list_id(name):
+
+    sql = "SELECT id FROM lists WHERE name=:name"
+
+    result = db.session.execute(sql, {"name":name}).fetchone()
+
+    return result[0]
+
+def get_grocery_list(id):
+
+    sql = "SELECT products.name, shopping_list.amount, shopping_list.unit FROM products, shopping_list WHERE products.id=shopping_list.product_id  AND lists_id=id"
+    result = db.session.execute(sql, {"id":id}).fetchall()
+    return result
 

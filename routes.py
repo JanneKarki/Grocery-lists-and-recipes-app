@@ -70,13 +70,12 @@ def show_recipes():
 @app.route("/grocery",  methods=["GET","POST"])
 def show_grocery_lists():
 
-    products_list = products.get_products()
+    grocery_lists = lists.get_all_grocery_lists()
    
     if request.method == "GET":
-        return render_template("grocery.html",products=products_list)
+        return render_template("grocery.html",lists=grocery_lists)
     
     if request.method == "POST":
-
 
         return redirect("/grocery")
 
@@ -180,3 +179,19 @@ def recipe(name):
     instructions_data = recipes.get_recipe_instructions(id)
 
     return render_template("recipe.html", recipe_name=name, ingredients=ingredients_data, instructions=instructions_data)
+
+
+@app.route("/grocery/<string:name>", methods=["GET", "POST"])
+def list(name):
+
+    id = lists.get_list_id(name)
+
+    grocery_lists = lists.get_all_grocery_lists()
+
+    grocery_list = lists.get_grocery_list(id)
+
+    #ingredients_data = recipes.get_recipe_ingredients(id)
+    
+    #instructions_data = recipes.get_recipe_instructions(id)
+
+    return render_template("list.html", list_name=name, lists=grocery_lists, items=grocery_list )
