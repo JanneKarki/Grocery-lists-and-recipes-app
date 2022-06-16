@@ -4,11 +4,16 @@
 
 <h1>Grocery Lists</h1>
 
-{{lists}}
+<h2>{{list_name}}</h2>
 
-{{list_name}}
+<div class="body">
+    {% for entry in items %} 
+    <table>
+          <label for="check' +  '">{{ entry[0]}} {{entry[1]}} {{entry[2]}}</label>
+        {% endfor %}
+    </table>
+</div>
 
-{{items}}
 
 
 <button onclick="history.back()">Back</button>

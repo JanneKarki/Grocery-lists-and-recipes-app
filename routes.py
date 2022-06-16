@@ -201,4 +201,4 @@ def list(name):
     
     #instructions_data = recipes.get_recipe_instructions(id)
 
-    return render_template("list.html", list_name=name, lists=grocery_lists, items=grocery_list )
+    return render_template("list.html", list_name=name, items=grocery_list )
