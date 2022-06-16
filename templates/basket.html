@@ -21,11 +21,11 @@
     <tr>
       <td><input id="ingredient" name="ingredient" type="text" value = {{ entry[0] }} ></td>
 
-      <td><input id="amount" name="amount" type="text" ></td>
+      <td><input id="amount" name="amount" type="text" value = {{ entry[1]}} ></td>
 
       
         <td><select name="unit" id="unit">
-        <option val=""></option>
+        <option val="">{{entry[2]}}</option>
         <option val="kg">kg</option>
         <option val="g">g</option>
         <option val="dl">dl</option>
@@ -68,11 +68,12 @@ Name: <input type="text" name="name" minlength="1" maxlength="30">
       for(var i = 0; i<ingredients.length; i++){
            
            var ingredient = ingredients[i].value;
-           amount = amounts[i].value;
-           unit = units[i].value;
+           var amount = amounts[i].value;
+           var unit = units[i].value;
 
           if (ingredient.length === 0 || amount.length === 0 || unit.length === 0){
             alert("Empty input" + i)
+            document.getElementById("missingInput").value = "1"
             break
           }
 

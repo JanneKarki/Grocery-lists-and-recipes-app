@@ -26,7 +26,9 @@ CREATE TABLE ingredients (
 
 CREATE TABLE basket (
     user_id INTEGER REFERENCES users,
-    product_id INTEGER REFERENCES products
+    product_id INTEGER REFERENCES products,
+    amount FLOAT,
+    unit TEXT
 
 );
 
