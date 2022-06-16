@@ -1,5 +1,5 @@
 from db import db
-import basket
+
 
 def get_products():
     sql = "SELECT * FROM products"
@@ -23,15 +23,14 @@ def add_product(name):
 
 
 def find_product(name):
+
     sql = """SELECT * FROM products WHERE name=:name"""
 
     product = db.session.execute(sql, {"name":name}).fetchone()
+    
     return product
 
-def send_to_basket(user_id, products):
-    list = products.split()
-    print(list, "lista")
-    basket.add_to_basket(user_id, list)
+
 
 
     

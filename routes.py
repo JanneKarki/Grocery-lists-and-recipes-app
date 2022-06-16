@@ -96,9 +96,10 @@ def show_products():
         print(checked_products, "asödlfkaskdf")
 
         if checked_products != "":
-            products.send_to_basket(user_id, checked_products)
-
             print(checked_products, "checekd products")
+            basket.format_and_send_to_basket(user_id, checked_products)
+
+           
 
         
         products.add_product(name)
@@ -158,35 +159,41 @@ def show_basket():
         return render_template("basket.html", basket=user_basket)
 
     if request.method == "POST":
-
+        missing_input = request.form["missingInput"]
         shop_list = request.form["lines"]
         name = request.form["name"]
-        print(shop_list)
-
-        list_id = lists.create_grocery_list(name, user_id)
-        lists.add_to_grocery_list(list_id, shop_list)
+        if not missing_input:
+            list_id = lists.create_grocery_list(name, user_id)
+            lists.add_to_grocery_list(list_id, shop_list)
 
         return redirect("/basket")
 
 @app.route("/recipes/<string:name>", methods=["GET", "POST"])
 def recipe(name):
-
-    id = recipes.get_recipe_id(name)
-    print(id)
-
-    ingredients_data = recipes.get_recipe_ingredients(id)
+    user_id = users.get_user_id()
+    recipe_id = recipes.get_recipe_id(name)
     
-    instructions_data = recipes.get_recipe_instructions(id)
+    ingredients_data = recipes.get_recipe_ingredients(recipe_id)
+        
+    instructions_data = recipes.get_recipe_instructions(recipe_id)
 
-    return render_template("recipe.html", recipe_name=name, ingredients=ingredients_data, instructions=instructions_data)
+    if request.method == "GET":
+       
+        return render_template("recipe.html", recipe_name=name, ingredients=ingredients_data, instructions=instructions_data)
+
+    if request.method == "POST":
+
+        basket.add_recipe_to_basket(user_id, recipe_id)
+        return render_template("recipe.html", recipe_name=name, ingredients=ingredients_data, instructions=instructions_data)
+
+
 
 
 @app.route("/grocery/<string:name>", methods=["GET", "POST"])
 def list(name):
 
     id = lists.get_list_id(name)
-
-    grocery_lists = lists.get_all_grocery_lists()
+    print(id)
 
     grocery_list = lists.get_grocery_list(id)
 
