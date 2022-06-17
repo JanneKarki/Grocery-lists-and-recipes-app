@@ -6,8 +6,6 @@ def add_to_basket(user_id, product_list):
 
     sql = "INSERT INTO basket (user_id, product_id, amount, unit) values (:user_id, :product_id, :amount, :unit )"
 
-    sql2 = "INSERT INTO basket (user_id, product_id) values (:user_id, :product_id)"
-
     print(product_list, "product list")
     
     for i in range(len(product_list)):
@@ -16,13 +14,9 @@ def add_to_basket(user_id, product_list):
         amount = product_list[i][1]
         unit = product_list[i][2]
 
-        if amount == "":
-            db.session.execute(sql2, {"user_id": user_id, "product_id":product_id})
+        db.session.execute(sql, {"user_id": user_id, "product_id":product_id, "amount":amount, "unit": unit})
 
-        else:
-            db.session.execute(sql, {"user_id": user_id, "product_id":product_id, "amount":amount, "unit": unit})
-
-    db.session.commit()
+        db.session.commit()
 
 
 def empty_basket(user_id):
