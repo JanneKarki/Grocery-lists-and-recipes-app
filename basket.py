@@ -14,9 +14,11 @@ def add_to_basket(user_id, product_list):
         amount = product_list[i][1]
         unit = product_list[i][2]
 
-        db.session.execute(sql, {"user_id": user_id, "product_id":product_id, "amount":amount, "unit": unit})
+        if not find_from_basket(product_id):
 
-        db.session.commit()
+            db.session.execute(sql, {"user_id": user_id, "product_id":product_id, "amount":amount, "unit": unit})
+
+            db.session.commit()
 
 
 def empty_basket(user_id):
@@ -48,10 +50,25 @@ def format_and_send_to_basket(user_id, products_string):
     formatted_list = []
 
     for i in range(len(product_list)):
-        formatted_list.append(product_list[i])
-        formatted_list.append("")   #empty amount
-        formatted_list.append("")   #empty unit
+        product = product_list[i]
+        amount = 0.0
+        unit = ""
+        
+        formatted_list.append((product, amount, unit))
 
     add_to_basket(user_id, formatted_list)
 
     
+def find_from_basket(id):
+
+    sql = "SELECT * FROM basket WHERE product_id =:id"
+
+    result = db.session.execute(sql, {"id":id}).fetchone()
+
+    print(result)
+
+    if not result:
+        return False
+    
+    return True
+
