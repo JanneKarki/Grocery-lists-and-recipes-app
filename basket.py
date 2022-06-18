@@ -52,7 +52,7 @@ def format_and_send_to_basket(user_id, products_string):
     for i in range(len(product_list)):
         product = product_list[i]
         amount = 0.0
-        unit = ""
+        unit = "-"
         
         formatted_list.append((product, amount, unit))
 
