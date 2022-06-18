@@ -163,8 +163,10 @@ def show_basket():
         shop_list = request.form["lines"]
         name = request.form["name"]
         if not missing_input:
+
             list_id = lists.create_grocery_list(name, user_id)
             lists.add_to_grocery_list(list_id, shop_list)
+            basket.empty_basket()
 
         return redirect("/basket")
 
