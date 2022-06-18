@@ -34,6 +34,8 @@
         <option val="rkl">rkl</option>
         <option val="kpl">kpl</option>
         </select></td>
+
+        <td><input type="button" id="button" value="Remove" class="remove" onclick="remove_elements()"></td>
     </tr>
         {% endfor %}  
     <br>
@@ -56,6 +58,7 @@ Name: <input type="text" name="name" minlength="1" maxlength="30">
 
   <script type="text/javascript">
     var i=0;
+    var counter
     
 
     function get_inputs(){
@@ -90,5 +93,31 @@ Name: <input type="text" name="name" minlength="1" maxlength="30">
       return string;
 
     }
+
+    function remove_elements() {
+        var ingredients = document.querySelectorAll("#ingredient");
+        var amounts = document.querySelectorAll("#amount");
+        var units = document.querySelectorAll("#unit");
+        var buttons = document.querySelectorAll("#button");
+
+        alert(amounts)
+
+        var last = amounts.length-1;
+        
+       
+        ingredients[last].parentNode.removeChild(ingredients[last]);
+        amounts[last].parentNode.removeChild(amounts[last]);
+        units[last].parentNode.removeChild(units[last]);
+        buttons[last].parentNode.removeChild(buttons[last]);
+        
+          
+        return false;
+    }
+
+    function element_counter(){
+      var counter = 0
+    }
+
+
   </script>
 {% endblock %}
