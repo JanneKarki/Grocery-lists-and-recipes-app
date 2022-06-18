@@ -2,28 +2,23 @@
 
 {% block content %}
 
-
 <h1>Shopping list</h1>
+
 <table>
-<tr>
-<th>Product</th>
-
-<th >Amount</th>
-
-<th >Unit</th>
-</tr>
+  <tr>
+    <th>Product</th>
+    <th >Amount</th>
+    <th >Unit</th>
+  </tr>
 </table>
 
-<table>
-  
+<table id="myTable">
     {% for entry in basket %}
-    
     <tr>
       <td><input id="ingredient" name="ingredient" type="text" value = {{ entry[0] }} ></td>
 
       <td><input id="amount" name="amount" type="text" value = {{ entry[1]}} ></td>
-
-      
+    
         <td><select name="unit" id="unit">
         <option val="">{{entry[2]}}</option>
         <option val="kg">kg</option>
@@ -34,41 +29,68 @@
         <option val="rkl">rkl</option>
         <option val="kpl">kpl</option>
         </select></td>
-
-        <td><input type="button" id="button" value="Remove" class="remove" onclick="remove_elements()"></td>
     </tr>
         {% endfor %}  
     <br>
-
-
 </table> 
-
 <br>
 <br>
 <br>
 <form action="/basket" method="POST" onsubmit="get_inputs()">
-Name: <input type="text" name="name" minlength="1" maxlength="30">
-<input type="submit" value="Save list">
-<input type="hidden" name="lines" id="lines" value="tre">
-<input type="hidden" name="missingInput" id="missingInput" value="">
-
-
+  Name: <input type="text" name="name" minlength="1" maxlength="30">
+        <input type="submit" value="Save list">
+        <input type="hidden" name="lines" id="lines" value="tre">
+        <input type="hidden" name="missingInput" id="missingInput" value="">
+        <input type="button" value="New line" onclick="add_new_line_to_basket()">
+        <input type="button" id="button" value="Remove line" class="remove" onclick="remove_elements()">
 </form>
       
 
-  <script type="text/javascript">
+<script type="text/javascript">
     var i=0;
-    var counter
+
+    function add_new_line_to_basket(){
+      var table = document.getElementById("myTable");
+
+      var tr = document.createElement('tr');
+      var elements = document.getElementsByTagName("td")
+      var unit = elements[2]
+
+      var input_ingredient = document.createElement("input")
+      var input_amount = document.createElement("input")
+      var td_ingredient = document.createElement("td")
+      var td_amount = document.createElement("td")
+      
+      input_ingredient.type = "text"
+      input_ingredient.id = "ingredient"
+      input_ingredient.name = "ingredient"
+      input_ingredient.value = ""
+
+      input_amount.type = "text"
+      input_amount.id = "amount"
+      input_amount.name = "amount"
+      input_amount.value = ""
+
+      td_ingredient.append(input_ingredient)
+      td_amount.append(input_amount)
+
+      var clone_unit = unit.cloneNode(true)
+
+      tr.appendChild(td_ingredient)
+      tr.appendChild(td_amount)
+      tr.appendChild(clone_unit)
+
+      table.append(tr)
+    }
     
 
     function get_inputs(){
+
       var ingredients = document.querySelectorAll("#ingredient");
       var amounts = document.querySelectorAll("#amount");
       var units = document.querySelectorAll("#unit");
-
-      
-      
       var string = ""
+
       for(var i = 0; i<ingredients.length; i++){
            
            var ingredient = ingredients[i].value;
@@ -76,18 +98,14 @@ Name: <input type="text" name="name" minlength="1" maxlength="30">
            var unit = units[i].value;
 
           if (ingredient.length === 0 || amount.length === 0 || unit.length === 0){
-            alert("Empty input" + i)
+            alert("Empty inputs")
             document.getElementById("missingInput").value = "1"
             break
           }
 
-
            string += ingredient + " " + amount + " " + unit + " "
-           
-           
        }
 
-      
       document.getElementById('lines').value = string
        
       return string;
@@ -100,24 +118,16 @@ Name: <input type="text" name="name" minlength="1" maxlength="30">
         var units = document.querySelectorAll("#unit");
         var buttons = document.querySelectorAll("#button");
 
-        alert(amounts)
-
         var last = amounts.length-1;
-        
        
         ingredients[last].parentNode.removeChild(ingredients[last]);
         amounts[last].parentNode.removeChild(amounts[last]);
         units[last].parentNode.removeChild(units[last]);
         buttons[last].parentNode.removeChild(buttons[last]);
-        
           
         return false;
     }
 
-    function element_counter(){
-      var counter = 0
-    }
+</script>
 
-
-  </script>
 {% endblock %}
