@@ -113,18 +113,14 @@
     }
 
     function remove_elements() {
-        var ingredients = document.querySelectorAll("#ingredient");
-        var amounts = document.querySelectorAll("#amount");
-        var units = document.querySelectorAll("#unit");
-        var buttons = document.querySelectorAll("#button");
 
-        var last = amounts.length-1;
-       
-        ingredients[last].parentNode.removeChild(ingredients[last]);
-        amounts[last].parentNode.removeChild(amounts[last]);
-        units[last].parentNode.removeChild(units[last]);
-        buttons[last].parentNode.removeChild(buttons[last]);
-          
+        var elements = document.getElementsByTagName("tr")
+
+        if(elements.length > 2){
+          var last = elements.length-1;
+          elements[last].parentNode.removeChild(elements[last])
+        }
+            
         return false;
     }
 
