@@ -9,6 +9,7 @@ def get_products():
 def add_product(name):
 
     product = find_product(name)
+    
 
     if not product:
         print("not product in the list")
