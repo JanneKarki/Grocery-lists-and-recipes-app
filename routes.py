@@ -109,6 +109,7 @@ def show_products():
 
 @app.route("/recipes/create_recipe", methods=["GET", "POST"])
 def add_recipe():
+
     if request.method == "GET":
         return render_template("create_recipe.html")
 
@@ -218,7 +219,7 @@ def list(name):
 
 
 @app.route("/grocery/<string:name>/edit", methods=["GET", "POST"])
-def edit(name):
+def edit_list(name):
 
     list_id = lists.get_list_id(name)
     print(list_id)
@@ -243,4 +244,11 @@ def edit(name):
             return render_template("list.html", list_name=name, items=grocery_list)
                 
 
-        
+@app.route("/recipes/<string:name>/edit", methods=["GET", "POST"])
+def edit_recipe(name):
+
+    recipe_id = recipes.get_recipe_id(name)
+
+    recipe_ingredients = recipes.get_recipe_ingredients(recipe_id)
+
+    return render_template("edit_recipe.html", list_name=name, ingredients=recipe_ingredients )
