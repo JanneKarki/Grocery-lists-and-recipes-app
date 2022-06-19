@@ -124,19 +124,8 @@ def add_recipe():
    
         recipes.add_recipe(name, instructions, ingredients, user_id)
 
-
-        
-      #  sql = """INSERT INTO recipes (name, instructions)
-       #                 VALUES (:name, :instructions) RETURNING id"""
-
-      #  id = db.session.execute(sql, {"name":name, "instructions":instructions}).fetchone()[0]
-      #  print(id)
-      #  db.session.commit()
-
-      #  sql = """INSERT INTO incredients (name, instructions)
-       #                 VALUES (:name, :instructions) RETURNING id"""
-
         return redirect("/recipes/create_recipe")
+
 
 @app.route("/testpage", methods=["GET", "POST"])
 def test():
