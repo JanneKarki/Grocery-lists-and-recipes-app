@@ -22,11 +22,11 @@
 
 <br>
 
-<form method="post">
+<form action="/recipes/{{recipe_name}}" method="post">
     <input type="submit" value="Shop Recipe">
-    </form>
+</form>
 
-<form action="/recipes/{{recipe_name}}/edit" method="GET" >
+<form action="/recipes/{{recipe_name}}/edit" method="get" >
     <input type="submit" value="Edit">
 </form>
 

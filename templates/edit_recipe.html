@@ -4,8 +4,7 @@
 
 <h1>Edit recipe: {{recipe_name}}</h1>
 
-
-<form action="/recipes/create_recipe" method="POST" >
+<form action="/recipes/{{recipe_name}}/edit" method="POST" >
     
     <br> <input type="hidden" name="ingredients" id="ingredients">
     
