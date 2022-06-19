@@ -56,3 +56,15 @@ def get_recipe_id(name):
     sql = "SELECT id FROM recipes WHERE name=:name"
     result = db.session.execute(sql, {"name":name}).fetchone()
     return result[0]
+
+def update_recipe(recipe_id, instructions, ingredients):
+
+    sql = "UPDATE recipes SET instructions=:instructions WHERE recipes.id=:recipe_id"
+
+    db.session.execute(sql, {"instructions":instructions, "recipe_id":recipe_id})
+
+    db.session.commit()
+    
+    return
+
+
