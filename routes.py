@@ -204,3 +204,21 @@ def list(name):
     #instructions_data = recipes.get_recipe_instructions(id)
 
     return render_template("list.html", list_name=name, items=grocery_list )
+
+
+@app.route("/grocery/<string:name>/edit", methods=["GET", "POST"])
+def edit(name):
+
+    id = lists.get_list_id(name)
+    print(id)
+
+    grocery_list = lists.get_grocery_list(id)
+
+    if request.method == "GET":
+        
+        return render_template("edit_list.html", list_name=name, items=grocery_list )
+
+    if request.method == "POST":
+
+
+        return render_template("edit_list.html", list_name=name, items=grocery_list )
