@@ -247,8 +247,12 @@ def edit_list(name):
 @app.route("/recipes/<string:name>/edit", methods=["GET", "POST"])
 def edit_recipe(name):
 
-    recipe_id = recipes.get_recipe_id(name)
+    if request.method == "GET":
 
-    recipe_ingredients = recipes.get_recipe_ingredients(recipe_id)
+        recipe_id = recipes.get_recipe_id(name)
 
-    return render_template("edit_recipe.html", list_name=name, ingredients=recipe_ingredients )
+        recipe_ingredients = recipes.get_recipe_ingredients(recipe_id)
+
+        recipe_instructions = recipes.get_recipe_instructions(recipe_id)
+
+        return render_template("edit_recipe.html", recipe_name=name, ingredients=recipe_ingredients, instructions=recipe_instructions )

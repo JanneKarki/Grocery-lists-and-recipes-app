@@ -1,0 +1,115 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h1>Edit recipe: {{recipe_name}}</h1>
+
+
+<form action="/recipes/create_recipe" method="POST" >
+    
+    <br> <input type="hidden" name="ingredients" id="ingredients">
+    
+    Instructions:<br><textarea name="instructions" rows="10", cols="20" >{{instructions[0]}}</textarea>
+    <br>
+
+
+    <input type="hidden" name="myField" id="myField" />
+
+    Incredients
+    <div id="container">
+        <input id="ingredient" type="text" value= >
+        <input id="amount" type="text">
+
+        <select name="unit" id="unit">
+            <option val="">Please choose</option>
+            <option val="1">kg</option>
+            <option val="2">g</option>
+            <option val="3">dl</option>
+            <option val="4">l</option>
+            <option val="5">tl</option>
+            <option val="6">rkl</option>
+            <option val="7">kpl</option>
+
+        </select>   
+
+        <input value="Add" type="button"  onClick="add()">
+        <input type="button" value="Remove" onclick = "del_inputs();" />
+
+    </div>
+
+    <br>
+    <input type="submit" value="Save changes">
+    </form>
+
+<br>
+<button onclick="history.back()">Back</button>
+
+<script type="text/javascript">
+    var i=0;
+    
+
+    function update_hidden_element(){
+        var hidden_field = document.getElementById('ingredients').value
+
+        var ingredient   =document.getElementById('ingredient').value;
+        var amount =document.getElementById('amount').value
+        var unit =document.getElementById('unit').value
+
+        document.getElementById('ingredients').value = hidden_field + " " + ingredient + " " + amount + " " + unit + " ";
+    }
+
+    function add(){    
+        if (document.getElementById('ingredient').value!='') 
+            update_hidden_element()
+            
+            var ingredient   =document.getElementById('ingredient').value;
+            var amount =document.getElementById('amount').value
+            var unit =document.getElementById('unit').value
+         
+
+            var node = document.createElement('div');        
+            node.innerHTML = '<input type="checkbox" class="checkboxes" id="check' + '" name="check' +  '">    <label for="check' +  '">'+ " " + ingredient + " " + amount + " " + unit + '</label>';       
+            document.getElementById('container').appendChild(node); 
+
+    
+}
+               
+    function del_inputs(){
+        var boxes = document.getElementsByClassName('checkboxes');
+        var labels = document.getElementsByTagName('label');
+   
+        for(var i = 0; i<boxes.length; i++){
+            box = boxes[i];
+            label = labels[i];
+            
+            if(box.checked){
+                box.parentNode.removeChild(box);
+                label.parentNode.removeChild(label);
+              
+            }
+        }
+        document.getElementById('ingredients').value = get_inputs()
+
+    }   
+
+    function get_inputs(){
+        var ingredients_array = new Array();
+        var string = ""
+        var labels = document.getElementsByTagName('label');
+   
+        for(var i = 0; i<labels.length; i++){
+           
+            label = labels[i];
+            string += label.textContent
+            ingredients_array.push(label.textContent);
+            
+        }
+        
+        return string;
+    }
+
+  
+    </script>
+
+
+{% endblock %}
