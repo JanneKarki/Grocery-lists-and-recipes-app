@@ -5,11 +5,9 @@ import recipes
 def add_to_basket(user_id, product_list):
 
     sql = "INSERT INTO basket (user_id, product_id, amount, unit) values (:user_id, :product_id, :amount, :unit )"
-
-    print(product_list, "product list")
-    
+   
     for i in range(len(product_list)):
-        print(product_list[i], "onko tämä se just")
+
         product_id = products.add_product(product_list[i][0])
         amount = product_list[i][1]
         unit = product_list[i][2]
@@ -45,7 +43,7 @@ def add_recipe_to_basket(user_id, recipe_id):
     
 
 def format_and_send_to_basket(user_id, products_string):
-    print(products_string)
+
     product_list = products_string.split()
     formatted_list = []
 
@@ -64,8 +62,6 @@ def find_from_basket(id):
     sql = "SELECT * FROM basket WHERE product_id =:id"
 
     result = db.session.execute(sql, {"id":id}).fetchone()
-
-    print(result)
 
     if not result:
         return False
