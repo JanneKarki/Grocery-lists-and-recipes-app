@@ -14,32 +14,26 @@ def add_recipe(name, instructions, ingredients, user_id):
    
     ingredients_list = ingredients.split()
 
-    add_ingredients_to_products_db(ingredients_list, recipes_id)
+    add_ingredients(ingredients_list, recipes_id)
    
 
 
     return recipes_id
 
 
-def add_ingredients_to_products_db(ingredients_list, recipes_id):
+def add_ingredients(ingredients_list, recipes_id):
+
+    sql = """INSERT INTO ingredients (recipes_id, product_id, amount, unit)
+                VALUES (:recipes_id, :product_id, :amount, :unit)"""    
 
     for i in range(0, len(ingredients_list), 3):
-        print(ingredients_list[i])
+        
         product_id = add_product(ingredients_list[i])
         amount = ingredients_list[i+1]
         unit = ingredients_list[i+2]
-        add_to_ingredients(recipes_id, product_id, amount, unit )
-
-
-def add_to_ingredients(recipes_id, product_id, amount, unit):
-   
-        sql = """INSERT INTO ingredients (recipes_id, product_id, amount, unit)
-                VALUES (:recipes_id, :product_id, :amount, :unit)"""
 
         db.session.execute(sql, {"recipes_id":recipes_id, "product_id":product_id, "amount":amount, "unit":unit })
-        db.session.commit()
-    
-
+        db.session.commit()    
 
 def get_recipes():
 
