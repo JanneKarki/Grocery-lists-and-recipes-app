@@ -155,6 +155,17 @@ def show_basket():
     user_id = users.get_user_id()
     user_basket = basket.get_basket(user_id)
 
+    if not user_basket:
+        empty_tuple = ()
+        empty_list = []
+
+        for i in range(3):
+            empty_list.append("")
+        
+        empty_tuple = tuple(empty_list)
+        user_basket.append(empty_tuple)
+
+
     if request.method == "GET":    
         return render_template("basket.html", basket=user_basket)
 
@@ -166,7 +177,7 @@ def show_basket():
 
             list_id = lists.create_grocery_list(name, user_id)
             lists.add_to_grocery_list(list_id, shop_list)
-            basket.empty_basket()
+            basket.empty_basket(user_id)
 
         return redirect("/basket")
 
