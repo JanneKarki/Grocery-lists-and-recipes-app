@@ -64,3 +64,17 @@ def get_grocery_list(id):
     result = db.session.execute(sql, {"id":id}).fetchall()
     return result
 
+def update_grocery_list(list_id, shop_list):
+    
+    sql = "DELETE FROM shopping_list WHERE lists_id=:list_id"
+
+    db.session.execute(sql, {"list_id": list_id})
+
+    add_to_grocery_list(list_id, shop_list)
+
+    return
+
+
+
+
+    return

@@ -36,7 +36,7 @@
 <br>
 <br>
 <br>
-<form action="/basket" method="POST" onsubmit="get_inputs()">
+<form action="/grocery/{{list_name}}/edit" method="POST" onsubmit="get_inputs()">
   Name: <strong>{{list_name}}</strong>
         <input type="submit" value="Save list">
         <input type="hidden" name="list_name" id="list_name" value="{{list_name}}">
