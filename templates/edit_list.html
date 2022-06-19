@@ -37,13 +37,13 @@
 <br>
 <br>
 <form action="/grocery/{{list_name}}/edit" method="POST" onsubmit="get_inputs()">
-  Name: <strong>{{list_name}}</strong>
-        <input type="submit" value="Save list">
+        
         <input type="hidden" name="list_name" id="list_name" value="{{list_name}}">
         <input type="hidden" name="lines" id="lines" value="tre">
         <input type="hidden" name="missingInput" id="missingInput" value="">
         <input type="button" value="New line" onclick="add_new_line_to_basket()">
         <input type="button" id="button" value="Remove line" class="remove" onclick="remove_elements()">
+        <input type="submit" value="Save changes">
 </form>
       
 
