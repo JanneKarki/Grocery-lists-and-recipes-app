@@ -117,11 +117,10 @@ def add_recipe():
        
         name = request.form["name"]
         instructions = request.form["instructions"]
-        ingredients = request.form["ingredients"]
+        ingredients = request.form["lines"]
 
-       
         user_id = users.get_user_id()
-   
+
         recipes.add_recipe(name, instructions, ingredients, user_id)
 
         return redirect("/recipes/create_recipe")
