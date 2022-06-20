@@ -3,23 +3,45 @@
 
 <title>Grocery lists & Recipes</title>
 
+<hr>
 <div class="header">
     <h1><a href = "/">Grocery lists & Recipes</a></h1>
-      <div class="nav"></div>
-          {% if session.username %}
-          <p align="right"><b>{{ session.username }} <a href="/logout" name="user">Logout</a></b></p>
-          <a href="/basket">Shopping list</a>
-          {% if session.user_role != None %}       
-          <label for="user" > Administrator</label>      
-          {% endif %}
-          {% else %}
-          <p align="right"><a href="/login">Login</a> or <a href="/register">Register</a></p>
 
-          {% endif %}
-      </div>
+    
+<br>
+<div class="nav">
+    {% if session.username %}
+    <b>{{ session.username }} <a href="/logout" name="user">Logout</a></b>
+    {% if session.user_role != None %}       
+    <label for="user" > Administrator</label>      
+    {% endif %}
+    {% else %}
+    <p align="right"><a href="/login">Login</a> or <a href="/register">Register</a></p>
+    
+    {% endif %}
+    </div>
+<br>
+</div>
+<hr>
+<div>
+    <form action="/products" method="GET">
+        <input type="submit" value="Products">
+        </form>
+    <form action="/recipes" method="POST">  
+        <input type="submit" value="Recipes">
+        </form>
+    <form action="/grocery" method="POST">
+        <input type="submit" value="Grocery lists">
+        </form>    
+    <form action="/user">
+        <input type="submit" value="My Page">
+        </form>
+    <a href="/basket"><span align="right" class="iconify" data-icon="fa:shopping-basket"></span></a> 
 </div>
 
+        
 <hr>
 
+<script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
+
 {% block content %}{% endblock %}
-<hr>
