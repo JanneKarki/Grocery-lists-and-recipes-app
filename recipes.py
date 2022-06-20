@@ -57,6 +57,14 @@ def get_recipe_id(name):
     result = db.session.execute(sql, {"name":name}).fetchone()
     return result[0]
 
+def get_user_recipes(user_id):
+
+    sql = "SELECT name FROM recipes WHERE  user_id=:user_id"
+
+    result = db.session.execute(sql, {"user_id":user_id}).fetchall()
+
+    return result
+
 def update_recipe(recipe_id, instructions, ingredients):
 
     sql = "UPDATE recipes SET instructions=:instructions WHERE recipes.id=:recipe_id"
@@ -64,7 +72,7 @@ def update_recipe(recipe_id, instructions, ingredients):
     db.session.execute(sql, {"instructions":instructions, "recipe_id":recipe_id})
 
     db.session.commit()
-    
+
     return
 
 
