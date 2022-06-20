@@ -24,6 +24,7 @@
 
 <form action="/recipes/{{recipe_name}}" method="post">
     <input type="submit" value="Shop Recipe">
+
 </form>
 
 {% if session.username == user[0] %}
@@ -32,7 +33,7 @@
 </form>
 {% endif %}
 
-
+<br>
 <button onclick="history.back()">Back</button>
 
 {% endblock %}
