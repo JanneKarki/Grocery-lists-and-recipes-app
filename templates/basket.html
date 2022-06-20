@@ -12,6 +12,8 @@
   </tr>
 </table>
 
+
+
 <table id="myTable">
     {% for entry in basket %}
     <tr>
@@ -34,15 +36,20 @@
     <br>
 </table> 
 <br>
-<br>
-<br>
+
 <form action="/basket" method="POST" onsubmit="get_inputs()">
-  Name: <input type="text" name="name" minlength="1" maxlength="30">
+
+        <input type="button" value="+ Product" onclick="add_new_line_to_basket()">
+        <input type="button" id="button" value="- Product" class="remove" onclick="remove_elements()">
+        <br>
+        <br>
+        <br>
+        Name: <input type="text" name="name" minlength="1" maxlength="30">
         <input type="submit" value="Save list">
+
         <input type="hidden" name="lines" id="lines" value="tre">
         <input type="hidden" name="missingInput" id="missingInput" value="">
-        <input type="button" value="New line" onclick="add_new_line_to_basket()">
-        <input type="button" id="button" value="Remove line" class="remove" onclick="remove_elements()">
+       
 </form>
       
 
@@ -50,6 +57,8 @@
     var i=0;
 
     function add_new_line_to_basket(){
+
+
       var table = document.getElementById("myTable");
 
       var tr = document.createElement('tr');
