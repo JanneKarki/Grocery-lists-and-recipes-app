@@ -67,12 +67,26 @@ def get_user_recipes(user_id):
 
 def update_recipe(recipe_id, instructions, ingredients):
 
+    ingredients = ingredients.split()
+
     sql = "UPDATE recipes SET instructions=:instructions WHERE recipes.id=:recipe_id"
 
     db.session.execute(sql, {"instructions":instructions, "recipe_id":recipe_id})
 
     db.session.commit()
 
+    _update_recipe_ingredients(recipe_id, ingredients)
+
+    return
+
+def _update_recipe_ingredients(recipe_id, ingredients):
+
+    sql = "DELETE FROM ingredients WHERE recipes_id=:recipe_id"
+
+    db.session.execute(sql, {"recipe_id": recipe_id})
+
+    add_ingredients(ingredients, recipe_id)
+    
     return
 
 def get_recipe_maker(recipe_id):
