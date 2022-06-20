@@ -255,6 +255,8 @@ def edit_recipe(name):
     print(request.method)
 
     recipe_id = recipes.get_recipe_id(name)
+    
+    maker = recipes.get_recipe_maker(recipe_id)
 
     if request.method == "GET":
 
@@ -262,13 +264,13 @@ def edit_recipe(name):
 
         recipe_instructions = recipes.get_recipe_instructions(recipe_id)
 
-        return render_template("edit_recipe.html", recipe_name=name, ingredients=recipe_ingredients, instructions=recipe_instructions)
+        return render_template("edit_recipe.html", recipe_name=name, ingredients=recipe_ingredients, instructions=recipe_instructions, user=maker)
 
 
     if request.method == "POST":
 
         instructions = request.form["instructions"]
-        ingredients = request.form["ingredients"]
+        ingredients = request.form["lines"]
 
         recipes.update_recipe(recipe_id, instructions, ingredients)
 
@@ -276,7 +278,7 @@ def edit_recipe(name):
         
         instructions_data = recipes.get_recipe_instructions(recipe_id)
 
-        print(instructions_data, "instructions data")
+        print(ingredients, "ingredients data")
 
 
-        return render_template("recipe.html", recipe_name=name, ingredients=ingredients_data, instructions=instructions_data)
+        return render_template("recipe.html", recipe_name=name, ingredients=ingredients_data, instructions=instructions_data, user=maker)
