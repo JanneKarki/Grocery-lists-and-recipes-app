@@ -26,9 +26,12 @@
     <input type="submit" value="Shop Recipe">
 </form>
 
+{% if session.username == user[0] %}
 <form action="/recipes/{{recipe_name}}/edit" method="get" >
     <input type="submit" value="Edit">
 </form>
+{% endif %}
+
 
 <button onclick="history.back()">Back</button>
 
