@@ -110,7 +110,7 @@
         var amounts = document.querySelectorAll("#amount");
         var units = document.querySelectorAll("#unit");
         var string = ""
-       
+
         for(var i = 0; i<ingredients.length; i++){
             var ingredient = ingredients[i].value;
             var amount = amounts[i].value;
@@ -121,7 +121,6 @@
             document.getElementById("missingInput").value = "1"
             break
             }
-
             string += ingredient + " " + amount + " " + unit + " "
         }
 
