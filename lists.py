@@ -72,7 +72,10 @@ def update_grocery_list(list_id, shop_list):
 
     return
 
+def get_user_lists(user_id):
 
+    sql = "SELECT name FROM lists WHERE user_id=:user_id"
 
+    result = db.session.execute(sql, {"user_id":user_id}).fetchall()
 
-    return
+    return result
