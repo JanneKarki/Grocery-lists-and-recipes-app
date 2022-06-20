@@ -127,17 +127,28 @@ def add_recipe():
         return redirect("/recipes/create_recipe")
 
 
-@app.route("/testpage", methods=["GET", "POST"])
-def test():
+@app.route("/user", methods=["GET", "POST"])
+def user_page():
+    
+    username = session['username']
+    user_id = users.get_user_id()
+    user_recipes = recipes.get_user_recipes(user_id)
+    print(user_recipes)
+    user_lists = lists.get_user_lists(user_id)
+    print(user_lists)
+
+
     if request.method == "GET":
 
-        return render_template("testpage.html")
+        return render_template("user_page.html", user=username, user_recipes=user_recipes, user_lists=user_lists)
 
     if request.method == "POST":
        
         hidden = request.form["myField"]
         print(hidden)
-        return redirect("/testpage")
+        return redirect("/user")
+    
+
 
 
 @app.route("/basket", methods=["GET", "POST"])
