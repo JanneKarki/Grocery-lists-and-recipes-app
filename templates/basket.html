@@ -46,18 +46,21 @@
         <br>
         Name: <input type="text" name="name" minlength="1" maxlength="30">
         <input type="submit" value="Save list">
-
+        <input type="submit" value="Empty basket" onclick="empty_basket()">
+        <input type="hidden" name="empty" id="empty" value="0">
         <input type="hidden" name="lines" id="lines" value="tre">
         <input type="hidden" name="missingInput" id="missingInput" value="">
        
-</form>
-      
+</form>        
 
 <script type="text/javascript">
     var i=0;
 
-    function add_new_line_to_basket(){
+    function empty_basket(){
+      document.getElementById("empty").value = "1"
+    }
 
+    function add_new_line_to_basket(){
 
       var table = document.getElementById("myTable");
 

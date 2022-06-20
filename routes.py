@@ -170,16 +170,21 @@ def show_basket():
         return render_template("basket.html", basket=user_basket)
 
     if request.method == "POST":
-        missing_input = request.form["missingInput"]
-        shop_list = request.form["lines"]
-        name = request.form["name"]
-        if not missing_input:
-
-            list_id = lists.create_grocery_list(name, user_id)
-            lists.add_to_grocery_list(list_id, shop_list)
+        empty = request.form["empty"]
+        if empty == "1":
             basket.empty_basket(user_id)
+            return redirect("/basket")
+        else:
+            missing_input = request.form["missingInput"]
+            shop_list = request.form["lines"]
+            name = request.form["name"]
+            if not missing_input:
 
-        return redirect("/basket")
+                list_id = lists.create_grocery_list(name, user_id)
+                lists.add_to_grocery_list(list_id, shop_list)
+                basket.empty_basket(user_id)
+
+            return redirect("/basket")
 
 @app.route("/recipes/<string:name>", methods=["GET", "POST"])
 def recipe(name):
