@@ -13,13 +13,12 @@
         {% endfor %}
     </table>
 </div>
-
-
-
-<button onclick="history.back()">Back</button>
-
+<br>
 <form action="/grocery/{{list_name}}/edit" method="GET" >
     <input type="submit" value="Edit list">
 </form>
+<br>
+<br>
+<button onclick="history.back()">Back</button>
 
 {% endblock %}

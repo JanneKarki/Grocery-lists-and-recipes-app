@@ -5,43 +5,43 @@
 
 
 <h1>Products</h1>
-<button onclick="history.back()">Back</button>
+
+<form action="/products" onsubmit="check_add_to_shopping_list()" method="POST">
+    Save product to database:<br>
+    <input type="text" name="name" id="product_name" minlength="1" maxlength="20"> <input type="submit" value="Save product"><p>
+    <input type="hidden" name="checked_products" id="checked_products1" value="" /> 
+
+    <input type="hidden" name="add_to_shopping_list" id="add" value="0" /> 
+    <span><input type="checkbox" class="shop" id="check' + '" name="check' +  '">
+     Send product also to basket</span>
+</form>
 <br>
 <br>
 
+<h3>Select products for basket:</h3>
 <div class="body">
+    
     {% for entry in products %} 
     <table>
         <input type="checkbox" class="checkboxes" id="check' + '" name="check' +  '">    <label for="check' +  '">{{ entry[1] }}</label>
         {% endfor %}
     </table>
 </div>
+<br>
 
 <form action="/products" onsubmit="get_checked_products()" method="POST">
    <br>
    <input type="hidden" name="name" />  
    <input type="hidden" name="checked_products" id="checked_products" value="" />  
-    <input type="submit" value="Shop selected">
-   
-</form>
-<br>
-<br>
 
-
-<form action="/products" onsubmit="check_add_to_shopping_list()" method="POST">
-    Name:<br>
-    <input type="text" name="name" id="product_name" minlength="1" maxlength="20"> <input type="submit" value="Add to products"><p>
-    <input type="hidden" name="checked_products" id="checked_products1" value="" /> 
-
-    <input type="hidden" name="add_to_shopping_list" id="add" value="0" /> 
-    <input type="checkbox" class="shop" id="check' + '" name="check' +  '"> 
-    <label for="add"> Add also to shopping list</label>
-
-    <br>
-    
+   <input type="submit" value="Send to basket">
    
 </form>
 
+<br>
+<br>
+<br>
+<button onclick="history.back()">Back</button>
 
 
 <script type="text/javascript">

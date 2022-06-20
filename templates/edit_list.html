@@ -34,18 +34,23 @@
     <br>
 </table> 
 <br>
-<br>
-<br>
+
 <form action="/grocery/{{list_name}}/edit" method="POST" onsubmit="get_inputs()">
         
         <input type="hidden" name="list_name" id="list_name" value="{{list_name}}">
         <input type="hidden" name="lines" id="lines" value="tre">
         <input type="hidden" name="missingInput" id="missingInput" value="">
-        <input type="button" value="New line" onclick="add_new_line_to_basket()">
-        <input type="button" id="button" value="Remove line" class="remove" onclick="remove_elements()">
+        <input type="button" value="+ Product" onclick="add_new_line_to_basket()">
+        <input type="button" id="button" value="- Product" class="remove" onclick="remove_elements()">
+        <br>
+        <br>
+        <br>
         <input type="submit" value="Save changes">
 </form>
-      
+
+<br>
+<br>
+<button onclick="history.back()">Back</button>
 
 <script type="text/javascript">
     var i=0;
