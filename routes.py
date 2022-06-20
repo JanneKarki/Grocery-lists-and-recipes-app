@@ -184,8 +184,12 @@ def show_basket():
 
 @app.route("/recipes/<string:name>", methods=["GET", "POST"])
 def recipe(name):
+
     user_id = users.get_user_id()
+
     recipe_id = recipes.get_recipe_id(name)
+    
+    maker = recipes.get_recipe_maker(recipe_id)
     
     ingredients_data = recipes.get_recipe_ingredients(recipe_id)
         
@@ -193,12 +197,13 @@ def recipe(name):
 
     if request.method == "GET":
        
-        return render_template("recipe.html", recipe_name=name, ingredients=ingredients_data, instructions=instructions_data)
+        return render_template("recipe.html", recipe_name=name, ingredients=ingredients_data, instructions=instructions_data, user=maker)
 
     if request.method == "POST":
 
         basket.add_recipe_to_basket(user_id, recipe_id)
-        return render_template("recipe.html", recipe_name=name, ingredients=ingredients_data, instructions=instructions_data)
+        
+        return render_template("recipe.html", recipe_name=name, ingredients=ingredients_data, instructions=instructions_data, user=maker)
 
 
 
