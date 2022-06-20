@@ -21,11 +21,11 @@
 </div>
 
 <br>
-
+{% if session.username %}
 <form action="/recipes/{{recipe_name}}" method="post">
     <input type="submit" value="Shop Recipe">
-
 </form>
+{% endif %}
 
 {% if session.username == user[0] %}
 <form action="/recipes/{{recipe_name}}/edit" method="get" >
