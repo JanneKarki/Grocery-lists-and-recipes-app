@@ -99,8 +99,6 @@ def show_products():
             print(checked_products, "checekd products")
             basket.format_and_send_to_basket(user_id, checked_products)
 
-           
-
         
         products.add_product(name)
 
@@ -192,7 +190,8 @@ def recipe(name):
     user_id = users.get_user_id()
 
     recipe_id = recipes.get_recipe_id(name)
-    
+    count = recipes.count_recipes()
+    print(count)
     maker = recipes.get_recipe_maker(recipe_id)
     
     ingredients_data = recipes.get_recipe_ingredients(recipe_id)
