@@ -33,9 +33,11 @@
     <form action="/products" method="GET">
         <input type="submit" value="Products">
         </form>
+    {% if session.username %}
     <form action="/user">
         <input type="submit" value="My Page">
         </form>
+    {% endif %}
     <a href="/basket"><span align="right" class="iconify" data-icon="fa:shopping-basket"></span></a> 
 </div>
 
