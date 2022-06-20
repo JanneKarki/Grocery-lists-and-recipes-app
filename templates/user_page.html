@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h1>{{user}}'s page</h1> 
+
+<h3>Recipes</h3>
+
+<div class="body">
+    {% for entry in user_recipes %} 
+    <table>
+           <a href = "/recipes/{{ entry[0] }}"> {{ entry[0] }}</a>
+    {% endfor %}
+    </table>
+</div>
+
+
+<div class="body">
+    {% for entry in user_lists %} 
+    <table>
+           <a href = "/grocery/{{ entry[0] }}"> {{ entry[0] }}</a>
+        {% endfor %}
+    </table>
+</div>
+
+
+
+{% endblock %}
