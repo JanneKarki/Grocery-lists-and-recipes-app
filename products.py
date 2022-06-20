@@ -2,7 +2,7 @@ from db import db
 
 
 def get_products():
-    sql = "SELECT * FROM products"
+    sql = "SELECT * FROM products ORDER by name"
     products_list = db.session.execute(sql).fetchall()
     return products_list
 
@@ -10,9 +10,7 @@ def add_product(name):
 
     product = find_product(name)
     
-
     if not product:
-        print("not product in the list")
         sql = """INSERT INTO products (name)
                         VALUES (:name) RETURNING id"""
         product_id = db.session.execute(sql, {"name":name}).fetchone()
