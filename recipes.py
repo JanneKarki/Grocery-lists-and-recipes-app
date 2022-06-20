@@ -15,8 +15,6 @@ def add_recipe(name, instructions, ingredients, user_id):
     ingredients_list = ingredients.split()
 
     add_ingredients(ingredients_list, recipes_id)
-   
-
 
     return recipes_id
 
@@ -37,29 +35,39 @@ def add_ingredients(ingredients_list, recipes_id):
 
 def get_recipes():
 
-    sql = "SELECT * FROM recipes"
+    sql = "SELECT * FROM recipes ORDER BY name"
+
     recipes_list = db.session.execute(sql).fetchall()
+
     return recipes_list
 
 def get_recipe_instructions(id):
+
     sql = "SELECT instructions FROM recipes WHERE id=:id"
+
     result = db.session.execute(sql, {"id":id}).fetchall()
+
     return result[0] 
 
 def get_recipe_ingredients(id):
-    print(id)
+
     sql = "SELECT products.name, ingredients.amount, ingredients.unit FROM ingredients, products WHERE ingredients.recipes_id=:id AND ingredients.product_id=products.id "
+    
     result = db.session.execute(sql, {"id":id}).fetchall()
+    
     return result
 
 def get_recipe_id(name):
+
     sql = "SELECT id FROM recipes WHERE name=:name"
+
     result = db.session.execute(sql, {"name":name}).fetchone()
+
     return result[0]
 
 def get_user_recipes(user_id):
 
-    sql = "SELECT name FROM recipes WHERE  user_id=:user_id"
+    sql = "SELECT name FROM recipes WHERE  user_id=:user_id ORDER BY name"
 
     result = db.session.execute(sql, {"user_id":user_id}).fetchall()
 
