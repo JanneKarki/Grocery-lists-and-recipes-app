@@ -4,84 +4,60 @@
 
 <h1>Edit recipe: {{recipe_name}}</h1>
 
-<form action="/recipes/{{recipe_name}}/edit" method="POST" >
+<form action="/recipes/{{recipe_name}}/edit" method="POST" onsubmit="get_inputs()" >
+    <input type="hidden" name="lines" id="lines" value="tre">
+    <input type="hidden" name="missingInput" id="missingInput" value="">
+    <input type="hidden" name="ingredients" id="ingredients">
+
+    <h3>Instructions:</h3>
+    <textarea name="instructions" rows="10", cols="20" >{{instructions[0]}}</textarea>
+       
+    <input type="hidden" name="myField" id="myField" />    
+
+    <table id="myTable">
+        <tr align="left"><th><h3>Ingredients:</h3></th></tr>
+        <tr >
+            <th >Product</th><br>
+            <th >Amount</th>
+            <th >Unit</th>
+        </tr>
+        {% for entry in ingredients %}
+        <tr>
+            <td><input id="ingredient" name="ingredient" type="text" value = {{ entry[0] }} ></td>
+            <td><input id="amount" name="amount" type="text" value = {{ entry[1]}} ></td>
+        
+            <td><select name="unit" id="unit">
+            <option val="">{{entry[2]}}</option>
+            <option val="kg">kg</option>
+            <option val="g">g</option>
+            <option val="dl">dl</option>
+            <option val="l">l</option>
+            <option val="tl">tl</option>
+            <option val="rkl">rkl</option>
+            <option val="kpl">kpl</option>
+            </select></td>
+        </tr>
+        {% endfor %}  
+        <br>
+    </table>
+    <br> 
     
-    <br> <input type="hidden" name="ingredients" id="ingredients">
-    
-    Instructions:<br><textarea name="instructions" rows="10", cols="20" >{{instructions[0]}}</textarea>
+    <input type="button" value="New ingredient" onclick="add_new_line()">
+    <input type="button" id="button" value="Remove ingredient" class="remove" onclick="remove_line()">
     <br>
-
-
-    <input type="hidden" name="myField" id="myField" />
-
-    Incredients
-    <div id="container">
-        <input id="ingredient" type="text" value= >
-        <input id="amount" type="text">
-
-        <select name="unit" id="unit">
-            <option val="">Please choose</option>
-            <option val="1">kg</option>
-            <option val="2">g</option>
-            <option val="3">dl</option>
-            <option val="4">l</option>
-            <option val="5">tl</option>
-            <option val="6">rkl</option>
-            <option val="7">kpl</option>
-
-        </select>   
-
-        <input value="Add" type="button"  onClick="add()">
-        <input type="button" value="Remove" onclick = "del_inputs();" />
-
-    </div>
-
     <br>
-    <input type="submit" value="Save changes" method="post">
+    <input type="submit" value="Save changes" method="POST">
+
 </form>
-
+<br>
 <br>
 <button onclick="history.back()">Back</button>
-
-
-<table id="myTable">
-    {% for entry in ingredients %}
-    <tr>
-      <td><input id="ingredient" name="ingredient" type="text" value = {{ entry[0] }} ></td>
-
-      <td><input id="amount" name="amount" type="text" value = {{ entry[1]}} ></td>
-    
-        <td><select name="unit" id="unit">
-        <option val="">{{entry[2]}}</option>
-        <option val="kg">kg</option>
-        <option val="g">g</option>
-        <option val="dl">dl</option>
-        <option val="l">l</option>
-        <option val="tl">tl</option>
-        <option val="rkl">rkl</option>
-        <option val="kpl">kpl</option>
-        </select></td>
-    </tr>
-        {% endfor %}  
-    <br>
-</table> 
 <br>
-<br>
-<br>
-<form action="/recipes/{{recipe_name}}/edit" method="POST" onsubmit="get_inputs()">
-  Name: <input type="text" name="name" minlength="1" maxlength="30">
-        <input type="submit" value="Save list">
-        <input type="hidden" name="lines" id="lines" value="tre">
-        <input type="hidden" name="missingInput" id="missingInput" value="">
-        <input type="button" value="New line" onclick="add_new_line_to_basket()">
-        <input type="button" id="button" value="Remove line" class="remove" onclick="remove_elements()">
-</form>
-      
 
 <script type="text/javascript">
     var i=0;
 
-    function add_new_line_to_basket(){
+    function add_new_line(){
 
         var table = document.getElementById("myTable");
 
@@ -116,7 +92,7 @@
         table.append(tr)
     }
             
-    function remove_elements() {
+    function remove_line() {
 
         var elements = document.getElementsByTagName("tr")
 
@@ -134,9 +110,8 @@
         var amounts = document.querySelectorAll("#amount");
         var units = document.querySelectorAll("#unit");
         var string = ""
-
+       
         for(var i = 0; i<ingredients.length; i++){
-            
             var ingredient = ingredients[i].value;
             var amount = amounts[i].value;
             var unit = units[i].value;
@@ -155,69 +130,14 @@
         return string;
 
     }
-
     function update_hidden_element(){
         var hidden_field = document.getElementById('ingredients').value
-
         var ingredient   =document.getElementById('ingredient').value;
         var amount =document.getElementById('amount').value
         var unit =document.getElementById('unit').value
-
         document.getElementById('ingredients').value = hidden_field + " " + ingredient + " " + amount + " " + unit + " ";
-    }
-
-    function add(){    
-        if (document.getElementById('ingredient').value!='') 
-            update_hidden_element()
-            
-            var ingredient   =document.getElementById('ingredient').value;
-            var amount =document.getElementById('amount').value
-            var unit =document.getElementById('unit').value
-         
-
-            var node = document.createElement('div');        
-            node.innerHTML = '<input type="checkbox" class="checkboxes" id="check' + '" name="check' +  '">    <label for="check' +  '">'+ " " + ingredient + " " + amount + " " + unit + '</label>';       
-            document.getElementById('container').appendChild(node); 
-
-    
-}
-               
-    function del_inputs(){
-        var boxes = document.getElementsByClassName('checkboxes');
-        var labels = document.getElementsByTagName('label');
-   
-        for(var i = 0; i<boxes.length; i++){
-            box = boxes[i];
-            label = labels[i];
-            
-            if(box.checked){
-                box.parentNode.removeChild(box);
-                label.parentNode.removeChild(label);
-              
-            }
-        }
-        document.getElementById('ingredients').value = get_inputs()
-
-    }   
-
-    function get_inputs(){
-        var ingredients_array = new Array();
-        var string = ""
-        var labels = document.getElementsByTagName('label');
-   
-        for(var i = 0; i<labels.length; i++){
-           
-            label = labels[i];
-            string += label.textContent
-            ingredients_array.push(label.textContent);
-            
-        }
-        
-        return string;
-    }
-
-  
-    </script>
+    } 
+</script>
 
 
 {% endblock %}
