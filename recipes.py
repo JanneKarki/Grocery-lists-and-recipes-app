@@ -33,6 +33,7 @@ def add_ingredients(ingredients_list, recipes_id):
         db.session.execute(sql, {"recipes_id":recipes_id, "product_id":product_id, "amount":amount, "unit":unit })
         db.session.commit()    
 
+
 def get_recipes():
 
     sql = "SELECT * FROM recipes ORDER BY name"
@@ -40,6 +41,7 @@ def get_recipes():
     recipes_list = db.session.execute(sql).fetchall()
 
     return recipes_list
+
 
 def get_recipe_instructions(id):
 
@@ -49,6 +51,7 @@ def get_recipe_instructions(id):
 
     return result[0] 
 
+
 def get_recipe_ingredients(id):
 
     sql = "SELECT products.name, ingredients.amount, ingredients.unit FROM ingredients, products WHERE ingredients.recipes_id=:id AND ingredients.product_id=products.id "
@@ -56,6 +59,7 @@ def get_recipe_ingredients(id):
     result = db.session.execute(sql, {"id":id}).fetchall()
     
     return result
+
 
 def get_recipe_id(name):
 
@@ -65,6 +69,7 @@ def get_recipe_id(name):
 
     return result[0]
 
+
 def get_user_recipes(user_id):
 
     sql = "SELECT name FROM recipes WHERE  user_id=:user_id ORDER BY name"
@@ -72,6 +77,7 @@ def get_user_recipes(user_id):
     result = db.session.execute(sql, {"user_id":user_id}).fetchall()
 
     return result
+
 
 def update_recipe(recipe_id, instructions, ingredients):
 
@@ -87,6 +93,7 @@ def update_recipe(recipe_id, instructions, ingredients):
 
     return
 
+
 def _update_recipe_ingredients(recipe_id, ingredients):
 
     sql = "DELETE FROM ingredients WHERE recipes_id=:recipe_id"
@@ -97,11 +104,21 @@ def _update_recipe_ingredients(recipe_id, ingredients):
     
     return
 
+
 def get_recipe_maker(recipe_id):
 
     sql = "SELECT users.username FROM users, recipes WHERE users.id=recipes.user_id AND recipes.id=:recipe_id"
 
     result =db.session.execute(sql, {"recipe_id":recipe_id}).fetchone()
+
+    return result
+
+
+def count_recipes():
+    
+    sql = "SELECT COUNT(*) FROM recipes"
+
+    result = db.session.execute(sql).fetchone()[0]
 
     return result
 
