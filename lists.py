@@ -29,7 +29,7 @@ def create_grocery_list(name, user_id):
 
 def get_all_grocery_lists():
 
-    sql = "SELECT * FROM lists"
+    sql = "SELECT * FROM lists ORDER BY name"
 
     result = db.session.execute(sql).fetchall()
 
@@ -74,7 +74,7 @@ def update_grocery_list(list_id, shop_list):
 
 def get_user_lists(user_id):
 
-    sql = "SELECT name FROM lists WHERE user_id=:user_id"
+    sql = "SELECT name FROM lists WHERE user_id=:user_id ORDER BY name"
 
     result = db.session.execute(sql, {"user_id":user_id}).fetchall()
 
