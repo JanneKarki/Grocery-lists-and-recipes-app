@@ -75,4 +75,12 @@ def update_recipe(recipe_id, instructions, ingredients):
 
     return
 
+def get_recipe_maker(recipe_id):
+
+    sql = "SELECT users.username FROM users, recipes WHERE users.id=recipes.user_id AND recipes.id=:recipe_id"
+
+    result =db.session.execute(sql, {"recipe_id":recipe_id}).fetchone()
+
+    return result
+
 
