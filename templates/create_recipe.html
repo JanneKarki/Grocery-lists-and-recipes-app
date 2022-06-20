@@ -5,111 +5,129 @@
 <h1>Write new recipe</h1>
 
 
-<form action="/recipes/create_recipe" method="POST" >
-    Name: <br><input type="text" name="name" minlength="1" maxlength="30">
+<form action="/recipes/create_recipe" method="POST" onsubmit="get_inputs()">
+    <h3>Name for the recipe:</h3> 
+    <input type="text" name="name" minlength="1" maxlength="30" size="45">
+    <input type="hidden" name="lines" id="lines" value="tre">
+    <input type="hidden" name="missingInput" id="missingInput" value="">
     
-    <br> <input type="hidden" name="ingredients" id="ingredients">
-    
-    Instructions:<br><textarea name="instructions" rows="10", cols="20"></textarea>
+    <h3>Write instructions for the recipe:</h3>
+    <textarea name="instructions" rows="10", cols="36"></textarea>
+    <table id="myTable">
+        <tr align="left">
+            <th >Ingredient</th><br>
+            <th >Amount</th>
+            <th >Unit</th>
+        </tr>
+        <tr>
+            <td><input id="ingredient" name="ingredient" type="text" value = "" ></td>
+            <td><input id="amount" name="amount" type="text" value = "" size="10" ></td>
+            <td><select name="unit" id="unit">
+            <option val=""></option>
+            <option val="kg">kg</option>
+            <option val="g">g</option>
+            <option val="dl">dl</option>
+            <option val="l">l</option>
+            <option val="tl">tl</option>
+            <option val="rkl">rkl</option>
+            <option val="kpl">kpl</option>
+            </select></td>
+        </tr>
+ 
+        
+    </table>
     <br>
-
-
-    <input type="hidden" name="myField" id="myField" value="" />
-
-    Incredients
-    <div id="container">
-        <input id="ingredient" type="text"  >
-        <input id="amount" type="text">
-
-        <select name="unit" id="unit">
-            <option val="">Please choose</option>
-            <option val="1">kg</option>
-            <option val="2">g</option>
-            <option val="3">dl</option>
-            <option val="4">l</option>
-            <option val="5">tl</option>
-            <option val="6">rkl</option>
-            <option val="7">kpl</option>
-
-        </select>   
-
-        <input value="Add" type="button"  onClick="add()">
-        <input type="button" value="Remove" onclick = "del_inputs();" />
-
-    </div>
-
     <br>
-    <input type="submit" value="Create Recipe">
-    </form>
+    <input type="button" value="+ Ingredient" onclick="add_new_line()">
+    <input type="button" id="button" value="- Ingredient" class="remove" onclick="remove_line()">
+    <br>
+    <br>
+    <br>
+    <input type="submit" value="Create recipe" method="POST">
+</form>
 
 <br>
 <button onclick="history.back()">Back</button>
 
 <script type="text/javascript">
     var i=0;
-    
 
-    function update_hidden_element(){
-        var hidden_field = document.getElementById('ingredients').value
+    function add_new_line(){
 
-        var ingredient   =document.getElementById('ingredient').value;
-        var amount =document.getElementById('amount').value
-        var unit =document.getElementById('unit').value
+        var table = document.getElementById("myTable");
 
-        document.getElementById('ingredients').value = hidden_field + " " + ingredient + " " + amount + " " + unit + " ";
+        var tr = document.createElement('tr');
+        var elements = document.getElementsByTagName("td")
+        var unit = elements[2]
+
+        var input_ingredient = document.createElement("input")
+        var input_amount = document.createElement("input")
+        var td_ingredient = document.createElement("td")
+        var td_amount = document.createElement("td")
+
+        input_ingredient.type = "text"
+        input_ingredient.id = "ingredient"
+        input_ingredient.name = "ingredient"
+        input_ingredient.value = ""
+
+        input_amount.type = "text"
+        input_amount.id = "amount"
+        input_amount.name = "amount"
+        input_amount.value = ""
+        input_amount.size = "10"
+
+        td_ingredient.append(input_ingredient)
+        td_amount.append(input_amount)
+
+        var clone_unit = unit.cloneNode(true)
+
+        tr.appendChild(td_ingredient)
+        tr.appendChild(td_amount)
+        tr.appendChild(clone_unit)
+
+        table.append(tr)
     }
-
-    function add(){    
-        if (document.getElementById('ingredient').value!='') 
-            update_hidden_element()
             
-            var ingredient   =document.getElementById('ingredient').value;
-            var amount =document.getElementById('amount').value
-            var unit =document.getElementById('unit').value
-         
+    function remove_line() {
 
-            var node = document.createElement('div');        
-            node.innerHTML = '<input type="checkbox" class="checkboxes" id="check' + '" name="check' +  '">    <label for="check' +  '">'+ " " + ingredient + " " + amount + " " + unit + '</label>';       
-            document.getElementById('container').appendChild(node); 
+        var elements = document.getElementsByTagName("tr")
 
-    
-}
-               
-    function del_inputs(){
-        var boxes = document.getElementsByClassName('checkboxes');
-        var labels = document.getElementsByTagName('label');
-   
-        for(var i = 0; i<boxes.length; i++){
-            box = boxes[i];
-            label = labels[i];
-            
-            if(box.checked){
-                box.parentNode.removeChild(box);
-                label.parentNode.removeChild(label);
-              
-            }
+        if(elements.length > 2){
+        var last = elements.length-1;
+        elements[last].parentNode.removeChild(elements[last])
         }
-        document.getElementById('ingredients').value = get_inputs()
-
-    }   
+            
+        return false;
+    }
 
     function get_inputs(){
-        var ingredients_array = new Array();
+
+        var ingredients = document.querySelectorAll("#ingredient");
+        var amounts = document.querySelectorAll("#amount");
+        var units = document.querySelectorAll("#unit");
         var string = ""
-        var labels = document.getElementsByTagName('label');
-   
-        for(var i = 0; i<labels.length; i++){
-           
-            label = labels[i];
-            string += label.textContent
-            ingredients_array.push(label.textContent);
-            
+       
+        for(var i = 0; i<ingredients.length; i++){
+            var ingredient = ingredients[i].value;
+            var amount = amounts[i].value;
+            var unit = units[i].value;
+
+            if (ingredient.length === 0 || amount.length === 0 || unit.length === 0){
+            alert("Empty inputs")
+            document.getElementById("missingInput").value = "1"
+            break
+            }
+
+            string += ingredient + " " + amount + " " + unit + " "
         }
+
+        document.getElementById('lines').value = string
         
         return string;
+
     }
 
-  
+</script>
     </script>
 
 
