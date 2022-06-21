@@ -227,8 +227,7 @@ def edit_list(name):
     user_id = users.get_user_id()
     list_id = lists.get_list_id(name)
     grocery_list = lists.get_grocery_list(list_id)
-    allow = recipes.allow_to_edit(user_id, list_id)
-    print(list_id)
+    allow = lists.allow_to_edit(user_id, list_id)
     
     if not allow:
         return render_template("error.html", message="Oops, no rights to enter this page!")
