@@ -214,16 +214,11 @@ def recipe(name):
 @app.route("/grocery/<string:name>", methods=["GET", "POST"])
 def list(name):
 
-    id = lists.get_list_id(name)
-    print(id)
+    list_id = lists.get_list_id(name)
+    maker = lists.get_list_maker(list_id)
+    grocery_list = lists.get_grocery_list(list_id)
 
-    grocery_list = lists.get_grocery_list(id)
-
-    #ingredients_data = recipes.get_recipe_ingredients(id)
-    
-    #instructions_data = recipes.get_recipe_instructions(id)
-
-    return render_template("list.html", list_name=name, items=grocery_list )
+    return render_template("list.html", list_name=name, items=grocery_list, user=maker)
 
 
 @app.route("/grocery/<string:name>/edit", methods=["GET", "POST"])

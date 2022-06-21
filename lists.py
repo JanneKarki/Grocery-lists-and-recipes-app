@@ -92,3 +92,11 @@ def allow_to_edit(user_id, recipe_id):
     
     return False
 
+def get_list_maker(list_id):
+
+    sql = "SELECT users.username FROM users, lists WHERE users.id=lists.user_id AND lists.id=:list_id"
+
+    result =db.session.execute(sql, {"list_id":list_id}).fetchone()
+
+    return result
+
