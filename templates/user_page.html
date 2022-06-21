@@ -2,9 +2,9 @@
 
 {% block content %}
 
-<h1>{{user}}'s page</h1> 
+<h2>My page</h2> 
 
-<h3>Recipes</h3>
+<h3>{{user}}'s Recipes</h3>
 
 <div class="body">
     {% for entry in user_recipes %} 
@@ -14,7 +14,7 @@
     </table>
 </div>
 
-<h3>Grocery Lists</h3>
+<h3>{{user}}'s Shopping Lists</h3>
 
 <div class="body">
     {% for entry in user_lists %} 
@@ -23,7 +23,6 @@
         {% endfor %}
     </table>
 </div>
-
 
 
 {% endblock %}
