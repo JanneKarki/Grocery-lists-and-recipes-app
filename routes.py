@@ -261,7 +261,7 @@ def edit_recipe(name):
     allow = recipes.allow_to_edit(user_id, recipe_id)
 
     if not allow:
-        return render_template("error.html", message="Oops, no rights to enter this page")
+        return render_template("error.html", message="Oops, no rights to enter this page!")
 
     else:
         if request.method == "GET":
