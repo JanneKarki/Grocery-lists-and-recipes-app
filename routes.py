@@ -89,11 +89,9 @@ def show_products():
         return render_template("products.html",products=products_list)
     
     if request.method == "POST":
-        name = request.form["name"]
+        name = request.form["product_name"]
 
         checked_products = request.form["checked_products"]
-
-        print(checked_products, "asödlfkaskdf")
 
         if checked_products != "":
             print(checked_products, "checekd products")
