@@ -91,7 +91,6 @@ def update_recipe(recipe_id, instructions, ingredients):
 
     _update_recipe_ingredients(recipe_id, ingredients)
 
-    return
 
 
 def _update_recipe_ingredients(recipe_id, ingredients):
@@ -102,7 +101,6 @@ def _update_recipe_ingredients(recipe_id, ingredients):
 
     add_ingredients(ingredients, recipe_id)
     
-    return
 
 
 def get_recipe_maker(recipe_id):
@@ -121,6 +119,7 @@ def count_recipes():
     result = db.session.execute(sql).fetchone()[0]
 
     return result
+
 
 def allow_to_edit(user_id, recipe_id):
 
