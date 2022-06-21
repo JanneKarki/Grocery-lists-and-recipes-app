@@ -132,3 +132,20 @@ def allow_to_edit(user_id, recipe_id):
     
     return False
 
+def random_recipe():
+
+    sql = "SELECT name FROM recipes ORDER BY RANDOM() LIMIT 1"
+
+    result = db.session.execute(sql).fetchone()
+
+    return result[0]
+
+def random_weekend_menu():
+
+    sql = "SELECT name FROM recipes ORDER BY RANDOM() LIMIT 3"
+
+    result = db.session.execute(sql).fetchall()
+
+    print(result)
+
+    return result

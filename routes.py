@@ -10,7 +10,11 @@ import lists
 
 @app.route("/")
 def index():
-    return render_template("index.html") 
+
+    random_recipe = recipes.random_recipe()
+    weekend_menu = recipes.random_weekend_menu()
+    recipes_count = recipes.count_recipes()
+    return render_template("index.html", today=random_recipe, weekend=weekend_menu ,count=recipes_count) 
 
 
 @app.route("/login", methods=["GET","POST"])
@@ -62,7 +66,7 @@ def logout():
 
 @app.route("/recipes", methods=["GET", "POST"])
 def show_recipes():
-
+    recipes.random_recipe()
     recipes_list = recipes.get_recipes()
 
     return render_template("recipes.html", recipes=recipes_list)

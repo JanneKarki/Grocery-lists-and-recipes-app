@@ -4,7 +4,27 @@
 
 What to eat today?
 
-How 'bout: '
+How 'bout <a href = "/recipes/{{ today }}"> {{ today }}</a>?
+
+<br>
+<br><br>
+
+Weekend menu?
+
+
+
+    {% for entry in weekend %} 
+    <p>
+    <table>
+        <a href = "/recipes/{{ today }}"> {{ entry[0] }}</a>
+        {% endfor %}
+    </table>
+</p>
+
+<br>
+<br>
+
+Total recipes in db: {{ count }}
 
 {% endblock %}
 {% block title %}Etusivu{% endblock %}
