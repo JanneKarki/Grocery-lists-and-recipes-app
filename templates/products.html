@@ -4,7 +4,7 @@
 {% block content %}
 
 
-<h1>Products</h1>
+<h1>Products database</h1>
 
 <form action="/products" onsubmit="check_add_to_shopping_list()" method="POST">
     Save product to database:<br>
@@ -13,27 +13,24 @@
 
     <input type="hidden" name="add_to_shopping_list" id="add" value="0" /> 
     <span><input type="checkbox" class="shop" id="check' + '" name="check' +  '">
-     Send product also to basket</span>
+     Send product also to my basket</span>
 </form>
 <br>
 <br>
 
-<h3>Select products for basket:</h3>
+<p>Select products for basket:</p>
 <div class="body">
-    
     {% for entry in products %} 
     <table>
         <input type="checkbox" class="checkboxes" id="check' + '" name="check' +  '">    <label for="check' +  '">{{ entry[1] }}</label>
         {% endfor %}
     </table>
 </div>
-<br>
 
 <form action="/products" onsubmit="get_checked_products()" method="POST">
-   <br>
    <input type="hidden" name="name" />  
-   <input type="hidden" name="checked_products" id="checked_products" value="" />  
-
+   <input type="hidden" name="checked_products" id="checked_products" value="" /> 
+   <br> 
    <input type="submit" value="Send to basket">
    
 </form>
