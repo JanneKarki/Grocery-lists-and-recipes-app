@@ -229,27 +229,31 @@ def list(name):
 @app.route("/grocery/<string:name>/edit", methods=["GET", "POST"])
 def edit_list(name):
 
+    user_id = users.get_user_id()
     list_id = lists.get_list_id(name)
-    print(list_id)
-
     grocery_list = lists.get_grocery_list(list_id)
-
-    if request.method == "GET":
-        
-        return render_template("edit_list.html", list_name=name, items=grocery_list )
-
-    if request.method == "POST":
-        missing_input = request.form["missingInput"]
-        shop_list = request.form["lines"]
-        
-        if missing_input == "":
-            lists.update_grocery_list(list_id, shop_list)
-            grocery_list = lists.get_grocery_list(list_id)
+    allow = recipes.allow_to_edit(user_id, list_id)
+    print(list_id)
+    
+    if not allow:
+        return render_template("error.html", message="Oops, no rights to enter this page!")
+    else:
+        if request.method == "GET":
             
+            return render_template("edit_list.html", list_name=name, items=grocery_list )
 
-            return render_template("list.html", list_name=name, items=grocery_list)
-        else:
-            return render_template("list.html", list_name=name, items=grocery_list)
+        if request.method == "POST":
+            missing_input = request.form["missingInput"]
+            shop_list = request.form["lines"]
+            
+            if missing_input == "":
+                lists.update_grocery_list(list_id, shop_list)
+                grocery_list = lists.get_grocery_list(list_id)
+                
+
+                return render_template("list.html", list_name=name, items=grocery_list)
+            else:
+                return render_template("list.html", list_name=name, items=grocery_list)
                 
 
 @app.route("/recipes/<string:name>/edit", methods=["GET", "POST"])

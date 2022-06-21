@@ -79,3 +79,16 @@ def get_user_lists(user_id):
     result = db.session.execute(sql, {"user_id":user_id}).fetchall()
 
     return result
+
+
+def allow_to_edit(user_id, recipe_id):
+
+    sql = "SELECT * FROM lists WHERE id=:list_id AND user_id=:user_id"
+
+    result = db.session.execute(sql, {"list_id":recipe_id, "user_id":user_id}).fetchone()
+
+    if result:
+        return True
+    
+    return False
+
