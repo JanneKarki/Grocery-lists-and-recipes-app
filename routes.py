@@ -214,9 +214,18 @@ def recipe(name):
 @app.route("/grocery/<string:name>", methods=["GET", "POST"])
 def list(name):
 
+    user_id = users.get_user_id()
     list_id = lists.get_list_id(name)
     maker = lists.get_list_maker(list_id)
     grocery_list = lists.get_grocery_list(list_id)
+
+    if request.method == "GET":
+
+        return render_template("list.html", list_name=name, items=grocery_list, user=maker)
+
+    if request.method == "POST":
+
+        basket.add_list_to_basket(user_id, list_id)
 
     return render_template("list.html", list_name=name, items=grocery_list, user=maker)
 

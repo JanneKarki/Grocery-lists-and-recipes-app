@@ -1,6 +1,7 @@
 from db import db
 import products
 import recipes
+import lists
 
 def add_to_basket(user_id, product_list):
 
@@ -40,6 +41,13 @@ def add_recipe_to_basket(user_id, recipe_id):
     ingredients = recipes.get_recipe_ingredients(recipe_id)
 
     add_to_basket(user_id, ingredients)
+    
+
+def add_list_to_basket(user_id, list_id):
+
+    grocery_list = lists.get_grocery_list(list_id)
+
+    add_to_basket(user_id, grocery_list)
     
 
 def format_and_send_to_basket(user_id, products_string):
