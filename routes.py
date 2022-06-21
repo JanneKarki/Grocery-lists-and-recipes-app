@@ -255,33 +255,36 @@ def edit_list(name):
 @app.route("/recipes/<string:name>/edit", methods=["GET", "POST"])
 def edit_recipe(name):
 
-    print(request.method)
-
+    user_id = users.get_user_id()
     recipe_id = recipes.get_recipe_id(name)
-    
     maker = recipes.get_recipe_maker(recipe_id)
+    allow = recipes.allow_to_edit(user_id, recipe_id)
 
-    if request.method == "GET":
+    if not allow:
+        return render_template("error.html", message="Oops, no rights to enter this page")
 
-        recipe_ingredients = recipes.get_recipe_ingredients(recipe_id)
+    else:
+        if request.method == "GET":
 
-        recipe_instructions = recipes.get_recipe_instructions(recipe_id)
+            recipe_ingredients = recipes.get_recipe_ingredients(recipe_id)
 
-        return render_template("edit_recipe.html", recipe_name=name, ingredients=recipe_ingredients, instructions=recipe_instructions, user=maker)
+            recipe_instructions = recipes.get_recipe_instructions(recipe_id)
 
-
-    if request.method == "POST":
-
-        instructions = request.form["instructions"]
-        ingredients = request.form["lines"]
-
-        recipes.update_recipe(recipe_id, instructions, ingredients)
-
-        ingredients_data = recipes.get_recipe_ingredients(recipe_id)
-        
-        instructions_data = recipes.get_recipe_instructions(recipe_id)
-
-        print(ingredients, "ingredients data")
+            return render_template("edit_recipe.html", recipe_name=name, ingredients=recipe_ingredients, instructions=recipe_instructions)
 
 
-        return render_template("recipe.html", recipe_name=name, ingredients=ingredients_data, instructions=instructions_data, user=maker)
+        if request.method == "POST":
+
+            instructions = request.form["instructions"]
+            ingredients = request.form["lines"]
+
+            recipes.update_recipe(recipe_id, instructions, ingredients)
+
+            ingredients_data = recipes.get_recipe_ingredients(recipe_id)
+            
+            instructions_data = recipes.get_recipe_instructions(recipe_id)
+
+            print(ingredients, "ingredients data")
+
+
+            return render_template("recipe.html", recipe_name=name, ingredients=ingredients_data, instructions=instructions_data, user=maker)
