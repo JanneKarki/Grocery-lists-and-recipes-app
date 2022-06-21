@@ -14,9 +14,19 @@
     </table>
 </div>
 <br>
+{% if session.username == user[0] %}
 <form action="/grocery/{{list_name}}/edit" method="GET" >
     <input type="submit" value="Edit list">
 </form>
+{% endif %}
+
+{% if session.username %}
+<br>
+<form action="/grocery/{{list_name}}" method="post">
+    <input type="submit" value="Send to basket">
+</form>
+{% endif %}
+
 <br>
 <br>
 <button onclick="history.back()">Back</button>
