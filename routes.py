@@ -26,12 +26,10 @@ def login():
             user_role = request.form["administrator"]
             if not users.login(username, password, user_role):
                 return redirect("/login")
-            print(user_role)
         except:
             if not users.login(username, password, user_role):
                 return redirect("/login")
                
-            
         return redirect("/")
             
        
@@ -46,16 +44,19 @@ def register():
         password_hash_value = generate_password_hash(password)
 
         users.register_user(username, password_hash_value)
-        
-
 
         return redirect("/login")
 
+
 @app.route("/logout")
 def logout():
+
     user_id = users.get_user_id()
+
     del session["username"]
+
     basket.empty_basket(user_id)
+
     return redirect("/")
 
 
@@ -76,7 +77,6 @@ def show_grocery_lists():
         return render_template("grocery.html",lists=grocery_lists)
     
     if request.method == "POST":
-
         return redirect("/grocery")
 
 
@@ -89,15 +89,13 @@ def show_products():
         return render_template("products.html",products=products_list)
     
     if request.method == "POST":
-        name = request.form["product_name"]
 
+        name = request.form["product_name"]
         checked_products = request.form["checked_products"]
 
         if checked_products != "":
-            print(checked_products, "checekd products")
             basket.format_and_send_to_basket(user_id, checked_products)
 
-        
         products.add_product(name)
 
         return redirect("/products")
@@ -110,7 +108,6 @@ def add_recipe():
         return render_template("create_recipe.html")
 
     if request.method == "POST":
-       
         name = request.form["name"]
         instructions = request.form["instructions"]
         ingredients = request.form["lines"]
@@ -128,26 +125,20 @@ def user_page():
     username = session['username']
     user_id = users.get_user_id()
     user_recipes = recipes.get_user_recipes(user_id)
-    print(user_recipes)
     user_lists = lists.get_user_lists(user_id)
-    print(user_lists)
-
 
     if request.method == "GET":
 
         return render_template("user_page.html", user=username, user_recipes=user_recipes, user_lists=user_lists)
 
     if request.method == "POST":
-       
-        hidden = request.form["myField"]
-        print(hidden)
+
         return redirect("/user")
     
 
-
-
 @app.route("/basket", methods=["GET", "POST"])
 def show_basket():
+
     user_id = users.get_user_id()
     user_basket = basket.get_basket(user_id)
 
@@ -160,7 +151,6 @@ def show_basket():
         
         empty_tuple = tuple(empty_list)
         user_basket.append(empty_tuple)
-
 
     if request.method == "GET":    
         return render_template("basket.html", basket=user_basket)
@@ -186,27 +176,18 @@ def show_basket():
 def recipe(name):
 
     user_id = users.get_user_id()
-
     recipe_id = recipes.get_recipe_id(name)
-    count = recipes.count_recipes()
-    print(count)
     maker = recipes.get_recipe_maker(recipe_id)
     
     ingredients_data = recipes.get_recipe_ingredients(recipe_id)
-        
     instructions_data = recipes.get_recipe_instructions(recipe_id)
 
     if request.method == "GET":
-       
         return render_template("recipe.html", recipe_name=name, ingredients=ingredients_data, instructions=instructions_data, user=maker)
 
     if request.method == "POST":
-
         basket.add_recipe_to_basket(user_id, recipe_id)
-        
         return render_template("recipe.html", recipe_name=name, ingredients=ingredients_data, instructions=instructions_data, user=maker)
-
-
 
 
 @app.route("/grocery/<string:name>", methods=["GET", "POST"])
@@ -272,11 +253,9 @@ def edit_recipe(name):
         if request.method == "GET":
 
             recipe_ingredients = recipes.get_recipe_ingredients(recipe_id)
-
             recipe_instructions = recipes.get_recipe_instructions(recipe_id)
 
             return render_template("edit_recipe.html", recipe_name=name, ingredients=recipe_ingredients, instructions=recipe_instructions)
-
 
         if request.method == "POST":
 
@@ -286,10 +265,6 @@ def edit_recipe(name):
             recipes.update_recipe(recipe_id, instructions, ingredients)
 
             ingredients_data = recipes.get_recipe_ingredients(recipe_id)
-            
             instructions_data = recipes.get_recipe_instructions(recipe_id)
-
-            print(ingredients, "ingredients data")
-
 
             return render_template("recipe.html", recipe_name=name, ingredients=ingredients_data, instructions=instructions_data, user=maker)
