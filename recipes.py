@@ -122,4 +122,14 @@ def count_recipes():
 
     return result
 
+def allow_to_edit(user_id, recipe_id):
+
+    sql = "SELECT * FROM recipes WHERE id=:recipe_id AND user_id=:user_id"
+
+    result = db.session.execute(sql, {"recipe_id":recipe_id, "user_id":user_id}).fetchone()
+
+    if result:
+        return True
+    
+    return False
 
