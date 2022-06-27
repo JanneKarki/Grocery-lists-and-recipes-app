@@ -30,7 +30,7 @@ def empty_basket(user_id):
 
 def get_basket(user_id):
 
-    sql = "SELECT products.name, basket.amount, basket.unit FROM products, basket WHERE products.id = basket.product_id AND basket.user_id=user_id" 
+    sql = "SELECT products.name, basket.amount, basket.unit FROM products, basket WHERE products.id = basket.product_id AND basket.user_id=user_id ORDER BY basket.id" 
 
     basket_list = db.session.execute(sql, {"user_id":user_id}).fetchall()
 

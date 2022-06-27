@@ -25,6 +25,7 @@ CREATE TABLE ingredients (
 );
 
 CREATE TABLE basket (
+    id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users,
     product_id INTEGER REFERENCES products,
     amount FLOAT,
