@@ -27,7 +27,6 @@ def login():
         password = request.form["password"]
         user_role = None
         try:
-            user_role = request.form["administrator"]
             if not users.login(username, password, user_role):
                 return redirect("/login")
         except:
@@ -235,7 +234,9 @@ def edit_list(name):
     user_id = users.get_user_id()
     list_id = lists.get_list_id(name)
     grocery_list = lists.get_grocery_list(list_id)
+    maker = lists.get_list_maker(list_id)
     allow = lists.allow_to_edit(user_id, list_id)
+    
     
     if not allow:
         return render_template("error.html", message="Oops, no rights to enter this page!")
@@ -253,9 +254,9 @@ def edit_list(name):
                 grocery_list = lists.get_grocery_list(list_id)
                 
 
-                return render_template("list.html", list_name=name, items=grocery_list)
+                return render_template("list.html", list_name=name, items=grocery_list, user=maker)
             else:
-                return render_template("list.html", list_name=name, items=grocery_list)
+                return render_template("list.html", list_name=name, items=grocery_list, user=maker)
                 
 
 @app.route("/recipes/<string:name>/edit", methods=["GET", "POST"])
