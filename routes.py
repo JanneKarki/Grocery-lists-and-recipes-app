@@ -67,10 +67,24 @@ def logout():
 @app.route("/recipes", methods=["GET", "POST"])
 def show_recipes():
     recipes.random_recipe()
-    recipes_list = recipes.get_recipes()
+    
 
-    return render_template("recipes.html", recipes=recipes_list)
-        
+    if request.method == "GET":
+        recipes_list = recipes.get_recipes()
+        print(recipes_list)
+        return render_template("recipes.html", recipes=recipes_list)
+
+    if request.method == "POST":
+        delete = request.form["delete"]
+        recipe_id = request.form["recipe_id"]
+        print(delete)
+        print(recipe_id)
+        if delete == "yes":
+            recipes.delete_recipe(recipe_id)
+
+        recipes_list = recipes.get_recipes()
+        return render_template("recipes.html", recipes=recipes_list)
+
 
 @app.route("/grocery",  methods=["GET","POST"])
 def show_grocery_lists():
