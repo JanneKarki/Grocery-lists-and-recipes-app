@@ -25,7 +25,6 @@ def login():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
-        user_role = None
         try:
             if not users.login(username, password):
                 return redirect("/login")
@@ -54,12 +53,7 @@ def register():
 @app.route("/logout")
 def logout():
 
-    user_id = users.get_user_id()
-
-    del session["username"]
-
-    basket.empty_basket(user_id)
-
+    users.logout()
     return redirect("/")
 
 

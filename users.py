@@ -3,6 +3,7 @@ import secrets
 from db import db
 from flask import session
 from werkzeug.security import check_password_hash, generate_password_hash
+import basket
 
 def register_user(username, password_hash_value):
 
@@ -33,3 +34,11 @@ def login(username, password):
     
 def get_user_id():
     return session.get("user_id", 0)
+
+def logout():
+    
+    basket.empty_basket(session["user_id"])
+    del session["user_id"]
+    del session["username"]
+    del session["csrf_token"]
+    
