@@ -23,6 +23,7 @@
 {% if session.username %}
 <br>
 <form action="/grocery/{{list_name}}" method="post">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token}}">
     <input type="submit" value="Send to basket">
 </form>
 {% endif %}

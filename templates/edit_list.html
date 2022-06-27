@@ -35,7 +35,7 @@
 </table> 
 <br>
 <form action="/grocery/{{list_name}}/edit" method="POST" onsubmit="get_inputs()">
-        
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token}}">
         <input type="hidden" name="list_name" id="list_name" value="{{list_name}}">
         <input type="hidden" name="lines" id="lines" value="tre">
         <input type="hidden" name="missingInput" id="missingInput" value="">

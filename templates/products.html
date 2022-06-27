@@ -11,7 +11,7 @@
     <input type="text" name="product_name" id="product_name" minlength="1" maxlength="40"> 
     <input type="submit" value="Save product">
     <input type="hidden" name="checked_products" id="checked_products1" value="" /> 
-
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token}}">
     <input type="hidden" name="add_to_shopping_list" id="add" value="0" /> 
     <span><p><input type="checkbox" class="shop" id="check' + '" name="check' +  '">
      Send product also to my basket</span>
@@ -30,7 +30,8 @@
 
 <form action="/products" onsubmit="get_checked_products()" method="POST">
    <input type="hidden" name="product_name" />  
-   <input type="hidden" name="checked_products" id="checked_products" value="" /> 
+   <input type="hidden" name="checked_products" id="checked_products" value="" />
+   <input type="hidden" name="csrf_token" value="{{ session.csrf_token}}">
    <br> 
    <input type="submit" value="Send to basket">
    

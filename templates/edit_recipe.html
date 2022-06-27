@@ -8,11 +8,10 @@
     <input type="hidden" name="lines" id="lines" value="tre">
     <input type="hidden" name="missingInput" id="missingInput" value="">
     <input type="hidden" name="ingredients" id="ingredients">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token}}">
 
     <h3>Instructions:</h3>
     <textarea name="instructions" rows="10", cols="20" >{{instructions[0]}}</textarea>
-       
-    <input type="hidden" name="myField" id="myField" />    
 
     <table id="myTable">
         <tr align="left"><th><h3>Ingredients:</h3></th></tr>

@@ -23,6 +23,7 @@
 <br>
 {% if session.username %}
 <form action="/recipes/{{recipe_name}}" method="post">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token}}">
     <input type="submit" value="Shop Recipe">
 </form>
 {% endif %}

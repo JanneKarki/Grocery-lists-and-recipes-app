@@ -1,6 +1,6 @@
 from db import db
 from app import app
-from flask import  render_template, session, request, redirect
+from flask import  render_template, session, request, redirect, abort
 from werkzeug.security import check_password_hash, generate_password_hash
 import products
 import users
@@ -106,6 +106,10 @@ def show_products():
         return render_template("products.html",products=products_list)
     
     if request.method == "POST":
+        print(session["csrf_token"])
+        print(request.form["csrf_token"])
+        if session["csrf_token"] != request.form["csrf_token"]:
+            return abort(403)
 
         name = request.form["product_name"]
         checked_products = request.form["checked_products"]
@@ -125,6 +129,9 @@ def add_recipe():
         return render_template("create_recipe.html")
 
     if request.method == "POST":
+        if session["csrf_token"] != request.form["csrf_token"]:
+            return abort(403)
+
         name = request.form["name"]
         instructions = request.form["instructions"]
         ingredients = request.form["lines"]
@@ -175,6 +182,9 @@ def show_basket():
         return render_template("basket.html", basket=user_basket)
 
     if request.method == "POST":
+        if session["csrf_token"] != request.form["csrf_token"]:
+            return abort(403)
+
         empty = request.form["empty"]
         if empty == "1":
             basket.empty_basket(user_id)
@@ -205,6 +215,9 @@ def recipe(name):
         return render_template("recipe.html", recipe_name=name, ingredients=ingredients_data, instructions=instructions_data, user=maker)
 
     if request.method == "POST":
+        if session["csrf_token"] != request.form["csrf_token"]:
+            return abort(403)
+
         basket.add_recipe_to_basket(user_id, recipe_id)
         return render_template("recipe.html", recipe_name=name, ingredients=ingredients_data, instructions=instructions_data, user=maker)
 
@@ -222,6 +235,8 @@ def list(name):
         return render_template("list.html", list_name=name, items=grocery_list, user=maker)
 
     if request.method == "POST":
+        if session["csrf_token"] != request.form["csrf_token"]:
+            return abort(403)
 
         basket.add_list_to_basket(user_id, list_id)
 
@@ -246,6 +261,9 @@ def edit_list(name):
             return render_template("edit_list.html", list_name=name, items=grocery_list )
 
         if request.method == "POST":
+            if session["csrf_token"] != request.form["csrf_token"]:
+                return abort(403)
+
             missing_input = request.form["missingInput"]
             shop_list = request.form["lines"]
             
@@ -279,6 +297,8 @@ def edit_recipe(name):
             return render_template("edit_recipe.html", recipe_name=name, ingredients=recipe_ingredients, instructions=recipe_instructions)
 
         if request.method == "POST":
+            if session["csrf_token"] != request.form["csrf_token"]:
+                return abort(403)
 
             instructions = request.form["instructions"]
             ingredients = request.form["lines"]

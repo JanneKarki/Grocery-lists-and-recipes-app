@@ -10,6 +10,7 @@
     <input type="text" name="name" minlength="1" maxlength="30" size="45">
     <input type="hidden" name="lines" id="lines" value="tre">
     <input type="hidden" name="missingInput" id="missingInput" value="">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token}}">
     
     <h3>Write instructions for the recipe:</h3>
     <textarea name="instructions" rows="10", cols="36"></textarea>
