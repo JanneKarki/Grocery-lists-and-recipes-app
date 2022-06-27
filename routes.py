@@ -132,10 +132,12 @@ def add_recipe():
 
         user_id = users.get_user_id()
 
-        recipes.add_recipe(name, instructions, ingredients, user_id)
+        recipes_id = recipes.add_recipe(name, instructions, ingredients, user_id)
+        ingredients_data = recipes.get_recipe_ingredients(recipes_id)
+        instructions_data = recipes.get_recipe_instructions(recipes_id)
+        maker = recipes.get_recipe_maker(recipes_id)
 
-        return redirect("/recipes/create_recipe")
-
+        return render_template("recipe.html", recipe_name=name, ingredients=ingredients_data, instructions=instructions_data, user=maker)
 
 @app.route("/user", methods=["GET", "POST"])
 def user_page():
