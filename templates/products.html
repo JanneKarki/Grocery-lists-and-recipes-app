@@ -6,7 +6,7 @@
 
 <h1>Products database</h1>
 
-<form action="/products" onsubmit="check(this) && check_add_to_shopping_list()" method="POST">
+<form action="/products" onsubmit="check(this)" method="POST">
     Save product to database:<br>
     <input type="text" name="product_name" id="product_name" minlength="1" maxlength="40"> 
     <input type="submit" value="Save product">
@@ -53,10 +53,12 @@
             alert("Product name is too long!")
             return False;
         }
+        check_add_to_shopping_list()
         return True;
     }
 
     function check_add_to_shopping_list(){
+        alert("checked")
         var check_box = document.getElementsByClassName("shop");
           if(check_box[0].checked){
             var product = document.getElementById("product_name").value           
