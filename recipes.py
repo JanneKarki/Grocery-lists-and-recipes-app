@@ -49,7 +49,7 @@ def get_recipe_instructions(id):
 
     result = db.session.execute(sql, {"id":id}).fetchall()
 
-    return result[0] 
+    return result[0]
 
 
 def get_recipe_ingredients(id):
@@ -67,7 +67,11 @@ def get_recipe_id(name):
 
     result = db.session.execute(sql, {"name":name}).fetchone()
 
-    return result[0]
+    if result:
+
+        return result[0]
+
+    return None
 
 
 def get_user_recipes(user_id):
@@ -138,7 +142,11 @@ def random_recipe():
 
     result = db.session.execute(sql).fetchone()
 
-    return result[0]
+    if result:
+        print(result, "random")
+
+        return result[0]
+    return None
 
 def random_weekend_menu():
 
