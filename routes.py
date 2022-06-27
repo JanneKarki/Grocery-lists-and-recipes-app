@@ -272,3 +272,15 @@ def edit_recipe(name):
             instructions_data = recipes.get_recipe_instructions(recipe_id)
 
             return render_template("recipe.html", recipe_name=name, ingredients=ingredients_data, instructions=instructions_data, user=maker)
+
+
+@app.route("/recipes/<string:name>/delete", methods=["GET", "POST"])
+def delete_recipe(name):
+    print(name)
+
+    recipe_id = recipes.get_recipe_id(name)
+
+    if request.method == "GET":
+
+        return render_template("delete.html", recipe_name=name, recipe_id=recipe_id)
+

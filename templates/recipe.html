@@ -33,6 +33,10 @@
 </form>
 {% endif %}
 
+<form action="/recipes/{{recipe_name}}/delete" method="get" >
+    <input type="submit" value="Delete">
+</form>
+
 <br>
 <button onclick="history.back()">Back</button>
 

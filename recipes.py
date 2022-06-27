@@ -146,6 +146,17 @@ def random_weekend_menu():
 
     result = db.session.execute(sql).fetchall()
 
-    print(result)
+    print(result, "weekensd")
 
     return result
+
+    
+
+def delete_recipe(recipe_id):
+
+    sql = "DELETE FROM recipes WHERE recipes.id=:recipe_id"
+
+    db.session.execute(sql, {"recipe_id":recipe_id})
+
+    db.session.commit()
+
