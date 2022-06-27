@@ -27,10 +27,10 @@ def login():
         password = request.form["password"]
         user_role = None
         try:
-            if not users.login(username, password, user_role):
+            if not users.login(username, password):
                 return redirect("/login")
         except:
-            if not users.login(username, password, user_role):
+            if not users.login(username, password):
                 return redirect("/login")
                
         return redirect("/")
