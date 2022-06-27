@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<p> Are you sure you want to delete recipe?</p>
+
+<form action="/recipes" method="POST">
+    <input type="hidden" name="delete" id="delete" value="yes">
+    <input type="hidden" name="recipe_id" value="{{recipe_id}}">
+    <input type="submit" value="Yes">
+</form>
+
+<form action="/recipes" method="POST">
+    <input type="hidden" name="delete" value="no">
+    <input type="submit" value="No">
+    <input type="hidden" name="recipe_id" value="{{recipe_id}}">
+</form>
+    
+
+
+
+{% endblock %}
