@@ -12,20 +12,20 @@
     <input type="hidden" name="ingredients" id="ingredients">
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token}}">
 
-    <h3>Instructions:</h3>
-    <textarea name="instructions" rows="10", cols="20" >{{instructions}}</textarea>
+    <h3>Update instructions:</h3>
+    <textarea name="instructions" rows="10", cols="36">{{instructions}}</textarea>
 
     <table id="myTable">
-        <tr align="left"><th><h3>Ingredients:</h3></th></tr>
+        
         <tr >
-            <th >Product</th><br>
+            <th >Ingredient</th><br>
             <th >Amount</th>
             <th >Unit</th>
         </tr>
         {% for entry in ingredients %}
         <tr>
             <td><input id="ingredient" name="ingredient" type="text" value = {{ entry[0] }} ></td>
-            <td><input id="amount" name="amount" type="text" value = {{ entry[1]}} ></td>
+            <td><input id="amount" name="amount" type="text" size="10" value = {{ entry[1]}} ></td>
         
             <td><select name="unit" id="unit">
             <option val="">{{entry[2]}}</option>
@@ -43,8 +43,8 @@
     </table>
     <br> 
     
-    <input type="button" value="New ingredient" onclick="add_new_line()">
-    <input type="button" id="button" value="Remove ingredient" class="remove" onclick="remove_line()">
+    <input type="button" value="+ Ingredient" onclick="add_new_line()">
+    <input type="button" id="button" value="- Ingredient" class="remove" onclick="remove_line()">
     <br>
     <br>
     <input type="submit" value="Save changes" method="POST">
