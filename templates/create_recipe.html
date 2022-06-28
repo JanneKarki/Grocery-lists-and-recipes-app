@@ -7,24 +7,27 @@
 
 <form action="/recipes/create_recipe" method="POST" onsubmit="get_inputs()">
     <h3>Name for the recipe:</h3> 
-    <input type="text" name="name" minlength="1" maxlength="30" size="45">
+    <input type="text" name="name" minlength="1" maxlength="30" size="45" value="{{name}}">
     <input type="hidden" name="lines" id="lines" value="tre">
     <input type="hidden" name="missingInput" id="missingInput" value="">
+    <input type="hidden" name="negativeAmount" id="negativeAmount" value="">
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token}}">
     
     <h3>Write instructions for the recipe:</h3>
-    <textarea name="instructions" rows="10", cols="36"></textarea>
+    <textarea name="instructions" rows="10", cols="36">{{instructions}}</textarea>
     <table id="myTable">
         <tr align="left">
             <th >Ingredient</th><br>
             <th >Amount</th>
             <th >Unit</th>
         </tr>
+        {% for entry in ingredients %}
         <tr>
-            <td><input id="ingredient" name="ingredient" type="text" value = "" ></td>
-            <td><input id="amount" name="amount" type="text" value = "" size="10" ></td>
+            <td><input id="ingredient" name="ingredient" type="text" value = {{ entry[0] }} ></td>
+            <td><input id="amount" name="amount" type="text" size="10" value = {{ entry[1]}} ></td>
+        
             <td><select name="unit" id="unit">
-            <option val=""></option>
+            <option val="">{{entry[2]}}</option>
             <option val="kg">kg</option>
             <option val="g">g</option>
             <option val="dl">dl</option>
@@ -34,6 +37,7 @@
             <option val="kpl">kpl</option>
             </select></td>
         </tr>
+        {% endfor %}  
  
         
     </table>
@@ -114,8 +118,16 @@
             var unit = units[i].value;
 
             if (ingredient.length === 0 || amount.length === 0 || unit.length === 0){
-            alert("Empty inputs")
-            document.getElementById("missingInput").value = "1"
+                alert("Empty inputs")
+                document.getElementById("missingInput").value = "1"
+                document.getElementById('lines').value = string
+                return string;
+            }
+            if (amount < 0){
+                alert("Amount can't be negative")
+                document.getElementById("negativeAmount").value = "1"
+                document.getElementById('lines').value = string
+                return string;
             break
             }
 

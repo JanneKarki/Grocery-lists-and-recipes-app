@@ -117,10 +117,16 @@ def show_products():
 
 
 @app.route("/recipes/create_recipe", methods=["GET", "POST"])
-def add_recipe():
+def create_recipe():
+
+    user_id = users.get_user_id()
 
     if request.method == "GET":
-        return render_template("create_recipe.html")
+        name = ""
+        instructions = ""
+        ingredients = ("",)
+ 
+        return render_template("create_recipe.html", name=name, instructions=instructions, ingredients=ingredients)
 
     if request.method == "POST":
         if session["csrf_token"] != request.form["csrf_token"]:
@@ -130,14 +136,32 @@ def add_recipe():
         instructions = request.form["instructions"]
         ingredients = request.form["lines"]
 
-        user_id = users.get_user_id()
+        missing_input = request.form["missingInput"]
+        negative_amount = request.form["negativeAmount"]
 
-        recipes_id = recipes.add_recipe(name, instructions, ingredients, user_id)
-        ingredients_data = recipes.get_recipe_ingredients(recipes_id)
-        instructions_data = recipes.get_recipe_instructions(recipes_id)
-        maker = recipes.get_recipe_maker(recipes_id)
+        if not missing_input and not negative_amount:
 
-        return render_template("recipe.html", recipe_name=name, ingredients=ingredients_data, instructions=instructions_data, user=maker)
+            recipes_id = recipes.add_recipe(name, instructions, ingredients, user_id)
+            ingredients_data = recipes.get_recipe_ingredients(recipes_id)
+            instructions_data = recipes.get_recipe_instructions(recipes_id)
+            maker = recipes.get_recipe_maker(recipes_id)
+
+            return render_template("recipe.html", recipe_name=name, ingredients=ingredients_data, instructions=instructions_data, user=maker)
+        
+        else:
+            if ingredients != "":
+                ingredients_list = ingredients.split()
+                formatted_list = []
+                for i in range(0, len(ingredients_list), 3):
+                    ingredient = ingredients_list[i]
+                    amount = ingredients_list[i+1]
+                    unit = ingredients_list[i+2]
+                    formatted_list.append((ingredient,amount,unit))
+            else:
+                formatted_list = ("",)
+                
+            return render_template("create_recipe.html", name=name, instructions=instructions, ingredients=formatted_list)
+
 
 @app.route("/user", methods=["GET", "POST"])
 def user_page():
