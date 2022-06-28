@@ -138,8 +138,9 @@ def create_recipe():
 
         missing_input = request.form["missingInput"]
         negative_amount = request.form["negativeAmount"]
+        not_numeric_amount = request.form["notNumericAmount"]
 
-        if not missing_input and not negative_amount:
+        if not missing_input and not negative_amount and not not_numeric_amount:
 
             recipes_id = recipes.add_recipe(name, instructions, ingredients, user_id)
             ingredients_data = recipes.get_recipe_ingredients(recipes_id)

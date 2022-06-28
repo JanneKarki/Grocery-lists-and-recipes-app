@@ -11,6 +11,7 @@
     <input type="hidden" name="lines" id="lines" value="tre">
     <input type="hidden" name="missingInput" id="missingInput" value="">
     <input type="hidden" name="negativeAmount" id="negativeAmount" value="">
+    <input type="hidden" name="notNumericAmount" id="notNumericAmount" value="">
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token}}">
     
     <h3>Write instructions for the recipe:</h3>
@@ -128,9 +129,13 @@
                 document.getElementById("negativeAmount").value = "1"
                 document.getElementById('lines').value = string
                 return string;
-            break
             }
-
+            if (isNaN(amount)){
+                alert("Incorrect amount")
+                document.getElementById("notNumericAmount").value = "1"
+                document.getElementById('lines').value = string
+                return string;
+            }
             string += ingredient + " " + amount + " " + unit + " "
         }
 
