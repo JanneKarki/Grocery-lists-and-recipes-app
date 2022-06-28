@@ -322,13 +322,31 @@ def edit_recipe(name):
             instructions = request.form["instructions"]
             ingredients = request.form["lines"]
 
-            recipes.update_recipe(recipe_id, instructions, ingredients)
+            missing_input = request.form["missingInput"]
+            negative_amount = request.form["negativeAmount"]
+            not_numeric_amount = request.form["notNumericAmount"]
 
-            ingredients_data = recipes.get_recipe_ingredients(recipe_id)
-            instructions_data = recipes.get_recipe_instructions(recipe_id)
+            if not missing_input and not negative_amount and not not_numeric_amount:
 
-            return render_template("recipe.html", recipe_name=name, ingredients=ingredients_data, instructions=instructions_data, user=maker)
+                recipes.update_recipe(recipe_id, instructions, ingredients)
 
+                ingredients_data = recipes.get_recipe_ingredients(recipe_id)
+                instructions_data = recipes.get_recipe_instructions(recipe_id)
+
+                return render_template("recipe.html", recipe_name=name, ingredients=ingredients_data, instructions=instructions_data, user=maker)
+            
+            else:
+                if ingredients != "":
+                    ingredients_list = ingredients.split()
+                    formatted_list = []
+                    for i in range(0, len(ingredients_list), 3):
+                        ingredient = ingredients_list[i]
+                        amount = ingredients_list[i+1]
+                        unit = ingredients_list[i+2]
+                        formatted_list.append((ingredient,amount,unit))
+                else:
+                    formatted_list = ("",)
+                return render_template("edit_recipe.html", recipe_name=name, ingredients=formatted_list, instructions=instructions)
 
 @app.route("/recipes/<string:name>/delete", methods=["GET", "POST"])
 def delete_recipe(name):
