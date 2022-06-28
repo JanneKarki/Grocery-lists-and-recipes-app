@@ -1,5 +1,6 @@
 from db import db
 from products import add_product, find_product
+from flask import  request
 
 def add_recipe(name, instructions, ingredients, user_id):
 
@@ -169,4 +170,22 @@ def delete_recipe(recipe_id):
     db.session.commit()
 
 
+def validate_inputs():
 
+    missing_input = request.form["missingInput"]
+    negative_amount = request.form["negativeAmount"]
+    not_numeric_amount = request.form["notNumericAmount"]
+
+    if not missing_input and not negative_amount and not not_numeric_amount:
+        return True
+    return False
+
+def handle_incomplete_inputs(ingredients):
+    ingredients_list = ingredients.split()
+    formatted_list = []
+    for i in range(0, len(ingredients_list), 3):
+        ingredient = ingredients_list[i]
+        amount = ingredients_list[i+1]
+        unit = ingredients_list[i+2]
+        formatted_list.append((ingredient,amount,unit))
+    return formatted_list

@@ -136,11 +136,9 @@ def create_recipe():
         instructions = request.form["instructions"]
         ingredients = request.form["lines"]
 
-        missing_input = request.form["missingInput"]
-        negative_amount = request.form["negativeAmount"]
-        not_numeric_amount = request.form["notNumericAmount"]
+        valid_inputs = recipes.validate_inputs()
 
-        if not missing_input and not negative_amount and not not_numeric_amount:
+        if valid_inputs:
 
             recipes_id = recipes.add_recipe(name, instructions, ingredients, user_id)
             ingredients_data = recipes.get_recipe_ingredients(recipes_id)
@@ -151,13 +149,7 @@ def create_recipe():
         
         else:
             if ingredients != "":
-                ingredients_list = ingredients.split()
-                formatted_list = []
-                for i in range(0, len(ingredients_list), 3):
-                    ingredient = ingredients_list[i]
-                    amount = ingredients_list[i+1]
-                    unit = ingredients_list[i+2]
-                    formatted_list.append((ingredient,amount,unit))
+                formatted_list = recipes.handle_incomplete_inputs(ingredients)   
             else:
                 formatted_list = ("",)
                 
@@ -316,17 +308,17 @@ def edit_recipe(name):
             return render_template("edit_recipe.html", recipe_name=name, ingredients=recipe_ingredients, instructions=recipe_instructions)
 
         if request.method == "POST":
+            
             if session["csrf_token"] != request.form["csrf_token"]:
                 return abort(403)
 
             instructions = request.form["instructions"]
             ingredients = request.form["lines"]
 
-            missing_input = request.form["missingInput"]
-            negative_amount = request.form["negativeAmount"]
-            not_numeric_amount = request.form["notNumericAmount"]
+            
+            valid_inputs = recipes.validate_inputs()
 
-            if not missing_input and not negative_amount and not not_numeric_amount:
+            if valid_inputs:
 
                 recipes.update_recipe(recipe_id, instructions, ingredients)
 
@@ -337,13 +329,7 @@ def edit_recipe(name):
             
             else:
                 if ingredients != "":
-                    ingredients_list = ingredients.split()
-                    formatted_list = []
-                    for i in range(0, len(ingredients_list), 3):
-                        ingredient = ingredients_list[i]
-                        amount = ingredients_list[i+1]
-                        unit = ingredients_list[i+2]
-                        formatted_list.append((ingredient,amount,unit))
+                    formatted_list = recipes.handle_incomplete_inputs(ingredients)   
                 else:
                     formatted_list = ("",)
                 return render_template("edit_recipe.html", recipe_name=name, ingredients=formatted_list, instructions=instructions)
