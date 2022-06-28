@@ -7,6 +7,8 @@
 <form action="/recipes/{{recipe_name}}/edit" method="POST" onsubmit="get_inputs()" >
     <input type="hidden" name="lines" id="lines" value="tre">
     <input type="hidden" name="missingInput" id="missingInput" value="">
+    <input type="hidden" name="negativeAmount" id="negativeAmount" value="">
+    <input type="hidden" name="notNumericAmount" id="notNumericAmount" value="">
     <input type="hidden" name="ingredients" id="ingredients">
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token}}">
 
@@ -109,16 +111,29 @@
         var amounts = document.querySelectorAll("#amount");
         var units = document.querySelectorAll("#unit");
         var string = ""
-
+       
         for(var i = 0; i<ingredients.length; i++){
             var ingredient = ingredients[i].value;
             var amount = amounts[i].value;
             var unit = units[i].value;
 
             if (ingredient.length === 0 || amount.length === 0 || unit.length === 0){
-            alert("Empty inputs")
-            document.getElementById("missingInput").value = "1"
-            break
+                alert("Empty inputs")
+                document.getElementById("missingInput").value = "1"
+                document.getElementById('lines').value = string
+                return string;
+            }
+            if (amount < 0){
+                alert("Amount can't be negative")
+                document.getElementById("negativeAmount").value = "1"
+                document.getElementById('lines').value = string
+                return string;
+            }
+            if (isNaN(amount)){
+                alert("Incorrect amount")
+                document.getElementById("notNumericAmount").value = "1"
+                document.getElementById('lines').value = string
+                return string;
             }
             string += ingredient + " " + amount + " " + unit + " "
         }
