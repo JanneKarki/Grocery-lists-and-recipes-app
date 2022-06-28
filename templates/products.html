@@ -3,6 +3,15 @@
 
 {% block content %}
 
+{% if not session.username %}
+    <a href="/login">Login</a> to send products in to the basket.
+    <br>
+    <br>
+        New user? <a href="/register">Register</a> here.
+
+{% endif %}
+
+{% if session.username %}
 
 <h1>Products database</h1>
 
@@ -42,7 +51,7 @@
 <br>
 <button onclick="history.back()">Back</button>
 
-
+{% endif %}
 <script type="text/javascript">
 
     function check(form){
