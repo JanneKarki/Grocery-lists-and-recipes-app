@@ -47,7 +47,7 @@ def get_recipe_instructions(id):
 
     sql = "SELECT instructions FROM recipes WHERE id=:id"
 
-    result = db.session.execute(sql, {"id":id}).fetchall()
+    result = db.session.execute(sql, {"id":id}).fetchone()
 
     return result[0]
 
