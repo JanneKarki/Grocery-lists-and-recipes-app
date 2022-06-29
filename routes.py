@@ -113,8 +113,7 @@ def show_products():
         return render_template("products.html",products=products_list)
     
     if request.method == "POST":
-        print(session["csrf_token"])
-        print(request.form["csrf_token"])
+       
         if session["csrf_token"] != request.form["csrf_token"]:
             return abort(403)
 
