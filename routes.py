@@ -68,6 +68,8 @@ def show_recipes():
         return render_template("recipes.html", recipes=recipes_list)
 
     if request.method == "POST":
+        if session["csrf_token"] != request.form["csrf_token"]:
+            return abort(403)
         delete = request.form["delete"]
         recipe_id = request.form["recipe_id"]
         print(delete)
@@ -338,9 +340,14 @@ def edit_recipe(name):
 def delete_recipe(name):
     print(name)
 
+    user_id = users.get_user_id()
     recipe_id = recipes.get_recipe_id(name)
+    allow = recipes.allow_to_edit(user_id, recipe_id)
 
-    if request.method == "GET":
+    if not allow:
+        return render_template("error.html", message="Oops, no rights to delete this recipe!")
 
-        return render_template("delete.html", recipe_name=name, recipe_id=recipe_id)
+    else:
+        if request.method == "GET":
+            return render_template("delete.html", recipe_name=name, recipe_id=recipe_id)
 
