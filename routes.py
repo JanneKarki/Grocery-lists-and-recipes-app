@@ -234,8 +234,10 @@ def show_basket():
                 list_id = lists.create_grocery_list(name, user_id)
                 lists.add_to_grocery_list(list_id, shop_list)
                 basket.empty_basket(user_id)
-
-            return redirect("/basket")
+            maker = lists.get_list_maker(list_id)
+            grocery_list = lists.get_grocery_list(list_id)
+            return render_template("list.html", list_name=name, items=grocery_list, user=maker)
+           
 
 @app.route("/recipes/<string:name>", methods=["GET", "POST"])
 def recipe(name):
