@@ -15,9 +15,9 @@
 <table id="myTable">
     {% for entry in items %}
     <tr>
-      <td><input id="ingredient" name="ingredient" type="text" value = {{ entry[0] }} ></td>
+      <td><input id="ingredient" name="ingredient" type="text" minlength="1" maxlength="40" value = {{ entry[0] }} ></td>
 
-      <td><input id="amount" name="amount" type="text" value = {{ entry[1]}} ></td>
+      <td><input id="amount" name="amount" type="text" minlength="1" maxlength="5" value = {{ entry[1]}} ></td>
     
         <td><select name="unit" id="unit">
         <option val="">{{entry[2]}}</option>
