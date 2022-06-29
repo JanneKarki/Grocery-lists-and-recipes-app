@@ -343,11 +343,27 @@ def delete_recipe(name):
     user_id = users.get_user_id()
     recipe_id = recipes.get_recipe_id(name)
     allow = recipes.allow_to_edit(user_id, recipe_id)
+    recipe = ["recipe"]
 
     if not allow:
         return render_template("error.html", message="Oops, no rights to delete this recipe!")
 
     else:
         if request.method == "GET":
-            return render_template("delete.html", recipe_name=name, recipe_id=recipe_id)
+            return render_template("delete.html", deleting=recipe, recipe_name=name, recipe_id=recipe_id)
 
+
+@app.route("/lists/<string:name>/delete", methods=["GET", "POST"])
+def delete_list(name):
+    print(name)
+
+    user_id = users.get_user_id()
+    list_id = lists.get_list_id(name)
+    allow = lists.allow_to_edit(user_id, list_id)
+    list = ["list"]
+    
+    if not allow:
+        return render_template("error.html", message="Oops, no rights to delete this list!")
+    else:
+        if request.method == "GET":
+            return render_template("delete.html", deleting=list, list_name=name, list_id=list_id)
