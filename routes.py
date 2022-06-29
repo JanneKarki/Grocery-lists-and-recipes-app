@@ -20,43 +20,47 @@ def index():
 @app.route("/login", methods=["GET","POST"])
 def login():
     if request.method == "GET":
-        return render_template("login.html")
+        message = []
+        return render_template("login.html", message=message)
     
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
-        try:
-            if not users.login(username, password):
-                return redirect("/login")
-        except:
-            if not users.login(username, password):
-                return redirect("/login")
+
+        if not users.login(username, password):
+            message = ["Invalid username or password!"]
+            return render_template("login.html", message=message)
+       
                
         return redirect("/")
             
        
 @app.route("/register", methods=["GET", "POST"])
 def register():
-    message=[]
+    
     if request.method == "GET":
+        message = []
         return render_template("register.html", message=message)
 
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
+        password2 = request.form["password2"]
 
         if users.username_in_use(username):
-            message=["Username is in use!"]
+            message = ["Username is in use!"]
             return render_template("register.html", message=message )
         if len(password) < 4:
-            print("password < 4")
-            message=["Password min lenght is 4!"]
+            message = ["Password min lenght is 4!"]
             return render_template("register.html", message=message )
-
+        if password != password2:
+            message = ["Password mismatch!"]
+            return render_template("register.html", message=message )
         else:
             password_hash_value = generate_password_hash(password)
             users.register_user(username, password_hash_value)
-            return redirect("/login")
+            message = ["User succesfully created!"]
+            return render_template("login.html", message=message)
  
 
 @app.route("/logout")
