@@ -1,7 +1,15 @@
 {% extends "layout.html" %}
 
 {% block content %}
+{% if session.username == user[0] %}
+<form action="/recipes/{{recipe_name}}/edit" method="get" >
+    <input type="submit" value="Edit">
+</form>
 
+<form action="/recipes/{{recipe_name}}/delete" method="get" >
+    <input type="submit" value="Delete">
+</form>
+{% endif %}
 <h1>Recipe</h1>
 
 <h2>{{ recipe_name }}</h2>
@@ -21,25 +29,14 @@
 
 <br>
 {% if session.username %}
+<br>
 <form action="/recipes/{{recipe_name}}" method="post">
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token}}">
     <input type="submit" value="Shop Recipe">
     <br>
 </form>
-{% endif %}
-
-{% if session.username == user[0] %}
-<form action="/recipes/{{recipe_name}}/edit" method="get" >
-    <input type="submit" value="Edit">
-    <br>
-</form>
-{% endif %}
-
-<form action="/recipes/{{recipe_name}}/delete" method="get" >
-    <input type="submit" value="Delete">
-</form>
-
+<br>
 <br>
 <button onclick="history.back()">Back</button>
-
+{% endif %}
 {% endblock %}

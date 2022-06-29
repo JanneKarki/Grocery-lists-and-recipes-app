@@ -15,18 +15,7 @@
 
 <h1>Products database</h1>
 
-<form action="/products" onsubmit="check(this)" method="POST">
-    Save product to database:<br>
-    <input type="text" name="product_name" id="product_name" minlength="1" maxlength="40"> 
-    <input type="submit" value="Save product">
-    <input type="hidden" name="checked_products" id="checked_products1" value="" /> 
-    <input type="hidden" name="csrf_token" value="{{ session.csrf_token}}">
-    <input type="hidden" name="add_to_shopping_list" id="add" value="0" /> 
-    <span><p><input type="checkbox" class="shop" id="check' + '" name="check' +  '">
-     Send product also to my basket</span>
-</form>
-<br>
-<br>
+
 
 <p>Select products for shopping list:</p>
 <div class="body">
@@ -43,13 +32,23 @@
    <input type="hidden" name="csrf_token" value="{{ session.csrf_token}}">
    <br> 
    <input type="submit" value="Send to basket">
-   
 </form>
+<br>
+<br>
 
+
+<form action="/products" onsubmit="check(this)" method="POST">
+    Save new product to database:<br>
+    <input type="text" name="product_name" id="product_name" minlength="1" maxlength="40"> 
+    <input type="submit" value="Save product">
+    <input type="hidden" name="checked_products" id="checked_products1" value="" /> 
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token}}">
+    <input type="hidden" name="add_to_shopping_list" id="add" value="0" /> 
+    <span><p><input type="checkbox" class="shop" id="check' + '" name="check' +  '">
+     Send product also to my basket</span>
+</form>
 <br>
 <br>
-<br>
-<button onclick="history.back()">Back</button>
 
 {% endif %}
 <script type="text/javascript">

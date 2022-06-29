@@ -2,9 +2,9 @@
 
 {% block content %}
 
-<h2>My page</h2> 
+<h2>{{user}}'s' My page</h2> 
 
-<h3>{{user}}'s Recipes</h3>
+<h3>My Recipes</h3>
 
 <div class="body">
     {% for entry in user_recipes %} 
@@ -14,7 +14,7 @@
     </table>
 </div>
 
-<h3>{{user}}'s Shopping Lists</h3>
+<h3>My Shopping Lists</h3>
 
 <div class="body">
     {% for entry in user_lists %} 
