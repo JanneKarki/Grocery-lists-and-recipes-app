@@ -84,13 +84,24 @@ def show_recipes():
 @app.route("/grocery",  methods=["GET","POST"])
 def show_grocery_lists():
 
-    grocery_lists = lists.get_all_grocery_lists()
-   
+    
     if request.method == "GET":
+        grocery_lists = lists.get_all_grocery_lists()
+   
         return render_template("grocery.html",lists=grocery_lists)
     
     if request.method == "POST":
-        return redirect("/grocery")
+
+        if session["csrf_token"] != request.form["csrf_token"]:
+            return abort(403)
+        delete = request.form["delete"]
+        list_id = request.form["list_id"]
+        print(delete)
+        print(list_id)
+        if delete == "yes":
+            lists.delete_list(list_id)
+        grocery_lists = lists.get_all_grocery_lists()
+        return render_template("grocery.html",lists=grocery_lists)
 
 
 @app.route("/products",  methods=["GET", "POST"])
