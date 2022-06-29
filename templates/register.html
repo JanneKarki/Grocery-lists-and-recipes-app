@@ -5,6 +5,7 @@
 <h1>Register</h1> 
 <p style="color:tomato;">{{message[0]}}</p>
 <form action="/register" method="post">
+    <p>
     Username: <br><input type="text" name="username" minlength="1" maxlength="10">
     <p>
     Password: <br><input type="password" name="password">
@@ -13,6 +14,7 @@
     <p>
     <input type="submit" value="Register User">
     </form>
-<a href="/">Return</a>
-
+    <p>
+    <button onclick="history.back()">Back</button>
+    </p>
 {% endblock %}
