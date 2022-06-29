@@ -101,4 +101,12 @@ def get_list_maker(list_id):
     return result
 
 
+def delete_list(list_id):
+
+    sql = "DELETE FROM lists WHERE lists.id=:list_id"
+
+    db.session.execute(sql, {"list_id":list_id})
+
+    db.session.commit()
+
 
