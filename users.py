@@ -36,9 +36,17 @@ def get_user_id():
     return session.get("user_id", 0)
 
 def logout():
-    
+
     basket.empty_basket(session["user_id"])
     del session["user_id"]
     del session["username"]
     del session["csrf_token"]
-    
+
+def username_in_use(username):
+
+    sql = "SELECT id FROM users WHERE username=:username"
+    result = db.session.execute(sql, {"username":username}).fetchone()
+    print(result)
+    if result:
+        return True
+    return False
