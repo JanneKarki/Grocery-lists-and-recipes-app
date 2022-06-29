@@ -55,7 +55,7 @@ def get_recipe_instructions(id):
 
 def get_recipe_ingredients(id):
 
-    sql = "SELECT products.name, ingredients.amount, ingredients.unit FROM ingredients, products WHERE ingredients.recipes_id=:id AND ingredients.product_id=products.id "
+    sql = "SELECT products.name, ingredients.amount, ingredients.unit FROM ingredients, products WHERE ingredients.recipes_id=:id AND ingredients.product_id=products.id ORDER BY ingredients.id"
     
     result = db.session.execute(sql, {"id":id}).fetchall()
     

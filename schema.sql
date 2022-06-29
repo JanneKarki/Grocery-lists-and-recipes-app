@@ -17,6 +17,7 @@ CREATE TABLE recipes (
 );
 
 CREATE TABLE ingredients (
+    id SERIAL PRIMARY KEY,
     recipes_id INTEGER REFERENCES recipes ON DELETE CASCADE,
     product_id INTEGER REFERENCES products,
     amount FLOAT,
