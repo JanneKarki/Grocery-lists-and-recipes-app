@@ -6,31 +6,32 @@
 
 <h2>{{ recipe_name }}</h2>
 
-<div class="body">
+
     {% for entry in ingredients %} 
     <table>
           <label for="check' +  '">{{ entry[0]}} {{entry[1]}} {{entry[2]}}</label>
         {% endfor %}
     </table>
-</div>
+
 
 <br>
-<div class="body">
+
     {{instructions}}
 
-</div>
 
 <br>
 {% if session.username %}
 <form action="/recipes/{{recipe_name}}" method="post">
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token}}">
     <input type="submit" value="Shop Recipe">
+    <br>
 </form>
 {% endif %}
 
 {% if session.username == user[0] %}
 <form action="/recipes/{{recipe_name}}/edit" method="get" >
     <input type="submit" value="Edit">
+    <br>
 </form>
 {% endif %}
 
