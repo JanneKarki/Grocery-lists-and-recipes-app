@@ -34,7 +34,7 @@ CREATE TABLE basket (
 );
 
 CREATE TABLE shopping_list (
-    lists_id INTEGER REFERENCES lists,
+    lists_id INTEGER REFERENCES lists ON DELETE CASCADE,
     product_id INTEGER REFERENCES products,
     amount FLOAT,
     unit TEXT
