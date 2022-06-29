@@ -22,9 +22,9 @@
 <br>
 {% if session.username %}
 <br>
-<form action="/recipes/{{recipe_name}}" method="post">
+<form action="/recipes/{{recipe_name}}" method="post" onsubmit="return validateForm()";>
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token}}">
-    <input type="submit" value="Shop Recipe">
+    <input type="submit" value="Shop Recipe" >
     <br>
 </form>
 <br>
@@ -51,4 +51,13 @@ Created by {{user[0]}}
 <br>
 <button onclick="history.back()">Back</button>
 {% endif %}
+
+<script>
+    function validateForm() {
+    
+        alert("Recipe sent to the basket");
+        return True;
+    }
+
+</script>
 {% endblock %}
