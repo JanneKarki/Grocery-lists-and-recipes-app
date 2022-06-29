@@ -1,15 +1,7 @@
 {% extends "layout.html" %}
 
 {% block content %}
-{% if session.username == user[0] %}
-<form action="/recipes/{{recipe_name}}/edit" method="get" >
-    <input type="submit" value="Edit">
-</form>
 
-<form action="/recipes/{{recipe_name}}/delete" method="get" >
-    <input type="submit" value="Delete">
-</form>
-{% endif %}
 <h1>Recipe</h1>
 
 <h2>{{ recipe_name }}</h2>
@@ -35,6 +27,26 @@
     <input type="submit" value="Shop Recipe">
     <br>
 </form>
+<br>
+<br>
+<br>
+{% if session.username == user[0] %}
+Created by you
+{% else %}
+Created by {{user[0]}}
+{% endif %}
+
+<br>
+{% if session.username == user[0] %}
+<form action="/recipes/{{recipe_name}}/edit" method="get" >
+    <input type="submit" value="Edit">
+</form>
+
+<form action="/recipes/{{recipe_name}}/delete" method="get" >
+    <input type="submit" value="Delete">
+</form>
+{% endif %}
+<br>
 <br>
 <br>
 <button onclick="history.back()">Back</button>

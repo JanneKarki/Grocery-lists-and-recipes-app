@@ -4,7 +4,7 @@
 
 <h2>{{user}}'s' My page</h2> 
 
-<h3>My Recipes</h3>
+<h3>Recipes</h3>
 
 <div class="body">
     {% for entry in user_recipes %} 
@@ -13,8 +13,13 @@
     {% endfor %}
     </table>
 </div>
+{% if session.username %}
+<form action="/recipes/create_recipe">
+    <input type="submit" value="Make new Recipe">
+</form>
+        {% endif %}
 
-<h3>My Shopping Lists</h3>
+<h3>Shopping Lists</h3>
 
 <div class="body">
     {% for entry in user_lists %} 
@@ -23,6 +28,11 @@
         {% endfor %}
     </table>
 </div>
+{% if session.username %}
+<form action="/basket">
+    <input type="submit" value="Make New Shopping list">
+</form>
+        {% endif %}
 
 
 {% endblock %}
