@@ -2,12 +2,14 @@
 
 {% block content %}
 
+
+
 <h1>Grocery Lists</h1>
 
 <div class="body">
     {% for entry in lists %} 
     <table>
-           <a href = "/grocery/{{ entry[1] }}"> {{ entry[1] }}</a>
+           <a href = "/grocery/{{ entry[1] }}" style="color:#252525;"> {{ entry[1] }}</a>
         {% endfor %}
     </table>
 </div>
@@ -20,4 +22,5 @@
 <p>
 <button onclick="history.back()">Back</button>
 </p>
+</div>
 {% endblock %}

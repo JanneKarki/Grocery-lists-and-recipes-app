@@ -4,10 +4,9 @@
 
 
 {% if not session.username %}
-    <a href="/login">Login</a> to use basket for making and saving grocery lists.
-    <br>
-    <br>
-        New user? <a href="/register">Register</a> here.
+    <p><a href="/login">Login</a> to use the basket.</p>
+    
+    <p>   New user? <a href="/register">Register</a> here.</p>
 
 {% endif %}
 
@@ -47,7 +46,7 @@
     <br>
 </table> 
 <br>
-
+<br> 
 <form action="/basket" method="POST" onsubmit="get_inputs()">
 
         <input type="button" value="+ Product" onclick="add_new_line_to_basket()">
@@ -67,7 +66,12 @@
         <input type="hidden" name="missingInput" id="missingInput" value="">
         <input type="hidden" name="csrf_token" value="{{ session.csrf_token}}">
        
-</form>        
+</form>    
+<br> 
+<br> 
+<br> 
+
+
 {% endif %}
 
 <script type="text/javascript">

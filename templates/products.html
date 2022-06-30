@@ -4,11 +4,8 @@
 {% block content %}
 
 {% if not session.username %}
-    <a href="/login">Login</a> to send products in to the basket.
-    <br>
-    <br>
-        New user? <a href="/register">Register</a> here.
-
+   <p> <a href="/login">Login</a> to use the products database.</p>
+    <p>New user? <a href="/register">Register</a> here.</p>
 {% endif %}
 
 {% if session.username %}
@@ -24,8 +21,8 @@
         <input type="checkbox" class="checkboxes" id="check' + '" name="check' +  '">    <label for="check' +  '">{{ entry[1] }}</label>
         {% endfor %}
     </table>
-</div>
 
+</div>
 <form action="/products" onsubmit="get_checked_products()" method="POST">
    <input type="hidden" name="product_name" />  
    <input type="hidden" name="checked_products" id="checked_products" value="" />
@@ -36,7 +33,7 @@
 <br>
 <br>
 
-
+<div class="new_product"
 <form action="/products" onsubmit="check(this)" method="POST">
     Save new product to database:<br>
     <input type="text" name="product_name" id="product_name" minlength="1" maxlength="40"> 
@@ -47,10 +44,12 @@
     <span><p><input type="checkbox" class="shop" id="check' + '" name="check' +  '">
      Send product also to my basket</span>
 </form>
+</div>
 <br>
 <br>
 
 {% endif %}
+
 <script type="text/javascript">
 
     function check(form){

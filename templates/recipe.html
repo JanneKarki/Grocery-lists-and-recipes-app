@@ -2,24 +2,22 @@
 
 {% block content %}
 
-<h1>Recipe</h1>
+<h1>Recipe</h1>   
+    <div class="outer_frame">
+        <div class="frame">
+        <h2>{{ recipe_name }}</h2>
+            {% for entry in ingredients %} 
+            <table>
+                <label for="check' +  '">{{ entry[0]}} {{entry[1]}} {{entry[2]}}</label>
+                {% endfor %}
+            </table>
+        <br>
+            {{instructions}}
+        <br>
+        <br>
+        </div>
+    </div>
 
-<h2>{{ recipe_name }}</h2>
-
-
-    {% for entry in ingredients %} 
-    <table>
-          <label for="check' +  '">{{ entry[0]}} {{entry[1]}} {{entry[2]}}</label>
-        {% endfor %}
-    </table>
-
-
-<br>
-
-    {{instructions}}
-
-
-<br>
 {% if session.username %}
 <br>
 <form action="/recipes/{{recipe_name}}" method="post" onsubmit="return validateForm()";>
@@ -27,30 +25,32 @@
     <input type="submit" value="Shop Recipe" >
     <br>
 </form>
-<br>
+{% endif %}
 <br>
 <br>
 {% if session.username == user[0] %}
-Created by you
+<p>Recipe created by you
 {% else %}
-Created by {{user[0]}}
+Recipe created by {{user[0]}}
 {% endif %}
-
 <br>
+
 {% if session.username == user[0] %}
 <form action="/recipes/{{recipe_name}}/edit" method="get" >
     <input type="submit" value="Edit">
 </form>
-
 <form action="/recipes/{{recipe_name}}/delete" method="get" >
     <input type="submit" value="Delete">
 </form>
+</p>
 {% endif %}
-<br>
-<br>
+
 <br>
 <button onclick="history.back()">Back</button>
-{% endif %}
+
+<br>
+<br>
+
 
 <script>
     function validateForm() {
@@ -58,6 +58,6 @@ Created by {{user[0]}}
         alert("Recipe sent to the basket");
         return True;
     }
-
 </script>
+
 {% endblock %}

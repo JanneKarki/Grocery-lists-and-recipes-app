@@ -7,7 +7,7 @@
 <div class="body">
     {% for entry in recipes %} 
     <table>
-           <a href = "/recipes/{{ entry[1] }}"> {{ entry[1] }}</a>
+           <a href = "/recipes/{{ entry[1] }}" style="color:#000000;"> {{ entry[1] }}</a>
         {% endfor %}
     </table>
 </div>
@@ -20,7 +20,5 @@
 <p>
 <button onclick="history.back()">Back</button>
 </p>
-
-
-
+</div>
 {% endblock %}
