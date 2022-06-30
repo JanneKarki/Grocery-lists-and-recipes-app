@@ -10,11 +10,11 @@ import lists
 
 @app.route("/")
 def index():
-
+    user = session.get("username", "")
     random_recipe = recipes.random_recipe()
     weekend_menu = recipes.random_weekend_menu()
     recipes_count = recipes.count_recipes()
-    return render_template("index.html", today=random_recipe, weekend=weekend_menu ,count=recipes_count) 
+    return render_template("index.html", today=random_recipe, weekend=weekend_menu ,count=recipes_count, user=user) 
 
 
 @app.route("/login", methods=["GET","POST"])
