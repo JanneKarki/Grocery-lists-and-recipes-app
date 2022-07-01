@@ -48,7 +48,7 @@ h1{
 
 }
 .top {
-    vertical-align: baseline;
+    vertical-align:middle;
     height: 50px;;
     background-color: rgb(245,246,234);
     border-width: thin;
@@ -95,25 +95,27 @@ h1{
     padding-left: 7px;
     padding-right: 7px;
     box-shadow: 10px 7px rgb(233, 233, 233);
-    position: absolute;
-    left: 31%;
+    position: sticky;
+    left: 28%;
     top: 25%;
 
     
 }
 .box2{
+    line-height: 150%;
     border-width: thin;
     border-style: solid;
     border-color: rgb(190, 190, 190);
-    text-align: center;
+    text-align: left;
     width: fit-content;
     background: rgb(247, 247, 247);
     display: inline-block;
     padding-left: 7px;
     padding-right: 7px;
+    padding-bottom: 10px;
     box-shadow: 10px 7px rgb(233, 233, 233);
-    position: absolute;
-    left: 53%;
+    position: static;
+    left: 54%;
     top: 25%;
 
     
@@ -130,7 +132,7 @@ h1{
     padding-left: 7px;
     padding-right: 7px;
     box-shadow: 10px 7px rgb(233, 233, 233);
-    position: absolute;
+    position:static;
     left: 34%;
     top: 39%;
     

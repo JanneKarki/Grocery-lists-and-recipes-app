@@ -13,18 +13,18 @@
 <div class="box2">
 <b><p>Weekend menu?</p></b>
     {% for entry in weekend %} 
-    <p>
+    
     <table>
-        <a href = "/recipes/{{ entry[0] }}" style="color:#252525;"> -{{ entry[0] }}</a>
+       <li><a href = "/recipes/{{ entry[0] }}" style="color:#252525;">{{ entry[0] }}</a></li>
         {% endfor %}
     </table>
-</p>
+
 </div>
 
 <br>
 <br>
 <div class="box3">
-<b><p>Total recipes in the app: {{ count }}</p></b>
+<b><p>Recipes in the app: {{ count }}</p></b>
 </div>
 <br>
 
