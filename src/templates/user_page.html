@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h1>{{user}}'s' My page</h1> 
+
+<h3>Recipes</h3>
+
+<div class="body">
+    {% for entry in user_recipes %} 
+    <table>
+           <a href = "/recipes/{{ entry[0] }}" style="color:#252525;"> {{ entry[0] }}</a>
+    {% endfor %}
+    </table>
+</div>
+{% if session.username %}
+<form action="/recipes/create_recipe">
+    <input type="submit" value="Make new Recipe">
+</form>
+        {% endif %}
+
+<h3>Shopping Lists</h3>
+
+<div class="body">
+    {% for entry in user_lists %} 
+    <table>
+           <a href = "/grocery/{{ entry[0] }}" style="color:#252525;"> {{ entry[0] }}</a>
+        {% endfor %}
+    </table>
+</div>
+{% if session.username %}
+<form action="/basket">
+    <input type="submit" value="Make New Shopping list">
+</form>
+        {% endif %}
+
+<p>
+<button onclick="history.back()">Back</button>
+</p>
+{% endblock %}

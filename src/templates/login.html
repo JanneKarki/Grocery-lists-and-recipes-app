@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+
+<h1>Login</h1>
+<p style="color:tomato;">{{message[0]}}</p>
+<form action="/login" method="POST">
+    <p>Username:<br>
+    <input type="text" name="username" minlength="1" maxlength="15"></p>
+    <p>Password:<br>
+    <input type="password" name="password" minlength="1" maxlength="15"></p>
+    <p>
+    <input type="submit" value="Login">
+    </p>
+</form>
+<p>
+<button onclick="history.back()">Back</button>
+</p>
+{% endblock %}

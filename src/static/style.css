@@ -1,0 +1,140 @@
+body {
+    margin: auto;
+    align-items: center;
+    text-align: center;
+    
+    font-family: BrowalliaUPC;
+    background-color:rgb(243, 243, 243);
+    border-width: thin;
+    border-style: solid;
+    border-color: grey;
+   
+}
+
+table {
+    margin: auto;
+    width: 35%;
+}
+
+form {
+    
+    display: inline-block;
+}
+
+h1{
+    color:rgb(0, 0, 0);
+    font-weight: lighter
+}
+
+
+.header {
+    background-color: rgb(255, 255, 255); 
+    
+}
+
+.body {
+    line-height: 200%;
+    margin: auto;
+    height: 200px;
+    width: 340px;
+    overflow: auto;
+    padding-top: 10px;
+    background-color: rgb(247, 245, 245);
+    border-width: thin;
+    border-style: solid;
+    font-family:    Arial, Helvetica, sans-serif;
+    font-size:      15px;
+    font-weight:    bold;
+
+}
+.top {
+    vertical-align:middle;
+    height: 50px;;
+    background-color: rgb(245,246,234);
+    border-width: thin;
+    border-color: grey;
+    border-style: solid;
+}
+.front{
+    margin: 0%;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    background-color: rgb(255, 255, 255);
+    
+}
+
+.title {
+    align-self: center;
+    align-items: center;
+    align-content: center;
+
+}
+.frame {
+    background-color: rgb(255, 255, 255);
+    margin: 20px;
+    width: 340px
+    ;
+    
+}
+
+.outer_frame {
+    background-color: rgb(255, 255, 255);
+    margin:auto;
+    width:fit-content;
+    border-width: thin;
+    border-style: solid;
+}
+.box1 {
+    border-width: thin;
+    border-style: solid;
+    border-color: rgb(190, 190, 190);
+    text-align: center;
+    width: fit-content;
+    background: rgb(247, 247, 247);
+    display: inline-block;
+    padding-left: 7px;
+    padding-right: 7px;
+    box-shadow: 10px 7px rgb(233, 233, 233);
+    position: sticky;
+    left: 28%;
+    top: 25%;
+
+    
+}
+.box2{
+    line-height: 150%;
+    border-width: thin;
+    border-style: solid;
+    border-color: rgb(190, 190, 190);
+    text-align: left;
+    width: fit-content;
+    background: rgb(247, 247, 247);
+    display: inline-block;
+    padding-left: 7px;
+    padding-right: 7px;
+    padding-bottom: 10px;
+    box-shadow: 10px 7px rgb(233, 233, 233);
+    position: static;
+    left: 54%;
+    top: 25%;
+
+    
+}
+
+.box3 {
+    border-width: thin;
+    border-style: solid;
+    border-color: rgb(190, 190, 190);
+    text-align: center;
+    width: fit-content;
+    background: rgb(247, 247, 247);
+    display: inline-block;
+    padding-left: 7px;
+    padding-right: 7px;
+    box-shadow: 10px 7px rgb(233, 233, 233);
+    position:static;
+    left: 34%;
+    top: 39%;
+    
+}
+

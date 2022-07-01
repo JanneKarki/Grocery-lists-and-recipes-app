@@ -1,0 +1,103 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+
+{% if not session.username %}
+   <p> <a href="/login">Login</a> to use the products database.</p>
+    <p>New user? <a href="/register">Register</a> here.</p>
+{% endif %}
+
+{% if session.username %}
+
+<h1>Products database</h1>
+
+
+
+<p>Select products for shopping list:</p>
+<div class="body">
+    {% for entry in products %} 
+    <table>
+        <input type="checkbox" class="checkboxes" id="check' + '" name="check' +  '">    <label for="check' +  '">{{ entry[1] }}</label>
+        {% endfor %}
+    </table>
+
+</div>
+<form action="/products" onsubmit="get_checked_products()" method="POST">
+   <input type="hidden" name="product_name" />  
+   <input type="hidden" name="checked_products" id="checked_products" value="" />
+   <input type="hidden" name="csrf_token" value="{{ session.csrf_token}}">
+   <input type="submit" value="Send to basket">
+</form>
+<br>
+<br>
+<br>
+
+<div class="new_product"
+<form action="/products" onsubmit="check(this)" method="POST">
+    Save new product to database:<br>
+    <input type="text" name="product_name" id="product_name" minlength="1" maxlength="40"> 
+    <input type="submit" value="Save product">
+    <input type="hidden" name="checked_products" id="checked_products1" value="" /> 
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token}}">
+    <input type="hidden" name="add_to_shopping_list" id="add" value="0" /> 
+    <span><p><input type="checkbox" class="shop" id="check' + '" name="check' +  '">
+     Send product also to my basket</span>
+</form>
+</div>
+<br>
+<br>
+
+{% endif %}
+
+<script type="text/javascript">
+
+    function check(form){
+        if (form.product_name.value.length < 1){
+            alert("Empty Input!")
+            return False;
+        }
+        if (form.product_name.value.length > 30){
+            alert("Product name is too long!")
+            return False;
+        }
+        check_add_to_shopping_list()
+        return True;
+    }
+
+    function check_add_to_shopping_list(){
+        alert("checked")
+        var check_box = document.getElementsByClassName("shop");
+          if(check_box[0].checked){
+            var product = document.getElementById("product_name").value           
+         
+            document.getElementById('checked_products1').value = product
+            
+      
+        }
+        alert(document.getElementById("checked_products1").value)
+
+    }
+
+    function get_checked_products(){
+        
+        var check_boxes = document.getElementsByClassName('checkboxes');
+        var labels = document.getElementsByTagName("label");
+        var checked_products = ""
+        for(var i = 0; i<check_boxes.length; i++){
+                box = check_boxes[i];
+                
+                product = labels[i].textContent
+
+                if(box.checked){
+                    checked_products += product + " "
+                }
+        }
+        document.getElementById('checked_products').value = checked_products
+        alert(document.getElementById("checked_products").value)
+    }
+
+</script>
+
+
+{% endblock %}
