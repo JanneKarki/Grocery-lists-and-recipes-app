@@ -76,3 +76,16 @@ def find_from_basket(id):
     
     return True
 
+def update_basket(user_id, product_list):
+
+    formatted_list = []
+
+    for i in range(0, len(product_list), 3):
+
+        product = product_list[i]
+        amount = product_list[i+1]
+        unit = product_list[i+2]
+
+        formatted_list.append((product,amount,unit))
+
+    add_to_basket(user_id, formatted_list)

@@ -228,12 +228,18 @@ def show_basket():
         else:
             missing_input = request.form["missingInput"]
             shop_list = request.form["lines"]
-            name = request.form["name"]
-            if not missing_input:
+            name = request.form["list_name"]
+
+            if not missing_input and name != "":
 
                 list_id = lists.create_grocery_list(name, user_id)
                 lists.add_to_grocery_list(list_id, shop_list)
                 basket.empty_basket(user_id)
+            else:
+                shop_list = shop_list.split()
+                basket.update_basket(user_id, shop_list)
+                return redirect("/basket")
+
             maker = lists.get_list_maker(list_id)
             grocery_list = lists.get_grocery_list(list_id)
             return render_template("list.html", list_name=name, items=grocery_list, user=maker)
