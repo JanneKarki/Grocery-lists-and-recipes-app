@@ -33,7 +33,7 @@
 <br>
 <br>
 
-<div class="new_product"
+<div class="new_product">
 <form action="/products" onsubmit="check(this)" method="POST">
     Save new product to database:<br>
     <input type="text" name="product_name" id="product_name" minlength="1" maxlength="40"> 
@@ -66,7 +66,6 @@
     }
 
     function check_add_to_shopping_list(){
-        alert("checked")
         var check_box = document.getElementsByClassName("shop");
           if(check_box[0].checked){
             var product = document.getElementById("product_name").value           
@@ -94,7 +93,7 @@
                 }
         }
         document.getElementById('checked_products').value = checked_products
-        alert(document.getElementById("checked_products").value)
+        alert("Products sent to the basket")
     }
 
 </script>
