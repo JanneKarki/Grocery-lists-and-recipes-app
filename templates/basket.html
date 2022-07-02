@@ -55,7 +55,7 @@
         <br>
         <br>
         
-        Name: <input type="text" name="name" minlength="1" maxlength="30">
+        Name: <input type="text" name="list_name" id="list_name" minlength="1" maxlength="30">
         <input type="submit" value="Save list">
         <input type="submit" value="Empty basket" onclick="empty_basket()">
       
@@ -119,11 +119,19 @@
 
     function get_inputs(){
 
+      var name = document.getElementById("list_name");
       var ingredients = document.querySelectorAll("#ingredient");
       var amounts = document.querySelectorAll("#amount");
       var units = document.querySelectorAll("#unit");
       var string = ""
 
+      if(name.value.length === 0){
+        alert("List name can't be empty!")  
+        
+      }
+      if(name.value.length > 30){
+        alert("List name is too long!")
+      }
       for(var i = 0; i<ingredients.length; i++){
            
            var ingredient = ingredients[i].value;
