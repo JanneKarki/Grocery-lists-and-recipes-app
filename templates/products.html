@@ -27,7 +27,7 @@
    <input type="hidden" name="product_name" />  
    <input type="hidden" name="checked_products" id="checked_products" value="" />
    <input type="hidden" name="csrf_token" value="{{ session.csrf_token}}">
-   <input type="submit" value="Send to basket">
+   <input type="submit" value="Send to the basket">
 </form>
 <br>
 <br>
@@ -92,7 +92,7 @@
                 }
         }
         document.getElementById('checked_products').value = checked_products
-        alert("Products sent to the basket")
+        alert("Products sent to the basket!")
     }
 
 </script>
