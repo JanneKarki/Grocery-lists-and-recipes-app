@@ -135,8 +135,8 @@ def show_products():
 
         if checked_products != "":
             basket.format_and_send_to_basket(user_id, checked_products)
-
-        products.add_product(name)
+        if name != "":
+            products.add_product(name)
 
         return redirect("/products")
 
