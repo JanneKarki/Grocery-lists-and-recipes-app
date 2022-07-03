@@ -57,6 +57,11 @@
             alert("Empty Input!")
             return False;
         }
+        if (containsWhitespace(form.product_name.value)){
+                alert("Product can't contain white space! Use _ instead.")
+                
+                return False;
+            }
         if (form.product_name.value.length > 30){
             alert("Product name is too long!")
             return False;
@@ -76,6 +81,10 @@
         }
 
     }
+    function containsWhitespace(str) {
+    return /\s/.test(str);
+    }
+
 
     function get_checked_products(){
         
