@@ -285,6 +285,13 @@ def show_basket():
                 basket.empty_basket(user_id)
             else:
                 shop_list = shop_list.split()
+                if shop_list == []:
+                    shop_list= [("",)]
+                    return render_template("basket.html",
+                                        basket=shop_list,
+                                        message=message
+                                        )
+
                 basket.update_basket(user_id, shop_list)
                 user_basket = basket.get_basket(user_id)
 
