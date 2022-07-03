@@ -1,7 +1,7 @@
 from db import db
 from app import app
 from flask import  render_template, session, request, redirect, abort
-from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.security import generate_password_hash
 import products
 import users
 import recipes
