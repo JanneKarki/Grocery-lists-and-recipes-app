@@ -39,6 +39,7 @@
         <input type="hidden" name="list_name" id="list_name" value="{{list_name}}">
         <input type="hidden" name="lines" id="lines" value="tre">
         <input type="hidden" name="missingInput" id="missingInput" value="">
+        <input type="hidden" name="whiteSpace" id="whiteSpace" value="">
         <input type="button" value="+ Product" onclick="add_new_line_to_basket()">
         <input type="button" id="button" value="- Product" class="remove" onclick="remove_elements()">
         <br>
@@ -109,6 +110,13 @@
             document.getElementById("missingInput").value = "1"
             break
           }
+          if (containsWhitespace(ingredient)){
+                alert("Product can't contain white space! Use _ instead.")
+                document.getElementById("whiteSpace").value = "1"
+                document.getElementById('lines').value = string
+                return string
+            }
+          
 
            string += ingredient + " " + amount + " " + unit + " "
        }
@@ -129,6 +137,9 @@
         }
             
         return false;
+    }
+    function containsWhitespace(str) {
+    return /\s/.test(str);
     }
 
 </script>

@@ -326,15 +326,14 @@ def edit_list(name):
 
             missing_input = request.form["missingInput"]
             shop_list = request.form["lines"]
+            white_space = request.form["whiteSpace"]
             
-            if missing_input == "":
+            if missing_input == "" and not white_space:
                 lists.update_grocery_list(list_id, shop_list)
                 grocery_list = lists.get_grocery_list(list_id)
-                
-
                 return render_template("list.html", list_name=name, items=grocery_list, user=maker)
             else:
-                return render_template("list.html", list_name=name, items=grocery_list, user=maker)
+                return render_template("edit_list.html", list_name=name, items=grocery_list, user=maker)
                 
 
 @app.route("/recipes/<string:name>/edit", methods=["GET", "POST"])
