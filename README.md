@@ -2,7 +2,7 @@
 
 Sovellus on testattavissa [Herokussa](https://tsoha-shop-lists-and-recipes.herokuapp.com/).
 
-Resepti- ja ostoslistasovellus, johon käyttäjä voi kirjautua sisään ja lisätä sinne omia reseptejään ja tallentaa ostoslistoja. Sovelluksessa on ostoskoritoiminto, jonne käyttäjä voi siirtää reseptin ainesosat ja lisätä tuotteita myös yksitelleen ja tallentaa ne ostoslistaksi. Ostoslistat ovat kaikkien nähtävillä ja siirrettävissä omaan ostoskoriin.
+Grocery-lists-and-recipes-app on resepti- ja ostoslistasovellus, johon käyttäjä voi kirjautua sisään ja lisätä sinne omia reseptejään ja tallentaa ostoslistoja. Sovelluksessa on ostoskoritoiminto, jonne käyttäjä voi siirtää reseptin ainesosat ja lisätä tuotteita myös yksitelleen ja tallentaa ne ostoslistaksi. Ostoslistat ovat kaikkien nähtävillä ja siirrettävissä omaan ostoskoriin.
 
 **Sovelluksen toimintoja:**
 
