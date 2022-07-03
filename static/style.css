@@ -98,7 +98,7 @@ h1{
     padding-right: 30px;
     padding-bottom: 25px;
     box-shadow: 10px 7px rgb(233, 233, 233);
-    position: sticky;
+    position: static;
     left: 28%;
     top: 25%;
 
