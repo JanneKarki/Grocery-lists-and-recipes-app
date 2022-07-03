@@ -10,15 +10,23 @@ import lists
 
 @app.route("/")
 def index():
+
     user = session.get("username", "")
     random_recipe = recipes.random_recipe()
     weekend_menu = recipes.random_weekend_menu()
     recipes_count = recipes.count_recipes()
-    return render_template("index.html", today=random_recipe, weekend=weekend_menu ,count=recipes_count, user=user) 
+
+    return render_template("index.html",
+                            today=random_recipe,
+                            weekend=weekend_menu,
+                            count=recipes_count,
+                            user=user
+                            ) 
 
 
 @app.route("/login", methods=["GET","POST"])
 def login():
+
     if request.method == "GET":
         message = []
         return render_template("login.html", message=message)
@@ -30,8 +38,7 @@ def login():
         if not users.login(username, password):
             message = ["Invalid username or password!"]
             return render_template("login.html", message=message)
-       
-               
+
         return redirect("/")
             
        
@@ -72,53 +79,51 @@ def logout():
 
 @app.route("/recipes", methods=["GET", "POST"])
 def show_recipes():
+
     recipes.random_recipe()
-    
 
     if request.method == "GET":
         recipes_list = recipes.get_recipes()
-        print(recipes_list)
         return render_template("recipes.html", recipes=recipes_list)
 
     if request.method == "POST":
+
         if session["csrf_token"] != request.form["csrf_token"]:
             return abort(403)
+
         delete = request.form["delete"]
         recipe_id = request.form["recipe_id"]
-        print(delete)
-        print(recipe_id)
         if delete == "yes":
             recipes.delete_recipe(recipe_id)
 
         recipes_list = recipes.get_recipes()
+
         return render_template("recipes.html", recipes=recipes_list)
 
 
 @app.route("/grocery",  methods=["GET","POST"])
 def show_grocery_lists():
 
-    
     if request.method == "GET":
         grocery_lists = lists.get_all_grocery_lists()
-   
         return render_template("grocery.html",lists=grocery_lists)
     
     if request.method == "POST":
-
         if session["csrf_token"] != request.form["csrf_token"]:
             return abort(403)
+
         delete = request.form["delete"]
         list_id = request.form["list_id"]
-        print(delete)
-        print(list_id)
         if delete == "yes":
             lists.delete_list(list_id)
+
         grocery_lists = lists.get_all_grocery_lists()
         return render_template("grocery.html",lists=grocery_lists)
 
 
 @app.route("/products",  methods=["GET", "POST"])
 def show_products():
+
     user_id = users.get_user_id()
     products_list = products.get_products()
 
@@ -126,7 +131,6 @@ def show_products():
         return render_template("products.html",products=products_list)
     
     if request.method == "POST":
-       
         if session["csrf_token"] != request.form["csrf_token"]:
             return abort(403)
 
@@ -135,6 +139,7 @@ def show_products():
 
         if checked_products != "":
             basket.format_and_send_to_basket(user_id, checked_products)
+
         if name != "":
             products.add_product(name)
 
@@ -143,6 +148,7 @@ def show_products():
 
 @app.route("/recipes/create_recipe", methods=["GET", "POST"])
 def create_recipe():
+
     message = [""]
     user_id = users.get_user_id()
 
@@ -151,7 +157,12 @@ def create_recipe():
         instructions = ""
         ingredients = ("",)
  
-        return render_template("create_recipe.html", name=name, instructions=instructions, ingredients=ingredients, message=message)
+        return render_template("create_recipe.html",
+                                name=name,
+                                instructions=instructions,
+                                ingredients=ingredients,
+                                message=message
+                                )
 
     if request.method == "POST":
         if session["csrf_token"] != request.form["csrf_token"]:
@@ -167,8 +178,12 @@ def create_recipe():
                 formatted_list = recipes.handle_incomplete_inputs(ingredients)
             else:
                 formatted_list = ("",)
-            return render_template("create_recipe.html", name=name, instructions=instructions, ingredients=formatted_list, message=message)
-
+            return render_template("create_recipe.html",
+                                    name=name,
+                                    instructions=instructions,
+                                    ingredients=formatted_list,
+                                    message=message
+                                    )
 
         valid_inputs = recipes.validate_inputs()
 
@@ -179,15 +194,24 @@ def create_recipe():
             instructions_data = recipes.get_recipe_instructions(recipes_id)
             maker = recipes.get_recipe_maker(recipes_id)
 
-            return render_template("recipe.html", recipe_name=name, ingredients=ingredients_data, instructions=instructions_data, user=maker)
-        
+            return render_template("recipe.html",
+                                    recipe_name=name,
+                                    ingredients=ingredients_data,
+                                    instructions=instructions_data,
+                                    user=maker
+                                    )
         else:
             if ingredients != "":
                 formatted_list = recipes.handle_incomplete_inputs(ingredients)   
             else:
                 formatted_list = ("",)
                 
-            return render_template("create_recipe.html", name=name, instructions=instructions, ingredients=formatted_list, message=message)
+            return render_template("create_recipe.html",
+                                    name=name,
+                                    instructions=instructions,
+                                    ingredients=formatted_list,
+                                    message=message
+                                    )
 
 
 @app.route("/user", methods=["GET", "POST"])
@@ -200,15 +224,18 @@ def user_page():
 
     if request.method == "GET":
 
-        return render_template("user_page.html", user=username, user_recipes=user_recipes, user_lists=user_lists)
-
+        return render_template("user_page.html",
+                                user=username,
+                                user_recipes=user_recipes,
+                                user_lists=user_lists
+                                )
     if request.method == "POST":
-
         return redirect("/user")
-    
+
 
 @app.route("/basket", methods=["GET", "POST"])
 def show_basket():
+
     message = [""]
     user_id = users.get_user_id()
     user_basket = basket.get_basket(user_id)
@@ -224,7 +251,10 @@ def show_basket():
         user_basket.append(empty_tuple)
 
     if request.method == "GET":    
-        return render_template("basket.html", basket=user_basket, message=message)
+        return render_template("basket.html",
+                                basket=user_basket,
+                                message=message
+                                )
 
     if request.method == "POST":
         if session["csrf_token"] != request.form["csrf_token"]:
@@ -245,7 +275,11 @@ def show_basket():
             if in_use:
                 message = ["List name used already!"]
 
-            if not missing_input and name != "" and not in_use and not white_space:
+            if (not missing_input
+                and name != ""
+                and not in_use
+                and not white_space):
+
                 list_id = lists.create_grocery_list(name, user_id)
                 lists.add_to_grocery_list(list_id, shop_list)
                 basket.empty_basket(user_id)
@@ -253,11 +287,20 @@ def show_basket():
                 shop_list = shop_list.split()
                 basket.update_basket(user_id, shop_list)
                 user_basket = basket.get_basket(user_id)
-                return render_template("basket.html", basket=user_basket, message=message)
+
+                return render_template("basket.html",
+                                        basket=user_basket,
+                                        message=message
+                                        )
 
             maker = lists.get_list_maker(list_id)
             grocery_list = lists.get_grocery_list(list_id)
-            return render_template("list.html", list_name=name, items=grocery_list, user=maker)
+
+            return render_template("list.html",
+                                    list_name=name,
+                                    items=grocery_list,
+                                    user=maker
+                                    )
            
 
 @app.route("/recipes/<string:name>", methods=["GET", "POST"])
@@ -271,14 +314,24 @@ def recipe(name):
     instructions_data = recipes.get_recipe_instructions(recipe_id)
 
     if request.method == "GET":
-        return render_template("recipe.html", recipe_name=name, ingredients=ingredients_data, instructions=instructions_data, user=maker)
+        return render_template("recipe.html",
+                                recipe_name=name,
+                                ingredients=ingredients_data,
+                                instructions=instructions_data,
+                                user=maker
+                                )
 
     if request.method == "POST":
         if session["csrf_token"] != request.form["csrf_token"]:
             return abort(403)
 
         basket.add_recipe_to_basket(user_id, recipe_id)
-        return render_template("recipe.html", recipe_name=name, ingredients=ingredients_data, instructions=instructions_data, user=maker)
+        return render_template("recipe.html",
+                                recipe_name=name,
+                                ingredients=ingredients_data,
+                                instructions=instructions_data,
+                                user=maker
+                                )
 
 
 @app.route("/grocery/<string:name>", methods=["GET", "POST"])
@@ -290,17 +343,22 @@ def list(name):
     grocery_list = lists.get_grocery_list(list_id)
 
     if request.method == "GET":
-
-        return render_template("list.html", list_name=name, items=grocery_list, user=maker)
+        return render_template("list.html",
+                                list_name=name,
+                                items=grocery_list,
+                                user=maker
+                                )
 
     if request.method == "POST":
         if session["csrf_token"] != request.form["csrf_token"]:
             return abort(403)
-        
 
         basket.add_list_to_basket(user_id, list_id)
 
-    return render_template("list.html", list_name=name, items=grocery_list, user=maker)
+    return render_template("list.html",
+                            list_name=name,
+                            items=grocery_list,
+                            user=maker)
 
 
 @app.route("/grocery/<string:name>/edit", methods=["GET", "POST"])
@@ -311,14 +369,15 @@ def edit_list(name):
     grocery_list = lists.get_grocery_list(list_id)
     maker = lists.get_list_maker(list_id)
     allow = lists.allow_to_edit(user_id, list_id)
-    
-    
+
     if not allow:
         return render_template("error.html", message="Oops, no rights to enter this page!")
     else:
         if request.method == "GET":
-            
-            return render_template("edit_list.html", list_name=name, items=grocery_list )
+            return render_template("edit_list.html",
+                                    list_name=name,
+                                    items=grocery_list
+                                    )
 
         if request.method == "POST":
             if session["csrf_token"] != request.form["csrf_token"]:
@@ -331,9 +390,17 @@ def edit_list(name):
             if missing_input == "" and not white_space:
                 lists.update_grocery_list(list_id, shop_list)
                 grocery_list = lists.get_grocery_list(list_id)
-                return render_template("list.html", list_name=name, items=grocery_list, user=maker)
+                return render_template("list.html", 
+                                        list_name=name,
+                                        items=grocery_list,
+                                        user=maker
+                                        )
             else:
-                return render_template("edit_list.html", list_name=name, items=grocery_list, user=maker)
+                return render_template("edit_list.html",
+                                        list_name=name,
+                                        items=grocery_list,
+                                        user=maker
+                                        )
                 
 
 @app.route("/recipes/<string:name>/edit", methods=["GET", "POST"])
@@ -346,45 +413,52 @@ def edit_recipe(name):
 
     if not allow:
         return render_template("error.html", message="Oops, no rights to enter this page!")
-
     else:
         if request.method == "GET":
-
             recipe_ingredients = recipes.get_recipe_ingredients(recipe_id)
             recipe_instructions = recipes.get_recipe_instructions(recipe_id)
 
-            return render_template("edit_recipe.html", recipe_name=name, ingredients=recipe_ingredients, instructions=recipe_instructions)
+            return render_template("edit_recipe.html",
+                                    recipe_name=name,
+                                    ingredients=recipe_ingredients,
+                                    instructions=recipe_instructions
+                                    )
 
         if request.method == "POST":
-            
             if session["csrf_token"] != request.form["csrf_token"]:
                 return abort(403)
 
             instructions = request.form["instructions"]
             ingredients = request.form["lines"]
 
-            
             valid_inputs = recipes.validate_inputs()
 
             if valid_inputs:
-
                 recipes.update_recipe(recipe_id, instructions, ingredients)
 
                 ingredients_data = recipes.get_recipe_ingredients(recipe_id)
                 instructions_data = recipes.get_recipe_instructions(recipe_id)
 
-                return render_template("recipe.html", recipe_name=name, ingredients=ingredients_data, instructions=instructions_data, user=maker)
-            
+                return render_template("recipe.html",
+                                        recipe_name=name,
+                                        ingredients=ingredients_data,
+                                        instructions=instructions_data,
+                                        user=maker
+                                        )
             else:
                 if ingredients != "":
                     formatted_list = recipes.handle_incomplete_inputs(ingredients)   
                 else:
                     formatted_list = ("",)
-                return render_template("edit_recipe.html", recipe_name=name, ingredients=formatted_list, instructions=instructions)
+                return render_template("edit_recipe.html",
+                                        recipe_name=name,
+                                        ingredients=formatted_list,
+                                        instructions=instructions
+                                        )
+
 
 @app.route("/recipes/<string:name>/delete", methods=["GET", "POST"])
 def delete_recipe(name):
-    print(name)
 
     user_id = users.get_user_id()
     recipe_id = recipes.get_recipe_id(name)
@@ -393,15 +467,17 @@ def delete_recipe(name):
 
     if not allow:
         return render_template("error.html", message="Oops, no rights to delete this recipe!")
-
     else:
         if request.method == "GET":
-            return render_template("delete.html", deleting=recipe, recipe_name=name, recipe_id=recipe_id)
+            return render_template("delete.html",
+                                    deleting=recipe,
+                                    recipe_name=name,
+                                    recipe_id=recipe_id
+                                    )
 
 
 @app.route("/lists/<string:name>/delete", methods=["GET", "POST"])
 def delete_list(name):
-    print(name)
 
     user_id = users.get_user_id()
     list_id = lists.get_list_id(name)
@@ -412,4 +488,8 @@ def delete_list(name):
         return render_template("error.html", message="Oops, no rights to delete this list!")
     else:
         if request.method == "GET":
-            return render_template("delete.html", deleting=list, list_name=name, list_id=list_id)
+            return render_template("delete.html",
+                                    deleting=list,
+                                    list_name=name,
+                                    list_id=list_id
+                                    )
