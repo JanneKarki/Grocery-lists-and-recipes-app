@@ -91,7 +91,7 @@ def find_from_basket(id):
             user_id,
             product_id,
             amount,
-            float
+            unit
             FROM
             basket
             WHERE
