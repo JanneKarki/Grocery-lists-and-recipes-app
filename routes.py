@@ -238,12 +238,14 @@ def show_basket():
             missing_input = request.form["missingInput"]
             shop_list = request.form["lines"]
             name = request.form["list_name"]
+            white_space = request.form["whiteSpace"]
+
             in_use = lists.list_name_in_use(name)
 
             if in_use:
                 message = ["List name used already!"]
 
-            if not missing_input and name != "" and not in_use:
+            if not missing_input and name != "" and not in_use and not white_space:
                 list_id = lists.create_grocery_list(name, user_id)
                 lists.add_to_grocery_list(list_id, shop_list)
                 basket.empty_basket(user_id)
@@ -294,6 +296,7 @@ def list(name):
     if request.method == "POST":
         if session["csrf_token"] != request.form["csrf_token"]:
             return abort(403)
+        
 
         basket.add_list_to_basket(user_id, list_id)
 

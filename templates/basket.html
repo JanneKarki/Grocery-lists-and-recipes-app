@@ -61,7 +61,7 @@
         <input type="submit" value="Empty basket" onclick="empty_basket()">
       
 
-        
+        <input type="hidden" name="whiteSpace" id="whiteSpace" value="">
         <input type="hidden" name="empty" id="empty" value="0">
         <input type="hidden" name="lines" id="lines" value="tre">
         <input type="hidden" name="missingInput" id="missingInput" value="">
@@ -150,6 +150,12 @@
             document.getElementById("missingInput").value = "1"
             break
           }
+          if (containsWhitespace(ingredient)){
+                alert("Ingredient can't contain white space! Use _ instead.")
+                document.getElementById("whiteSpace").value = "1"
+                document.getElementById('lines').value = string
+                return string
+            }
 
            string += ingredient + " " + amount + " " + unit + " "
        }
@@ -170,6 +176,9 @@
         }
             
         return false;
+    }
+    function containsWhitespace(str) {
+    return /\s/.test(str);
     }
 
 </script>
