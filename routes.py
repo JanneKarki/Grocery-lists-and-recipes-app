@@ -209,7 +209,7 @@ def user_page():
 
 @app.route("/basket", methods=["GET", "POST"])
 def show_basket():
-
+    message = [""]
     user_id = users.get_user_id()
     user_basket = basket.get_basket(user_id)
 
@@ -224,7 +224,7 @@ def show_basket():
         user_basket.append(empty_tuple)
 
     if request.method == "GET":    
-        return render_template("basket.html", basket=user_basket)
+        return render_template("basket.html", basket=user_basket, message=message)
 
     if request.method == "POST":
         if session["csrf_token"] != request.form["csrf_token"]:
@@ -238,16 +238,20 @@ def show_basket():
             missing_input = request.form["missingInput"]
             shop_list = request.form["lines"]
             name = request.form["list_name"]
+            in_use = lists.list_name_in_use(name)
 
-            if not missing_input and name != "":
+            if in_use:
+                message = ["List name used already!"]
 
+            if not missing_input and name != "" and not in_use:
                 list_id = lists.create_grocery_list(name, user_id)
                 lists.add_to_grocery_list(list_id, shop_list)
                 basket.empty_basket(user_id)
             else:
                 shop_list = shop_list.split()
                 basket.update_basket(user_id, shop_list)
-                return redirect("/basket")
+                user_basket = basket.get_basket(user_id)
+                return render_template("basket.html", basket=user_basket, message=message)
 
             maker = lists.get_list_maker(list_id)
             grocery_list = lists.get_grocery_list(list_id)

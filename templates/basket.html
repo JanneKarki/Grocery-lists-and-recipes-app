@@ -47,6 +47,7 @@
 </table> 
 <br>
 <br> 
+
 <form action="/basket" method="POST" onsubmit="get_inputs()">
 
         <input type="button" value="+ Product" onclick="add_new_line_to_basket()">
@@ -67,6 +68,7 @@
         <input type="hidden" name="csrf_token" value="{{ session.csrf_token}}">
        
 </form>    
+<p style="color:tomato;">{{message[0]}}</p>
 <br> 
 <br> 
 <br> 

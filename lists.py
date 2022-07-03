@@ -110,3 +110,10 @@ def delete_list(list_id):
     db.session.commit()
 
 
+def list_name_in_use(name):
+
+    sql = "SELECT id FROM lists WHERE name=:name"
+    result = db.session.execute(sql, {"name":name}).fetchone()
+    if result:
+        return True
+    return False
