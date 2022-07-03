@@ -11,6 +11,7 @@
     <input type="text" name="name" minlength="1" maxlength="40" size="45" value="{{name}}">
     <input type="hidden" name="lines" id="lines" value="tre">
     <input type="hidden" name="missingInput" id="missingInput" value="">
+    <input type="hidden" name="whiteSpace" id="whiteSpace" value="">
     <input type="hidden" name="negativeAmount" id="negativeAmount" value="">
     <input type="hidden" name="notNumericAmount" id="notNumericAmount" value="">
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token}}">
@@ -119,6 +120,13 @@
             var amount = amounts[i].value;
             var unit = units[i].value;
 
+            if (containsWhitespace(ingredient)){
+                alert("Ingredient can't contain white space! Use _ instead.")
+                document.getElementById("whiteSpace").value = "1"
+                document.getElementById('lines').value = string
+                return string
+            }
+
             if (ingredient.length === 0 || amount.length === 0 || unit.length === 0){
                 alert("Empty inputs")
                 document.getElementById("missingInput").value = "1"
@@ -144,6 +152,10 @@
         
         return string;
 
+    }
+
+    function containsWhitespace(str) {
+    return /\s/.test(str);
     }
 
 </script>

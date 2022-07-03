@@ -175,8 +175,9 @@ def validate_inputs():
     missing_input = request.form["missingInput"]
     negative_amount = request.form["negativeAmount"]
     not_numeric_amount = request.form["notNumericAmount"]
+    white_space = request.form["whiteSpace"]
 
-    if not missing_input and not negative_amount and not not_numeric_amount:
+    if not missing_input and not negative_amount and not not_numeric_amount and not white_space:
         return True
     return False
 
