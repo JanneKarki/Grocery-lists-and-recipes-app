@@ -189,3 +189,13 @@ def handle_incomplete_inputs(ingredients):
         unit = ingredients_list[i+2]
         formatted_list.append((ingredient,amount,unit))
     return formatted_list
+
+
+def recipe_name_in_use(name):
+
+    sql = "SELECT id FROM recipes WHERE name=:name"
+    result = db.session.execute(sql, {"name":name}).fetchone()
+    print(result)
+    if result:
+        return True
+    return False

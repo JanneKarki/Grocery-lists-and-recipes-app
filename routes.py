@@ -143,7 +143,7 @@ def show_products():
 
 @app.route("/recipes/create_recipe", methods=["GET", "POST"])
 def create_recipe():
-
+    message = [""]
     user_id = users.get_user_id()
 
     if request.method == "GET":
@@ -151,7 +151,7 @@ def create_recipe():
         instructions = ""
         ingredients = ("",)
  
-        return render_template("create_recipe.html", name=name, instructions=instructions, ingredients=ingredients)
+        return render_template("create_recipe.html", name=name, instructions=instructions, ingredients=ingredients, message=message)
 
     if request.method == "POST":
         if session["csrf_token"] != request.form["csrf_token"]:
@@ -160,6 +160,15 @@ def create_recipe():
         name = request.form["name"]
         instructions = request.form["instructions"]
         ingredients = request.form["lines"]
+
+        if recipes.recipe_name_in_use(name):
+            message = ["Recipe name is in use!"]
+            if ingredients != "":
+                formatted_list = recipes.handle_incomplete_inputs(ingredients)
+            else:
+                formatted_list = ("",)
+            return render_template("create_recipe.html", name=name, instructions=instructions, ingredients=formatted_list, message=message)
+
 
         valid_inputs = recipes.validate_inputs()
 
@@ -178,7 +187,7 @@ def create_recipe():
             else:
                 formatted_list = ("",)
                 
-            return render_template("create_recipe.html", name=name, instructions=instructions, ingredients=formatted_list)
+            return render_template("create_recipe.html", name=name, instructions=instructions, ingredients=formatted_list, message=message)
 
 
 @app.route("/user", methods=["GET", "POST"])
