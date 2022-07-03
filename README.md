@@ -2,29 +2,35 @@
 
 Sovellus on testattavissa [Herokussa](https://tsoha-shop-lists-and-recipes.herokuapp.com/).
 
-**Sovelluksella voi tehdä:**
+Resepti- ja ostoslistasovellus, johon käyttäjä voi kirjautua sisään ja lisätä sinne omia reseptejään ja tallentaa ostoslistoja. Sovelluksessa on ostoskoritoiminto, jonne käyttäjä voi siirtää reseptin ainesosat ja lisätä tuotteita myös yksitelleen ja tallentaa ne ostoslistaksi. Ostoslistat ovat kaikkien nähtävillä ja siirrettävissä omaan ostoskoriin.
 
-- Sovellukseen voi luoda uuden käyttäjän ja kirjautua sisään. 
-- Tuotteita voi tallentaa tietokantaan ja ne näkyvät products sivulla. 
-   - Tuotetta tallentaessa tietokantaan voi myös valita että se menee samalla ostoslistalle
-- Reseptejä ja ostoslistoja voi selailla
- - Kirjautunut käyttäjä voi tallentaa reseptejä tietokantaan
-    - Reseptille kirjoitetaan ohjeet ja lisätään ainesosat
-    - Tallennetun Reseptin ainesosat voi siirtää ostoslistalle
-    - Reseptin ohjeosiota voi muokata jälkeenpäin ( ainesosien päivitys kesken)
+**Sovelluksen toimintoja:**
+
+- Sovellukseen voi luoda uuden käyttäjän ja kirjautua sisään
+- Kirjautumaton käyttäjä voi ainoastaan selailla palvelussa olevia reseptejä ja ostoslistoja
+- Products-sivulla tietokantaan voi tallentaa uusia tuotteita. 
+     - Tuotetta tallentaessa tietokantaan voi myös valita että se menee samalla ostoskoriin
+     - Tietokannassa olevat tuotteet näkyvät listassa ja niitä voi valita vietäväksi ostoskoriin
+   
+- Recipes-sivulla kirjautunut käyttäjä voi tallentaa reseptejä tietokantaan
+    - Reseptille annetaan nimi, kirjoitetaan ohjeet ja lisätään ainesosat
+    - Tallennetun reseptin ainesosat voi siirtää klikkauksella ostoskoriin
+    - Käyttäjä voi muokata reseptiään jälkikäteen ja myös poistaa sen
   
-- Kirjautunut käyttäjä voi tallentaa ostoslistoja tietokantaan
-  - Ostoslistoja voi myös muokata jälkeenpäin
- 
+- Kirjautunut käyttäjä voi tallentaa ostoskorissa olevat tuotteet ostoslistaksi
+    - Tuotteita ostoskoriin voi lisätä käsin kirjoittamalla, reseptistä, tallennetusta ostoslistasta ja products-tietokannasta
+    - Ostoskorin tuotteille on määriteltävissä niiden määrät ja yksiköt
+    - Tallennettavalle ostoslistalle annetaan nimi
+    - Omia tallennettuja ostoslistoja voi myös muokata ja poistaa
+    
+- Kirjautuneen käyttäjän omalla sivulla näkyvät käyttäjän omat reseptit ja ostoslistat
  
 - Sovelluksesta voi kirjautua ulos
-   - Käyttäjän ostoslista tyhjenee silloin
+   - Silloin käyttäjän ostoskori tyhjenee 
    
-**Tulossa vielä:**
-- Omasivu jossa näkyy käyttäjän omat reseptit ja ostoslistat
-- Reseptin editointi myös ainesosien osalta
-- Admin käyttäjärooli, joka voi poistaa reseptejä ja ostoslistoja
-
+**Sovelluksen kehitys ideoita:**
+- Kauppalistan lähetystoiminto esimerkiksi sähköpostilla
+   
 
 
 
