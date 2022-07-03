@@ -358,7 +358,8 @@ def list(name):
     return render_template("list.html",
                             list_name=name,
                             items=grocery_list,
-                            user=maker)
+                            user=maker
+                          )
 
 
 @app.route("/grocery/<string:name>/edit", methods=["GET", "POST"])
